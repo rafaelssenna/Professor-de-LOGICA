@@ -12,9 +12,19 @@ const { initDatabase } = require('./db')
 
 const app = express()
 
-// ---- CORS (Vercel frontend -> Railway backend) ----
+// ---- CORS ----
+const allowedOrigins = [
+  'http://localhost:4001',
+  'https://professor-de-logica-production.up.railway.app',
+  process.env.FRONTEND_URL
+].filter(Boolean)
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:4001',
+  origin(origin, cb) {
+    // Permite requests sem origin (Postman, mesmo servidor, etc)
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true)
+    cb(null, true) // Libera tudo por enquanto (ajustar depois se quiser restringir)
+  },
   credentials: true
 }))
 
