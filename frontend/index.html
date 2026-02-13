@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprender JavaScript - MATH Academy</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/theme/material-darker.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TELA DE AUTH (Login / Registro) -->
+<div id="auth-screen">
+  <div class="welcome-container">
+    <div class="welcome-logo">
+      <span class="logo-bracket">{</span>
+      <span class="logo-text">JS</span>
+      <span class="logo-bracket">}</span>
+    </div>
+    <h1>MATH Academy</h1>
+    <p class="welcome-subtitle">Aprenda JavaScript do zero ao sistema real</p>
+    <div class="welcome-stats">
+      <div class="stat-card">
+        <span class="stat-number">10</span>
+        <span class="stat-label">Modulos</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">13</span>
+        <span class="stat-label">Aulas</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">40+</span>
+        <span class="stat-label">Exercicios</span>
+      </div>
+    </div>
+
+    <!-- FORMULARIO DE LOGIN -->
+    <div id="login-form" class="auth-form">
+      <h2 class="auth-title">Entrar</h2>
+      <input type="email" id="login-email" placeholder="Email" autocomplete="email" onkeydown="if(event.key==='Enter')Auth.login()">
+      <input type="password" id="login-password" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')Auth.login()">
+      <div id="login-error" class="auth-error"></div>
+      <button class="auth-btn" onclick="Auth.login()">Entrar</button>
+      <p class="auth-switch">Nao tem conta? <a href="#" onclick="Auth.showRegister();return false">Cadastre-se</a></p>
+    </div>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <div id="register-form" class="auth-form hidden">
+      <h2 class="auth-title">Criar Conta</h2>
+      <input type="text" id="register-name" placeholder="Seu nome" autocomplete="name" onkeydown="if(event.key==='Enter')Auth.register()">
+      <input type="email" id="register-email" placeholder="Email" autocomplete="email" onkeydown="if(event.key==='Enter')Auth.register()">
+      <input type="password" id="register-password" placeholder="Senha (minimo 6 caracteres)" autocomplete="new-password" onkeydown="if(event.key==='Enter')Auth.register()">
+      <div id="register-error" class="auth-error"></div>
+      <button class="auth-btn" onclick="Auth.register()">Criar Conta</button>
+      <p class="auth-switch">Ja tem conta? <a href="#" onclick="Auth.showLogin();return false">Entrar</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- APP PRINCIPAL -->
+<div id="app" class="hidden">
+  <!-- TOPBAR -->
+  <header id="topbar">
+    <div class="topbar-left">
+      <button id="sidebar-toggle" onclick="App.toggleSidebar()" title="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-brand">
+        <span class="brand-icon">{JS}</span>
+        <span class="brand-text">MATH Academy</span>
+      </div>
+    </div>
+    <div class="topbar-center">
+      <div class="progress-wrapper">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span id="student-display-name" class="student-name"></span>
+      <button class="btn-logout" onclick="Auth.logout()" title="Sair">Sair</button>
+    </div>
+  </header>
+
+  <div id="app-body">
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <nav id="module-nav"></nav>
+      <div class="sidebar-footer">
+        <button class="btn-reset-progress" onclick="App.resetProgress()">Resetar Progresso</button>
+      </div>
+    </aside>
+
+    <!-- CONTEUDO PRINCIPAL -->
+    <main id="content">
+      <div id="lesson-content"></div>
+      <div id="quiz-content" class="hidden"></div>
+      <div class="lesson-footer" id="lesson-footer">
+        <button class="btn-nav btn-prev" id="btn-prev" onclick="App.prevLesson()">Aula Anterior</button>
+        <button class="btn-nav btn-next" id="btn-next" onclick="App.nextLesson()">Proxima Aula</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- CHAT IA TUTOR -->
+  <div id="chat-toggle" onclick="Tutor.toggle()" title="Tutor IA">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </div>
+
+  <div id="chat-panel" class="hidden">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <span class="chat-avatar">AI</span>
+        <div>
+          <div class="chat-title">MATH Tutor</div>
+          <div class="chat-subtitle">Seu professor de JavaScript</div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="Tutor.toggle()">&times;</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg ai">
+        <div class="chat-msg-content">Opa! Sou o MATH Tutor, seu professor de JavaScript. Me pergunta qualquer coisa sobre a aula ou manda teu codigo que eu te ajudo!</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <button class="chat-context-btn" id="chat-context-btn" onclick="Tutor.toggleContext()" title="Enviar codigo do exercicio junto">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+      </button>
+      <input type="text" id="chat-input" placeholder="Pergunta algo..." autocomplete="off" onkeydown="if(event.key==='Enter')Tutor.send()">
+      <button class="chat-send" onclick="Tutor.send()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/matchbrackets.min.js"></script>
+<script src="course-data.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
