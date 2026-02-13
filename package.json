@@ -2,9 +2,9 @@
   "name": "math-academy",
   "version": "1.0.0",
   "description": "Plataforma de aprendizado JavaScript com IA Tutor",
-  "main": "backend/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@google/genai": "^1.0.0",

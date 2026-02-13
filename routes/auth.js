@@ -14,11 +14,11 @@ router.post('/register', async (req, res) => {
   const { email, password, name } = req.body
 
   if (!email || !password || !name) {
-    return res.status(400).json({ erro: 'Email, senha e nome sao obrigatorios' })
+    return res.status(400).json({ error: 'Email, senha e nome sao obrigatorios' })
   }
 
   if (password.length < 6) {
-    return res.status(400).json({ erro: 'Senha precisa ter pelo menos 6 caracteres' })
+    return res.status(400).json({ error: 'Senha precisa ter pelo menos 6 caracteres' })
   }
 
   try {
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
       'SELECT id FROM students WHERE email = $1', [email.toLowerCase()]
     )
     if (existing.rows.length > 0) {
-      return res.status(409).json({ erro: 'Email ja cadastrado' })
+      return res.status(409).json({ error: 'Email ja cadastrado' })
     }
 
     const passwordHash = await bcrypt.hash(password, 10)
@@ -51,7 +51,7 @@ router.post('/register', async (req, res) => {
     })
   } catch (err) {
     console.error('[Register] Erro:', err.message)
-    res.status(500).json({ erro: 'Erro interno ao registrar' })
+    res.status(500).json({ error: 'Erro interno ao registrar' })
   }
 })
 
@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body
 
   if (!email || !password) {
-    return res.status(400).json({ erro: 'Email e senha sao obrigatorios' })
+    return res.status(400).json({ error: 'Email e senha sao obrigatorios' })
   }
 
   try {
@@ -70,14 +70,14 @@ router.post('/login', async (req, res) => {
     )
 
     if (result.rows.length === 0) {
-      return res.status(401).json({ erro: 'Email ou senha incorretos' })
+      return res.status(401).json({ error: 'Email ou senha incorretos' })
     }
 
     const student = result.rows[0]
     const valid = await bcrypt.compare(password, student.password_hash)
 
     if (!valid) {
-      return res.status(401).json({ erro: 'Email ou senha incorretos' })
+      return res.status(401).json({ error: 'Email ou senha incorretos' })
     }
 
     await pool.query(
@@ -95,7 +95,7 @@ router.post('/login', async (req, res) => {
     })
   } catch (err) {
     console.error('[Login] Erro:', err.message)
-    res.status(500).json({ erro: 'Erro interno ao fazer login' })
+    res.status(500).json({ error: 'Erro interno ao fazer login' })
   }
 })
 

@@ -3,8 +3,12 @@
 // ============================================
 
 const API = {
-  // Em producao, mude pra URL do Railway
-  BASE_URL: window.location.origin,
+  // Detecta automaticamente: se ta no localhost, usa a mesma origem
+  // Em producao na Vercel, aponta pro Railway via RAILWAY_URL
+  // Troque 'COLE_URL_DO_RAILWAY_AQUI' pela URL real apos o deploy
+  BASE_URL: window.location.hostname === 'localhost'
+    ? window.location.origin
+    : (window.__RAILWAY_URL__ || window.location.origin),
 
   // ---- TOKEN ----
 
@@ -63,12 +67,25 @@ const API = {
 
   // ---- AUTH ----
 
-  async register(email, password, name) {
-    return this.request('POST', '/api/auth/register', { email, password, name })
+  async register(name, email, password) {
+    const data = await this.request('POST', '/api/auth/register', { name, email, password })
+    if (data.error) throw new Error(data.error)
+    this.setToken(data.token)
+    this.setStudent(data.student)
+    return data
   },
 
   async login(email, password) {
-    return this.request('POST', '/api/auth/login', { email, password })
+    const data = await this.request('POST', '/api/auth/login', { email, password })
+    if (data.error) throw new Error(data.error)
+    this.setToken(data.token)
+    this.setStudent(data.student)
+    return data
+  },
+
+  clearAuth() {
+    this.clearToken()
+    this.clearStudent()
   },
 
   // ---- PROGRESSO ----

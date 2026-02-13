@@ -1,10 +1,10 @@
 // ============================================
 // MATH ACADEMY - Backend
 // ============================================
-// Roda com: node backend/server.js
+// Roda com: node server.js
 // ============================================
 
-require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') })
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
@@ -21,7 +21,7 @@ app.use(cors({
 app.use(express.json())
 
 // ---- ARQUIVOS ESTATICOS (frontend) ----
-app.use(express.static(path.join(__dirname, '..', 'frontend')))
+app.use(express.static(path.join(__dirname, 'frontend')))
 
 // ---- ROTAS ----
 const aiRouter = require('./routes/ai')
