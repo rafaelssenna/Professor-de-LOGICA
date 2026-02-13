@@ -62,14 +62,23 @@ const API = {
       return
     }
 
-    return res.json()
+    // Verifica se a resposta e JSON antes de parsear
+    const contentType = res.headers.get('content-type') || ''
+    if (!contentType.includes('application/json')) {
+      throw new Error(`Erro ${res.status}: servidor nao retornou JSON`)
+    }
+
+    const data = await res.json()
+    if (!res.ok && data.error) {
+      throw new Error(data.error)
+    }
+    return data
   },
 
   // ---- AUTH ----
 
   async register(name, email, password) {
     const data = await this.request('POST', '/api/auth/register', { name, email, password })
-    if (data.error) throw new Error(data.error)
     this.setToken(data.token)
     this.setStudent(data.student)
     return data
@@ -77,7 +86,6 @@ const API = {
 
   async login(email, password) {
     const data = await this.request('POST', '/api/auth/login', { email, password })
-    if (data.error) throw new Error(data.error)
     this.setToken(data.token)
     this.setStudent(data.student)
     return data
