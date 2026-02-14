@@ -327,55 +327,116 @@ const COURSE_DATA = {
           duration: "30 min",
           module: "Decisoes",
           sections: [
+            // ========== PARTE 1: SWITCH ==========
             {
               type: "explanation",
-              title: "Switch e Ternario",
-              content: "<strong>Switch</strong> = quando tem MUITAS opcoes pra comparar (status, tipo, nivel). Mais limpo que varias if/else.<br><strong>Ternario</strong> = if/else em UMA linha. Formato: <code>condicao ? valorTrue : valorFalse</code>"
+              title: "Quando usar Switch ao inves de If/Else?",
+              content: "Voce ja sabe usar if/else. Mas imagina que voce tem uma variavel e quer comparar ela com VARIAS opcoes exatas. Tipo:<br><br><em>\"Se o status for 'aberta', faz X. Se for 'em_andamento', faz Y. Se for 'finalizada', faz Z. Se for 'cancelada', faz W.\"</em><br><br>Com if/else, ficaria assim:<br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'>if (status === \"aberta\") { ... }\nelse if (status === \"em_andamento\") { ... }\nelse if (status === \"finalizada\") { ... }\nelse if (status === \"cancelada\") { ... }\nelse { ... }</pre><br>Funciona! Mas quando tem <strong>4, 5, 6 opcoes</strong> pra mesma variavel, fica repetitivo. O <strong>switch</strong> faz a mesma coisa, so que mais organizado."
+            },
+            {
+              type: "explanation",
+              title: "A estrutura do Switch (passo a passo)",
+              content: "O switch pega UMA variavel e compara com varios valores. A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>switch</span> (<span style='color:#9cdcfe'>variavel</span>) {\n  <span style='color:#c586c0'>case</span> <span style='color:#ce9178'>\"valor1\"</span>:\n    <span style='color:#6a9955'>// faz isso se variavel === \"valor1\"</span>\n    <span style='color:#c586c0'>break</span>\n  <span style='color:#c586c0'>case</span> <span style='color:#ce9178'>\"valor2\"</span>:\n    <span style='color:#6a9955'>// faz isso se variavel === \"valor2\"</span>\n    <span style='color:#c586c0'>break</span>\n  <span style='color:#c586c0'>default</span>:\n    <span style='color:#6a9955'>// faz isso se NENHUM case combinou</span>\n}</pre><br>Traduzindo:<br>- <strong>switch (variavel)</strong> = \"vou comparar essa variavel\"<br>- <strong>case \"valor\"</strong> = \"se for igual a esse valor, faz isso\"<br>- <strong>break</strong> = \"pronto, para aqui\" (OBRIGATORIO! senao continua rodando os proximos cases)<br>- <strong>default</strong> = \"se nao for nenhum dos valores acima\" (como o else)"
             },
             {
               type: "code-example",
-              title: "Switch - Status da OS",
-              code: 'let status = "em_andamento"\n\nswitch (status) {\n  case "aberta":\n    console.log("Aguardando tecnico")\n    break\n  case "em_andamento":\n    console.log("Tecnico trabalhando")\n    break\n  case "finalizada":\n    console.log("Servico concluido")\n    break\n  case "cancelada":\n    console.log("OS cancelada")\n    break\n  default:\n    console.log("Status desconhecido")\n}',
+              title: "Switch vs If/Else (lado a lado)",
+              code: 'let dia = "segunda"\n\n// ---- COM IF/ELSE ----\nif (dia === "segunda") {\n  console.log("[if] Inicio da semana")\n} else if (dia === "sexta") {\n  console.log("[if] Quase fim de semana!")\n} else if (dia === "sabado" || dia === "domingo") {\n  console.log("[if] Fim de semana!")\n} else {\n  console.log("[if] Dia normal")\n}\n\n// ---- COM SWITCH (mesma coisa!) ----\nswitch (dia) {\n  case "segunda":\n    console.log("[switch] Inicio da semana")\n    break\n  case "sexta":\n    console.log("[switch] Quase fim de semana!")\n    break\n  case "sabado":\n  case "domingo":\n    console.log("[switch] Fim de semana!")\n    break\n  default:\n    console.log("[switch] Dia normal")\n}\n\n// Os dois fazem a MESMA coisa!\n// Troque "segunda" por "sexta" e rode de novo!',
               runnable: true
             },
             {
+              type: "explanation",
+              title: "Quando usar Switch? Quando usar If/Else?",
+              content: "<table style='width:100%;border-collapse:collapse;margin:10px 0'><tr style='border-bottom:2px solid #555'><td style='padding:10px;font-weight:bold'>Use SWITCH quando...</td><td style='padding:10px;font-weight:bold'>Use IF/ELSE quando...</td></tr><tr style='border-bottom:1px solid #444'><td style='padding:10px'>Compara a MESMA variavel com valores exatos</td><td style='padding:10px'>Precisa de >, <, >=, <=</td></tr><tr style='border-bottom:1px solid #444'><td style='padding:10px'>Tem 3 ou mais opcoes</td><td style='padding:10px'>Tem 1 ou 2 opcoes</td></tr><tr><td style='padding:10px'>Ex: status, tipo, dia, nivel</td><td style='padding:10px'>Ex: valor > 1000, idade >= 18</td></tr></table><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Resumo: <strong>Switch</strong> = comparar a mesma coisa com varios valores exatos. <strong>If/Else</strong> = qualquer tipo de condicao (maior, menor, E, OU).</div>"
+            },
+            {
               type: "code-example",
-              title: "Ternario - decisao rapida",
-              code: 'let osAberta = true\nlet msg = osAberta ? "OS aberta" : "OS fechada"\nconsole.log(msg)\n\nlet valor = 1500\nlet aprovacao = valor > 1000 ? "Precisa aprovacao" : "Aprovado"\nconsole.log(aprovacao)\n\nlet tecnico = "Carlos"\nlet disponivel = false\nconsole.log(`${tecnico}: ${disponivel ? "Disponivel" : "Ocupado"}`)',
+              title: "Switch na Helsen - Status da OS",
+              code: 'let status = "em_andamento"\n\nswitch (status) {\n  case "aberta":\n    console.log("Aguardando tecnico")\n    break\n  case "em_andamento":\n    console.log("Tecnico trabalhando")\n    break\n  case "finalizada":\n    console.log("Servico concluido")\n    break\n  case "cancelada":\n    console.log("OS cancelada")\n    break\n  default:\n    console.log("Status desconhecido")\n}\n\n// Troque "em_andamento" por "finalizada"\n// e rode de novo pra ver!',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Crie um switch pra tipo de servico: \"preventiva\" = R$300, \"corretiva\" = R$450, \"emergencial\" = R$700. Qualquer outro = \"Nao cadastrado\". Escolha o tipo que quiser pra testar.",
+              title: "Exercicio 1 - Seu primeiro Switch!",
+              instructions: "Crie um switch pra tipo de servico:<br>- <strong>\"preventiva\"</strong> → mostre \"Manutencao preventiva - R$300\"<br>- <strong>\"corretiva\"</strong> → mostre \"Manutencao corretiva - R$450\"<br>- <strong>\"emergencial\"</strong> → mostre \"Emergencial - R$700\"<br>- <strong>Qualquer outro</strong> → mostre \"Tipo nao cadastrado\"<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra da estrutura:<br><code>switch (variavel) {</code><br>&nbsp;&nbsp;<code>case \"valor\":</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>console.log(...)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>break</code><br>&nbsp;&nbsp;<code>default:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>console.log(...)</code><br><code>}</code></div>",
               starterCode: 'let tipo = "corretiva"\n\n// Crie o switch:\n',
-              solution: 'let tipo = "corretiva"\n\nswitch (tipo) {\n  case "preventiva":\n    console.log("Manutencao preventiva - R$300")\n    break\n  case "corretiva":\n    console.log("Manutencao corretiva - R$450")\n    break\n  case "emergencial":\n    console.log("Emergencial - R$700")\n    break\n  default:\n    console.log("Nao cadastrado")\n}',
+              solution: 'let tipo = "corretiva"\n\nswitch (tipo) {\n  case "preventiva":\n    console.log("Manutencao preventiva - R$300")\n    break\n  case "corretiva":\n    console.log("Manutencao corretiva - R$450")\n    break\n  case "emergencial":\n    console.log("Emergencial - R$700")\n    break\n  default:\n    console.log("Tipo nao cadastrado")\n}',
               validation: "structure",
               checks: { codeHas: ["switch", "case", "break", "default", "console.log"], minOutput: 1 }
             },
+            // ========== PARTE 2: TERNARIO ==========
+            {
+              type: "explanation",
+              title: "Agora o Ternario: o que e?",
+              content: "O ternario e so um <strong>atalho pro if/else</strong>. Ele faz a MESMA coisa, so que em UMA linha ao inves de 5.<br><br>Olha a diferenca:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#6a9955'>// COM IF/ELSE (5 linhas):</span>\n<span style='color:#c586c0'>if</span> (idade >= 18) {\n  resultado = <span style='color:#ce9178'>\"Maior de idade\"</span>\n} <span style='color:#c586c0'>else</span> {\n  resultado = <span style='color:#ce9178'>\"Menor de idade\"</span>\n}\n\n<span style='color:#6a9955'>// COM TERNARIO (1 linha!):</span>\nresultado = idade >= 18 <span style='color:#c586c0'>?</span> <span style='color:#ce9178'>\"Maior de idade\"</span> <span style='color:#c586c0'>:</span> <span style='color:#ce9178'>\"Menor de idade\"</span></pre><br>Os dois fazem <strong>exatamente a mesma coisa</strong>. O ternario so usa menos linhas."
+            },
+            {
+              type: "explanation",
+              title: "Como ler o ternario (passo a passo)",
+              content: "O ternario tem 3 partes. Por isso chama <strong>ternario</strong> (tres partes):<br><br><pre style='background:#1e1e1e;padding:20px;border-radius:8px;font-size:16px;line-height:2;text-align:center'><span style='color:#9cdcfe'>condicao</span> <span style='color:#c586c0;font-size:20px'>?</span> <span style='color:#4ec9b0'>valorSeTrue</span> <span style='color:#c586c0;font-size:20px'>:</span> <span style='color:#ce9178'>valorSeFalse</span></pre><br><table style='width:100%;border-collapse:collapse;margin:10px 0'><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center'><code>condicao</code></td><td style='padding:10px'>A pergunta (igual ao if)</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center;color:#c586c0'><code>?</code></td><td style='padding:10px'>Significa: \"SE for verdadeiro, use isso\"</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center;color:#c586c0'><code>:</code></td><td style='padding:10px'>Significa: \"SENAO, use isso\"</td></tr></table><br>Pense assim: <strong>?</strong> = SE, <strong>:</strong> = SENAO<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Exemplo: <code>nota >= 7 ? \"Aprovado\" : \"Reprovado\"</code><br>Leia: \"nota >= 7? <strong>SE sim</strong> → Aprovado, <strong>SENAO</strong> → Reprovado\"</div>"
+            },
+            {
+              type: "code-example",
+              title: "Ternario na pratica (passo a passo)",
+              code: '// Exemplo 1: simples\nlet idade = 20\nlet categoria = idade >= 18 ? "Adulto" : "Menor"\nconsole.log(categoria)  // "Adulto"\n// idade >= 18?  SIM! Entao usa "Adulto"\n\n// Exemplo 2: dentro do console.log\nlet nota = 6\nconsole.log(nota >= 7 ? "Aprovado" : "Reprovado")\n// nota >= 7?  NAO! (6 < 7) Entao usa "Reprovado"\n\n// Exemplo 3: com template literal\nlet maquina = true\nconsole.log(`Status: ${maquina ? "Ligada" : "Desligada"}`)\n// maquina e true? SIM! Entao usa "Ligada"',
+              runnable: true
+            },
+            {
+              type: "code-example",
+              title: "Comparando: if/else vs ternario",
+              code: 'let valor = 1500\n\n// ---- COM IF/ELSE ----\nlet mensagem1\nif (valor > 1000) {\n  mensagem1 = "Precisa aprovacao"\n} else {\n  mensagem1 = "Aprovado automatico"\n}\nconsole.log("[if/else]", mensagem1)\n\n// ---- COM TERNARIO (mesma coisa!) ----\nlet mensagem2 = valor > 1000 ? "Precisa aprovacao" : "Aprovado automatico"\nconsole.log("[ternario]", mensagem2)\n\n// Os dois mostram a mesma coisa!\n// O ternario e so um ATALHO pro if/else',
+              runnable: true
+            },
             {
               type: "exercise",
-              title: "Exercicio 2",
-              instructions: "Use ternario: se <strong>nota</strong> >= 4, mostre \"Satisfeito\", senao \"Insatisfeito\". Coloque a nota que quiser.",
-              starterCode: 'let nota = 4.5\n\n// Use ternario:\n',
-              solution: 'let nota = 4.5\nconsole.log(nota >= 4 ? "Satisfeito" : "Insatisfeito")',
+              title: "Exercicio 2 - Transforme if/else em ternario",
+              instructions: "Transforme esse if/else em <strong>ternario</strong>:<br><br><pre style='background:#1e1e1e;padding:10px;border-radius:8px;font-size:13px'>if (nota >= 4) {\n  resultado = \"Satisfeito\"\n} else {\n  resultado = \"Insatisfeito\"\n}</pre><br>Coloque a nota que quiser e mostre o resultado com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra a formula:<br><code>variavel = condicao ? valorSeTrue : valorSeFalse</code><br><br>Nesse caso:<br>- condicao = <code>nota >= 4</code><br>- valorSeTrue = <code>\"Satisfeito\"</code><br>- valorSeFalse = <code>\"Insatisfeito\"</code></div>",
+              starterCode: 'let nota = 4.5\n\n// Transforme o if/else em ternario:\nlet resultado\n\n\nconsole.log(resultado)',
+              solution: 'let nota = 4.5\n\nlet resultado = nota >= 4 ? "Satisfeito" : "Insatisfeito"\n\nconsole.log(resultado)',
               validation: "structure",
               checks: { codeHas: ["nota", "?", ":", "console.log"], minOutput: 1 }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 3 - Ternario com template literal",
+              instructions: "Crie variavel <strong>tecnico</strong> (nome) e <strong>disponivel</strong> (true ou false).<br><br>Mostre com console.log e template literal:<br><code>Carlos: Disponivel</code> ou <code>Carlos: Ocupado</code><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: use ternario DENTRO do template literal:<br><code>console.log(`${nome}: ${condicao ? \"Sim\" : \"Nao\"}`)</code></div>",
+              starterCode: 'let tecnico = "Carlos"\nlet disponivel = true\n\n// Mostre com template literal + ternario:\n',
+              solution: 'let tecnico = "Carlos"\nlet disponivel = true\n\nconsole.log(`${tecnico}: ${disponivel ? "Disponivel" : "Ocupado"}`)',
+              validation: "structure",
+              checks: { codeHas: ["tecnico", "disponivel", "?", ":", "${", "console.log"], minOutput: 1 }
             }
           ],
           quiz: [
             {
+              question: "Quando e melhor usar switch ao inves de if/else?",
+              options: ["Quando compara a mesma variavel com vários valores exatos", "Quando precisa de > ou <", "Quando tem so 2 opcoes", "Sempre"],
+              correct: 0,
+              explanation: "Switch e ideal pra comparar uma variavel com muitos valores exatos (===). Pra >, <, && e ||, use if/else."
+            },
+            {
               question: "O que acontece se esquecer o 'break' no switch?",
               options: ["Continua executando os proximos cases", "Da erro", "Para automaticamente", "Volta pro primeiro case"],
               correct: 0,
-              explanation: "Sem break, o switch 'cai' pros proximos cases e executa todos."
+              explanation: "Sem break, o switch 'cai' pros proximos cases e executa todos. SEMPRE coloque break!"
+            },
+            {
+              question: "O que o ternario faz?",
+              options: ["E um atalho pro if/else em uma linha", "Cria 3 variaveis", "Repete codigo 3 vezes", "Divide um numero por 3"],
+              correct: 0,
+              explanation: "Ternario = 3 partes (condicao ? valorTrue : valorFalse). E so um if/else mais curto!"
             },
             {
               question: "O que esse ternario retorna?",
               code: 'let x = 3\nlet r = x > 5 ? "grande" : "pequeno"',
               options: ['"pequeno"', '"grande"', 'undefined', 'Erro'],
               correct: 0,
-              explanation: "3 > 5 e false, entao retorna o valor depois do : (\"pequeno\")."
+              explanation: "3 > 5? NAO (false)! Entao pega o valor depois do : que e \"pequeno\"."
+            },
+            {
+              question: "Qual e a forma correta do ternario?",
+              options: ["condicao ? valorTrue : valorFalse", "condicao : valorTrue ? valorFalse", "? condicao : valorTrue valorFalse", "condicao valorTrue ? : valorFalse"],
+              correct: 0,
+              explanation: "A ordem e: condicao PRIMEIRO, depois ? (se true), depois : (se false)."
             }
           ]
         }
