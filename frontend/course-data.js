@@ -504,44 +504,98 @@ const COURSE_DATA = {
           sections: [
             {
               type: "explanation",
-              title: "Repetindo coisas",
-              content: "Loop = repetir algo varias vezes. Imagina mostrar 100 OS na tela. Voce nao vai escrever console.log 100 vezes. O loop faz isso pra voce."
+              title: "O que e um Loop? Pensa assim...",
+              content: "Imagina que voce tem uma lista de 50 OS pra mostrar na tela. Voce vai escrever <code>console.log</code> 50 vezes? Claro que nao!<br><br>O <strong>loop</strong> (repeticao) faz isso pra voce. Ele pega um bloco de codigo e <strong>repete quantas vezes voce quiser</strong>.<br><br>Pensa na Helsen: todo dia voce verifica CADA maquina. E sempre a mesma acao, repetida pra cada maquina. Isso e um loop."
+            },
+            // ========== FOR...OF (o mais simples) ==========
+            {
+              type: "explanation",
+              title: "for...of — percorrer uma lista (o mais facil!)",
+              content: "O <strong>for...of</strong> e o jeito mais simples de percorrer um array. Ele pega <strong>cada item</strong> da lista, um por um, e faz algo com ele.<br><br>A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>for</span> (<span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>item</span> <span style='color:#c586c0'>of</span> <span style='color:#9cdcfe'>lista</span>) {\n  <span style='color:#6a9955'>// faz algo com cada item</span>\n}</pre><br>Traduzindo: <strong>\"PARA CADA item DA lista, faca isso\"</strong><br><br>- <code>item</code> = variavel temporaria que recebe cada valor da lista (pode dar o nome que quiser)<br>- <code>lista</code> = o array que voce quer percorrer"
             },
             {
               type: "code-example",
-              title: "for e for...of",
-              code: '// for classico\nfor (let i = 1; i <= 5; i++) {\n  console.log("Numero:", i)\n}\n\nconsole.log("---")\n\n// for...of (mais simples pra arrays)\nlet tecnicos = ["Carlos", "Ana", "Pedro"]\nfor (let nome of tecnicos) {\n  console.log("Tecnico:", nome)\n}',
+              title: "for...of na pratica",
+              code: 'let tecnicos = ["Carlos", "Ana", "Pedro"]\n\n// Para CADA nome DA lista tecnicos:\nfor (let nome of tecnicos) {\n  console.log("Tecnico:", nome)\n}\n\n// O que acontece passo a passo:\n// Rodada 1: nome = "Carlos"  → mostra "Tecnico: Carlos"\n// Rodada 2: nome = "Ana"     → mostra "Tecnico: Ana"\n// Rodada 3: nome = "Pedro"   → mostra "Tecnico: Pedro"\n// Acabou a lista? PARA!',
               runnable: true
             },
             {
               type: "code-example",
-              title: "Somando valores com loop",
-              code: 'let valores = [350, 820, 1200, 450, 690]\nlet total = 0\n\nfor (let v of valores) {\n  total += v\n}\n\nconsole.log(`${valores.length} OS = R$${total}`)',
+              title: "Somando valores com for...of",
+              code: 'let valores = [350, 820, 1200, 450]\nlet total = 0\n\nfor (let v of valores) {\n  total += v   // total = total + v\n}\n\nconsole.log(`Total: R$${total}`)\n\n// Passo a passo:\n// Inicio: total = 0\n// Rodada 1: total = 0 + 350 = 350\n// Rodada 2: total = 350 + 820 = 1170\n// Rodada 3: total = 1170 + 1200 = 2370\n// Rodada 4: total = 2370 + 450 = 2820',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Array de valores: [150, 2300, 800, 450, 3100, 670]. Use loop pra: somar todos, contar quantos > 1000, encontrar o maior.",
-              starterCode: 'let valores = [150, 2300, 800, 450, 3100, 670]\nlet soma = 0\nlet maiores = 0\nlet maior = 0\n\n// Faca o loop:\n\n\n// Mostre os resultados:\n',
-              solution: 'let valores = [150, 2300, 800, 450, 3100, 670]\nlet soma = 0\nlet maiores = 0\nlet maior = 0\n\nfor (let v of valores) {\n  soma += v\n  if (v > 1000) maiores++\n  if (v > maior) maior = v\n}\n\nconsole.log(`Soma: R$${soma}`)\nconsole.log(`Maiores que 1000: ${maiores}`)\nconsole.log(`Maior: R$${maior}`)',
+              title: "Exercicio 1 - Seu primeiro loop!",
+              instructions: "Use <strong>for...of</strong> pra percorrer o array de clientes e mostrar cada um com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra a estrutura:<br><code>for (let item of lista) {</code><br>&nbsp;&nbsp;<code>console.log(item)</code><br><code>}</code></div>",
+              starterCode: 'let clientes = ["Fabrica ABC", "Metal XYZ", "Industria 123"]\n\n// Percorra a lista e mostre cada cliente:\n',
+              solution: 'let clientes = ["Fabrica ABC", "Metal XYZ", "Industria 123"]\n\nfor (let cliente of clientes) {\n  console.log(cliente)\n}',
               validation: "structure",
-              checks: { codeHas: ["for", "soma", "console.log"], outputHas: ["7470", "2", "3100"], minOutput: 3 }
+              checks: { codeHas: ["for", "of", "clientes", "console.log"], minOutput: 3 }
+            },
+            // ========== FOR CLASSICO ==========
+            {
+              type: "explanation",
+              title: "for classico — quando voce precisa de um CONTADOR",
+              content: "O <strong>for...of</strong> e otimo pra percorrer listas. Mas as vezes voce precisa de um <strong>contador</strong> — tipo \"repita 10 vezes\" ou \"conte de 1 ate 5\".<br><br>Pra isso tem o <strong>for classico</strong>. Ele tem 3 partes:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>for</span> (<span style='color:#9cdcfe'>inicio</span>; <span style='color:#9cdcfe'>condicao</span>; <span style='color:#9cdcfe'>passo</span>) {\n  <span style='color:#6a9955'>// repete enquanto a condicao for true</span>\n}</pre><br><table style='width:100%;border-collapse:collapse;margin:10px 0'><tr style='border-bottom:1px solid #555'><td style='padding:8px'><strong>Inicio</strong></td><td style='padding:8px'><code>let i = 1</code></td><td style='padding:8px'>Cria o contador (roda so 1 vez)</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:8px'><strong>Condicao</strong></td><td style='padding:8px'><code>i <= 5</code></td><td style='padding:8px'>Continua enquanto for true</td></tr><tr><td style='padding:8px'><strong>Passo</strong></td><td style='padding:8px'><code>i++</code></td><td style='padding:8px'>Soma 1 no contador a cada rodada</td></tr></table>"
+            },
+            {
+              type: "code-example",
+              title: "for classico — contando de 1 ate 5",
+              code: 'for (let i = 1; i <= 5; i++) {\n  console.log("Numero:", i)\n}\n\n// Passo a passo:\n// i = 1 → 1 <= 5? SIM → mostra 1 → i++ (i vira 2)\n// i = 2 → 2 <= 5? SIM → mostra 2 → i++ (i vira 3)\n// i = 3 → 3 <= 5? SIM → mostra 3 → i++ (i vira 4)\n// i = 4 → 4 <= 5? SIM → mostra 4 → i++ (i vira 5)\n// i = 5 → 5 <= 5? SIM → mostra 5 → i++ (i vira 6)\n// i = 6 → 6 <= 5? NAO → PARA!',
+              runnable: true
+            },
+            {
+              type: "explanation",
+              title: "Quando usar qual?",
+              content: "<table style='width:100%;border-collapse:collapse;margin:10px 0'><tr style='border-bottom:2px solid #555'><td style='padding:10px;font-weight:bold'>Use FOR...OF quando...</td><td style='padding:10px;font-weight:bold'>Use FOR classico quando...</td></tr><tr style='border-bottom:1px solid #444'><td style='padding:10px'>Quer percorrer um array</td><td style='padding:10px'>Precisa de um contador (1, 2, 3...)</td></tr><tr style='border-bottom:1px solid #444'><td style='padding:10px'>Nao precisa saber a posicao</td><td style='padding:10px'>Precisa saber a posicao de cada item</td></tr><tr><td style='padding:10px'>Ex: mostrar cada tecnico</td><td style='padding:10px'>Ex: contar de 1 ate 10, gerar numeros</td></tr></table><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Na maioria dos casos, <strong>for...of</strong> e o que voce vai usar. E mais simples e mais facil de ler.</div>"
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 2 - Loop com soma",
+              instructions: "Use <strong>for...of</strong> pra somar todos os valores do array. Mostre o total.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: crie uma variavel <code>soma</code> comecando em 0. Dentro do loop, faca <code>soma += v</code> pra ir somando cada valor.</div>",
+              starterCode: 'let valores = [350, 820, 1200, 450, 690]\nlet soma = 0\n\n// Faca o loop pra somar:\n\n\nconsole.log(`Total: R$${soma}`)',
+              solution: 'let valores = [350, 820, 1200, 450, 690]\nlet soma = 0\n\nfor (let v of valores) {\n  soma += v\n}\n\nconsole.log(`Total: R$${soma}`)',
+              validation: "structure",
+              checks: { codeHas: ["for", "of", "soma", "+=", "console.log"], outputHas: ["3510"] }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 3 - Loop com if dentro",
+              instructions: "Use <strong>for...of</strong> pra percorrer o array de valores. Dentro do loop, use <strong>if</strong> pra contar quantos sao maiores que 1000.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: crie <code>let maiores = 0</code>. Dentro do loop: <code>if (v > 1000) { maiores++ }</code></div>",
+              starterCode: 'let valores = [150, 2300, 800, 450, 3100, 670]\nlet maiores = 0\n\n// Faca o loop e conte os maiores que 1000:\n\n\nconsole.log(`Maiores que 1000: ${maiores}`)',
+              solution: 'let valores = [150, 2300, 800, 450, 3100, 670]\nlet maiores = 0\n\nfor (let v of valores) {\n  if (v > 1000) {\n    maiores++\n  }\n}\n\nconsole.log(`Maiores que 1000: ${maiores}`)',
+              validation: "structure",
+              checks: { codeHas: ["for", "of", "if", "maiores", "console.log"], outputHas: ["2"] }
             }
           ],
           quiz: [
             {
               question: "O que for...of faz?",
-              options: ["Percorre cada item do array", "Cria um novo array", "Ordena o array", "Remove itens"],
+              options: ["Percorre cada item do array, um por um", "Cria um novo array", "Ordena o array", "Remove itens do array"],
               correct: 0,
-              explanation: "for...of pega cada item do array automaticamente."
+              explanation: "for...of pega cada item do array automaticamente, um de cada vez."
+            },
+            {
+              question: "Qual a diferenca entre for...of e for classico?",
+              options: ["for...of percorre lista, for classico usa contador", "Sao a mesma coisa", "for classico e mais rapido", "for...of so funciona com numeros"],
+              correct: 0,
+              explanation: "for...of e pra percorrer arrays. for classico e pra quando voce precisa de um contador (let i = 0; i < 10; i++)."
             },
             {
               question: "O que esse codigo mostra?",
-              code: 'let s = 0\nfor (let n of [1,2,3]) { s += n }\nconsole.log(s)',
+              code: 'let s = 0\nfor (let n of [1, 2, 3]) {\n  s += n\n}\nconsole.log(s)',
               options: ["6", "123", "3", "0"],
               correct: 0,
-              explanation: "s comeca 0, soma 1 (=1), soma 2 (=3), soma 3 (=6)."
+              explanation: "s comeca em 0. Rodada 1: 0+1=1. Rodada 2: 1+2=3. Rodada 3: 3+3=6."
+            },
+            {
+              question: "Quantas vezes esse loop roda?",
+              code: 'for (let i = 1; i <= 3; i++) {\n  console.log(i)\n}',
+              options: ["3 vezes (mostra 1, 2, 3)", "4 vezes", "2 vezes", "Infinitas vezes"],
+              correct: 0,
+              explanation: "i comeca em 1. Roda enquanto i <= 3. Entao roda com i=1, i=2, i=3. Quando i vira 4, para."
             }
           ]
         }
