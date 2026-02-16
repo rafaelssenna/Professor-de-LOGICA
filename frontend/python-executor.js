@@ -98,7 +98,31 @@ sys.stdout = sys.__stdout__
   _formatError(error) {
     const errorStr = error.toString()
 
-    // Erros comuns traduzidos
+    // Extrai a parte importante do erro (linha com SyntaxError, NameError, etc)
+    const lines = errorStr.split('\n')
+    let errorLine = ''
+    let errorMsg = ''
+
+    // Procura pela linha do erro
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+
+      // Pega a linha com SyntaxError, NameError, etc
+      if (line.match(/^(SyntaxError|NameError|TypeError|ValueError|IndentationError|KeyError|IndexError|ZeroDivisionError|AttributeError):/)) {
+        errorLine = line
+        break
+      }
+
+      // Pega mensagem do tipo "File "<exec>", line X"
+      if (line.includes('File "<exec>"')) {
+        const match = line.match(/line (\d+)/)
+        if (match) {
+          errorMsg = `Linha ${match[1]}: `
+        }
+      }
+    }
+
+    // Traduz erros comuns
     const translations = {
       'SyntaxError': 'Erro de Sintaxe',
       'NameError': 'Variável não definida',
@@ -107,26 +131,24 @@ sys.stdout = sys.__stdout__
       'ValueError': 'Valor inválido',
       'KeyError': 'Chave não encontrada',
       'IndexError': 'Índice fora do alcance',
-      'ZeroDivisionError': 'Divisão por zero'
+      'ZeroDivisionError': 'Divisão por zero',
+      'AttributeError': 'Atributo não existe'
     }
 
-    let message = errorStr
+    let finalError = errorLine || errorStr
 
-    // Traduz o tipo de erro
+    // Aplica traduções
     for (const [eng, pt] of Object.entries(translations)) {
-      if (errorStr.includes(eng)) {
-        message = message.replace(eng, pt)
-        break
-      }
+      finalError = finalError.replace(eng, pt)
     }
 
-    // Remove traceback muito longo
-    const lines = message.split('\n')
-    if (lines.length > 5) {
-      message = lines.slice(-3).join('\n')
-    }
+    // Traduz mensagens comuns
+    finalError = finalError.replace('cannot assign to expression', 'não pode atribuir a uma expressão')
+    finalError = finalError.replace("Maybe you meant '==' instead of '='?", "Talvez você quis usar '==' ao invés de '='?")
+    finalError = finalError.replace('is not defined', 'não está definida')
+    finalError = finalError.replace('invalid syntax', 'sintaxe inválida')
 
-    return message
+    return errorMsg + finalError
   }
 
   // Valida código sem executar (verifica sintaxe)
