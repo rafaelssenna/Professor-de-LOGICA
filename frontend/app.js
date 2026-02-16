@@ -591,12 +591,10 @@ const App = {
         let dica = this.getValidationHint(code, result.output, exerciseSection)
         outputContent.textContent = result.output + '\n\n❌ Quase! ' + dica
         outputContent.className = 'output-content error'
-        this.autoReview(id, lessonId, exIdx, code, result.output, '', null)
       }
     } else {
       outputContent.textContent = (result.output ? result.output + '\n' : '') + result.error
       outputContent.className = 'output-content error'
-      this.autoReview(id, lessonId, exIdx, code, result.output || '', result.error, null)
     }
   },
 
