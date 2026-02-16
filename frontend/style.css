@@ -724,10 +724,34 @@ body {
   font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
 }
 
-/* Syntax highlighting - Comentarios */
-.cm-comment {
+/* Syntax highlighting customizado */
+.CodeMirror .cm-comment {
   color: #6a9955 !important;
   font-style: italic;
+}
+
+.CodeMirror .cm-string {
+  color: #ce9178 !important;
+}
+
+.CodeMirror .cm-number {
+  color: #b5cea8 !important;
+}
+
+.CodeMirror .cm-keyword {
+  color: #c586c0 !important;
+}
+
+.CodeMirror .cm-variable {
+  color: #9cdcfe !important;
+}
+
+.CodeMirror .cm-def {
+  color: #dcdcaa !important;
+}
+
+.CodeMirror .cm-operator {
+  color: #d4d4d4 !important;
 }
 
 .exercise-actions {
