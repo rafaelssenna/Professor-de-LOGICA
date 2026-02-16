@@ -3,8 +3,9 @@
 // ============================================
 
 const InlineSuggestions = {
-  currentWidget: null,
+  currentSuggestion: null,
   currentEditor: null,
+  ghostTextMarker: null,
 
   // Sugestoes baseadas no exercicio
   getSuggestion(lessonId, exerciseIdx, currentCode) {
@@ -49,18 +50,19 @@ const InlineSuggestions = {
           { trigger: 'if (os.status', suggestion: ' === "completed") {\n    return "Finalizada"\n  } else {\n    return "Em andamento"\n  }' }
         ]
       },
+
       // Licao 4-2 - Metodos de Array
       '4-2': {
         0: [
-          { trigger: 'let os =', suggestion: 'ordens.find(os => os.numero === 6632)' },
+          { trigger: 'let os =', suggestion: ' ordens.find(os => os.numero === 6632)' },
           { trigger: 'console.log("Cliente:"', suggestion: ', os.cliente)' }
         ],
         1: [
-          { trigger: 'let pendentes =', suggestion: 'ordens.filter(os => os.status === "pending_review")' },
+          { trigger: 'let pendentes =', suggestion: ' ordens.filter(os => os.status === "pending_review")' },
           { trigger: 'for (let os of', suggestion: ' pendentes) {\n  console.log(`OS ${os.numero} - ${os.cliente}`)\n}' }
         ],
         2: [
-          { trigger: 'let valores =', suggestion: 'ordens.map(os => os.valor)' },
+          { trigger: 'let valores =', suggestion: ' ordens.map(os => os.valor)' },
           { trigger: 'let total = 0', suggestion: '\nfor (let valor of valores) {\n  total += valor\n}' }
         ]
       },
@@ -114,52 +116,49 @@ const InlineSuggestions = {
     return null
   },
 
-  // Mostra sugestao inline no editor
+  // Mostra sugestao como texto fantasma no final da linha
   show(editor, suggestion) {
     this.hide() // Remove sugestao anterior
 
     const cursor = editor.getCursor()
-    const line = cursor.line
-    const ch = editor.getLine(line).length
+    const currentLine = editor.getLine(cursor.line)
 
-    // Cria widget com texto cinza transparente
-    const widget = document.createElement('span')
-    widget.className = 'inline-suggestion'
-    widget.textContent = suggestion
-    widget.style.cssText = `
-      color: #666;
-      opacity: 0.5;
-      font-style: italic;
-      pointer-events: none;
-      user-select: none;
-    `
+    // Cria marcador de texto com estilo cinza
+    const from = { line: cursor.line, ch: currentLine.length }
+    const to = { line: cursor.line, ch: currentLine.length }
 
-    this.currentWidget = editor.addWidget(
-      { line, ch },
-      widget,
-      false // scrollIntoView
-    )
+    this.ghostTextMarker = editor.markText(from, to, {
+      replacedWith: (() => {
+        const span = document.createElement('span')
+        span.className = 'inline-suggestion'
+        span.textContent = suggestion
+        span.style.cssText = 'color: #555; opacity: 0.6; font-style: italic;'
+        return span
+      })(),
+      handleMouseEvents: false
+    })
+
+    this.currentSuggestion = suggestion
     this.currentEditor = editor
   },
 
   // Remove sugestao
   hide() {
-    if (this.currentWidget) {
-      this.currentWidget.clear()
-      this.currentWidget = null
-      this.currentEditor = null
+    if (this.ghostTextMarker) {
+      this.ghostTextMarker.clear()
+      this.ghostTextMarker = null
     }
+    this.currentSuggestion = null
+    this.currentEditor = null
   },
 
   // Aceita sugestao (Tab)
   accept() {
-    if (!this.currentWidget || !this.currentEditor) return false
+    if (!this.currentSuggestion || !this.currentEditor) return false
 
-    const suggestion = this.currentWidget.node.textContent
     const cursor = this.currentEditor.getCursor()
-
     this.currentEditor.replaceRange(
-      suggestion,
+      this.currentSuggestion,
       cursor
     )
 
@@ -183,29 +182,18 @@ const InlineSuggestions = {
         } else {
           this.hide()
         }
-      }, 300)
+      }, 500)
     })
 
-    // Listener de Tab
-    editor.addKeyMap({
-      'Tab': (cm) => {
-        // Se tem sugestao, aceita
-        if (this.accept()) {
-          return
-        }
-        // Se nao, comportamento padrao (indent)
-        cm.execCommand('defaultTab')
-      }
-    })
-
-    // Esconde ao mover cursor ou ESC
+    // Esconde ao mover cursor
     editor.on('cursorActivity', () => {
-      this.hide()
-    })
-
-    editor.addKeyMap({
-      'Esc': () => {
-        this.hide()
+      // Mantem sugestao se cursor ainda na mesma linha
+      const cursor = editor.getCursor()
+      if (this.ghostTextMarker) {
+        const markerPos = this.ghostTextMarker.find()
+        if (!markerPos || markerPos.from.line !== cursor.line) {
+          this.hide()
+        }
       }
     })
   }
