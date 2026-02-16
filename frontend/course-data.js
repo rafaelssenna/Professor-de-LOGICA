@@ -673,29 +673,76 @@ const COURSE_DATA = {
           sections: [
             {
               type: "explanation",
-              title: "Metodos poderosos",
-              content: "Arrays tem funcoes prontas (metodos) muito poderosas. No sistema MATH, sao usados em TODO lugar pra filtrar, transformar e buscar dados."
+              title: "O que sao Metodos de Array?",
+              content: "Arrays tem <strong>funcoes prontas</strong> (metodos) que facilitam MUITO a vida. No sistema MATH, usamos em TODO lugar:<br><br>🔍 <strong>.find()</strong> → achar uma licao especifica pelo ID<br>🎯 <strong>.filter()</strong> → pegar so as linhas de saida que nao estao vazias<br>🔄 <strong>.map()</strong> → transformar argumentos do console.log em texto<br><br>Sem esses metodos, o MATH seria MUITO mais complicado de fazer."
+            },
+            // ========== .find() ==========
+            {
+              type: "explanation",
+              title: ".find() — Procurar UM item especifico",
+              content: "Imagina que voce tem uma lista de 50 alunos e quer achar um aluno especifico. Sem .find() voce teria que fazer um loop e verificar um por um.<br><br>O <strong>.find()</strong> faz isso automaticamente! Ele procura na lista e retorna o PRIMEIRO item que passou no teste.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real no MATH:</strong> Quando voce clica numa licao, o sistema usa <code>.find()</code> pra achar a licao pelo ID na lista de todas as licoes.</div>"
             },
             {
               type: "code-example",
-              title: "filter, map, find",
-              code: 'let ordens = [\n  { numero: 1501, cliente: "Fabrica ABC", valor: 350, status: "aberta" },\n  { numero: 1502, cliente: "Metal XYZ", valor: 1200, status: "finalizada" },\n  { numero: 1503, cliente: "Industria", valor: 820, status: "aberta" }\n]\n\n// filter = filtrar\nlet abertas = ordens.filter(os => os.status === "aberta")\nconsole.log("Abertas:", abertas.length)\n\n// map = transformar\nlet nomes = ordens.map(os => os.cliente)\nconsole.log("Clientes:", nomes)\n\n// find = encontrar um\nlet os1502 = ordens.find(os => os.numero === 1502)\nconsole.log("Encontrou:", os1502.cliente)',
+              title: "find() — Procurando um aluno pelo nome",
+              code: 'let alunos = [\n  { nome: "Rafael", nota: 8 },\n  { nome: "Ana", nota: 9 },\n  { nome: "Pedro", nota: 7 }\n]\n\n// Procura o aluno chamado "Ana"\nlet aluno = alunos.find(a => a.nome === "Ana")\n\nconsole.log("Encontrou:", aluno.nome)\nconsole.log("Nota:", aluno.nota)\n\n// Se nao encontrar, retorna undefined\nlet naoExiste = alunos.find(a => a.nome === "Maria")\nconsole.log("Maria:", naoExiste)  // undefined',
               runnable: true
             },
             {
+              type: "explanation",
+              title: "Como .find() funciona passo a passo",
+              content: "Quando voce escreve:<br><br><code>alunos.find(a => a.nome === \"Ana\")</code><br><br>O JavaScript faz:<br><br>1. Pega o primeiro aluno: <code>{ nome: \"Rafael\", nota: 8 }</code><br>2. Testa: <code>\"Rafael\" === \"Ana\"</code>? NAO!<br>3. Pega o segundo aluno: <code>{ nome: \"Ana\", nota: 9 }</code><br>4. Testa: <code>\"Ana\" === \"Ana\"</code>? SIM! Achou!<br>5. Retorna esse aluno e PARA de procurar<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Se procurar a lista toda e nao achar nada, retorna <code>undefined</code>.</div>"
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1 - Procurar uma OS",
+              instructions: "Use <strong>.find()</strong> pra procurar a OS com numero 1502. Mostre o cliente dela.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: <code>ordens.find(os => os.numero === 1502)</code></div>",
+              starterCode: 'let ordens = [\n  { numero: 1501, cliente: "Fabrica ABC" },\n  { numero: 1502, cliente: "Metal XYZ" },\n  { numero: 1503, cliente: "Industria 123" }\n]\n\n// Procure a OS 1502:\n\n\n// Mostre o cliente:\n',
+              solution: 'let ordens = [\n  { numero: 1501, cliente: "Fabrica ABC" },\n  { numero: 1502, cliente: "Metal XYZ" },\n  { numero: 1503, cliente: "Industria 123" }\n]\n\nlet os = ordens.find(os => os.numero === 1502)\nconsole.log("Cliente:", os.cliente)',
+              validation: "structure",
+              checks: { codeHas: [".find(", "console.log"], outputHas: ["Metal XYZ"] }
+            },
+            // ========== .filter() ==========
+            {
+              type: "explanation",
+              title: ".filter() — Filtrar VARIOS itens",
+              content: "O <strong>.filter()</strong> e parecido com .find(), mas ao inves de retornar UM item, ele retorna TODOS os itens que passaram no teste.<br><br>Pensa assim: voce tem 100 OS e quer pegar SÓ as que estao abertas. O .filter() pega todas as abertas e coloca num array novo.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real no MATH:</strong> Quando o sistema valida sua resposta, ele usa <code>.filter()</code> pra pegar so as linhas de saida que nao estao vazias, ignorando linhas em branco.</div>"
+            },
+            {
               type: "code-example",
-              title: "reduce e encadeamento",
-              code: 'let ordens = [\n  { valor: 350, status: "aberta" },\n  { valor: 1200, status: "finalizada" },\n  { valor: 820, status: "aberta" },\n  { valor: 450, status: "finalizada" }\n]\n\n// reduce = acumular em um valor\nlet total = ordens.reduce((acc, os) => acc + os.valor, 0)\nconsole.log(`Total: R$${total}`)\n\n// ENCADEANDO: filtrar + somar\nlet totalAbertas = ordens\n  .filter(os => os.status === "aberta")\n  .reduce((acc, os) => acc + os.valor, 0)\nconsole.log(`Abertas: R$${totalAbertas}`)',
+              title: "filter() — Pegar SÓ as OS abertas",
+              code: 'let ordens = [\n  { numero: 1501, status: "aberta" },\n  { numero: 1502, status: "finalizada" },\n  { numero: 1503, status: "aberta" },\n  { numero: 1504, status: "cancelada" }\n]\n\n// Pega SÓ as abertas\nlet abertas = ordens.filter(os => os.status === "aberta")\n\nconsole.log("Total abertas:", abertas.length)\nconsole.log("Numeros:", abertas)\n\n// Percorre as abertas\nfor (let os of abertas) {\n  console.log("OS", os.numero, "esta aberta")\n}',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Use o array de tecnicos abaixo. Filtre os com avaliacao >= 4.5. Calcule a media das avaliacoes com reduce.",
-              starterCode: 'let tecnicos = [\n  { nome: "Carlos", avaliacao: 4.5 },\n  { nome: "Ana", avaliacao: 4.8 },\n  { nome: "Pedro", avaliacao: 3.9 },\n  { nome: "Maria", avaliacao: 4.2 }\n]\n\n// Filtre avaliacao >= 4.5:\n\n\n// Calcule a media:\n',
-              solution: 'let tecnicos = [\n  { nome: "Carlos", avaliacao: 4.5 },\n  { nome: "Ana", avaliacao: 4.8 },\n  { nome: "Pedro", avaliacao: 3.9 },\n  { nome: "Maria", avaliacao: 4.2 }\n]\n\nlet bons = tecnicos.filter(t => t.avaliacao >= 4.5)\nconsole.log("Bons:", bons.map(t => t.nome))\n\nlet soma = tecnicos.reduce((acc, t) => acc + t.avaliacao, 0)\nlet media = soma / tecnicos.length\nconsole.log(`Media: ${media.toFixed(1)}`)',
+              title: "Exercicio 2 - Filtrar tecnicos disponiveis",
+              instructions: "Use <strong>.filter()</strong> pra pegar so os tecnicos com <code>disponivel: true</code>. Mostre os nomes deles.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: depois de filtrar, use um loop <code>for...of</code> pra mostrar cada nome.</div>",
+              starterCode: 'let tecnicos = [\n  { nome: "Carlos", disponivel: true },\n  { nome: "Ana", disponivel: false },\n  { nome: "Pedro", disponivel: true },\n  { nome: "Maria", disponivel: false }\n]\n\n// Filtre os disponiveis:\n\n\n// Mostre os nomes:\n',
+              solution: 'let tecnicos = [\n  { nome: "Carlos", disponivel: true },\n  { nome: "Ana", disponivel: false },\n  { nome: "Pedro", disponivel: true },\n  { nome: "Maria", disponivel: false }\n]\n\nlet disponiveis = tecnicos.filter(t => t.disponivel === true)\n\nfor (let t of disponiveis) {\n  console.log(t.nome, "esta disponivel")\n}',
               validation: "structure",
-              checks: { codeHas: [".filter(", ".reduce(", "console.log"], outputHas: ["4.4"], minOutput: 2 }
+              checks: { codeHas: [".filter(", "for", "of", "console.log"], outputHas: ["Carlos", "Pedro"], minOutput: 2 }
+            },
+            // ========== .map() ==========
+            {
+              type: "explanation",
+              title: ".map() — Transformar cada item",
+              content: "O <strong>.map()</strong> pega cada item da lista, transforma ele, e coloca num array novo.<br><br>Pensa assim: voce tem uma lista de numeros e quer dobrar cada um. Sem .map() voce faria um loop e criaria um array novo. Com .map() e automático!<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real no MATH:</strong> Quando voce da console.log, o sistema usa <code>.map()</code> pra transformar cada argumento em texto antes de mostrar na tela.</div>"
+            },
+            {
+              type: "code-example",
+              title: "map() — Pegar SÓ os nomes",
+              code: 'let alunos = [\n  { nome: "Rafael", nota: 8 },\n  { nome: "Ana", nota: 9 },\n  { nome: "Pedro", nota: 7 }\n]\n\n// Pega SÓ os nomes (transforma objeto em string)\nlet nomes = alunos.map(a => a.nome)\n\nconsole.log("Nomes:", nomes)\n// ["Rafael", "Ana", "Pedro"]\n\n// Tambem pode transformar de outro jeito:\nlet mensagens = alunos.map(a => `${a.nome} tirou ${a.nota}`)\n\nfor (let msg of mensagens) {\n  console.log(msg)\n}',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 3 - Transformar valores",
+              instructions: "Use <strong>.map()</strong> pra pegar so os valores das OS. Depois some todos os valores com um loop <code>for...of</code>.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Passo 1: <code>let valores = ordens.map(os => os.valor)</code><br>Passo 2: Loop pra somar</div>",
+              starterCode: 'let ordens = [\n  { numero: 1501, valor: 350 },\n  { numero: 1502, valor: 820 },\n  { numero: 1503, valor: 1200 }\n]\n\n// Pegue so os valores:\n\n\n// Some todos:\n',
+              solution: 'let ordens = [\n  { numero: 1501, valor: 350 },\n  { numero: 1502, valor: 820 },\n  { numero: 1503, valor: 1200 }\n]\n\nlet valores = ordens.map(os => os.valor)\n\nlet soma = 0\nfor (let v of valores) {\n  soma += v\n}\n\nconsole.log("Total:", soma)',
+              validation: "structure",
+              checks: { codeHas: [".map(", "for", "of", "soma", "console.log"], outputHas: ["2370"] }
             }
           ],
           quiz: [
