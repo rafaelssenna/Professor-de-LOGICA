@@ -23,6 +23,11 @@ class PythonExecutor {
     this.loading = true
 
     try {
+      // Verifica se loadPyodide está disponível
+      if (typeof loadPyodide === 'undefined') {
+        throw new Error('Pyodide não está disponível. Verifique se o script foi carregado.')
+      }
+
       console.log('🐍 Carregando Pyodide...')
       this.pyodide = await loadPyodide({
         indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'
@@ -31,7 +36,8 @@ class PythonExecutor {
       console.log('✅ Pyodide carregado!')
     } catch (error) {
       console.error('❌ Erro ao carregar Pyodide:', error)
-      throw new Error('Falha ao carregar Python no navegador')
+      this.loading = false
+      throw new Error('Falha ao carregar Python: ' + error.message)
     } finally {
       this.loading = false
     }
@@ -39,11 +45,11 @@ class PythonExecutor {
 
   // Executa código Python
   async run(code) {
-    if (!this.loaded) {
-      await this.load()
-    }
-
     try {
+      if (!this.loaded) {
+        await this.load()
+      }
+
       // Captura stdout
       let output = []
 
@@ -67,10 +73,11 @@ sys.stdout = sys.__stdout__
 
       return {
         success: true,
-        output: stdout || '',
+        output: stdout || '(sem saída)',
         error: null
       }
     } catch (error) {
+      console.error('Erro ao executar Python:', error)
       return {
         success: false,
         output: '',
