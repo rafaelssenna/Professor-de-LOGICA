@@ -655,10 +655,11 @@ body {
   font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
   font-size: 13px;
   color: var(--green);
-  white-space: pre-wrap;
+  white-space: pre;
   max-height: 200px;
-  overflow-y: auto;
+  overflow: auto;
   min-height: 32px;
+  word-wrap: normal;
 }
 
 .output-content.error { color: var(--red); }
