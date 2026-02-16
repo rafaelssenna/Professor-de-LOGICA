@@ -700,10 +700,11 @@ const App = {
 
     const hasAsync = code.includes('await') || code.includes('async') || code.includes('setTimeout') || code.includes('Promise')
     let result
-    if (hasAsync) {
+    // Python é sempre async
+    if (this.currentLanguage === 'python' || hasAsync) {
       result = await this.executeCodeAsync(code)
     } else {
-      result = this.executeCode(code)
+      result = await this.executeCode(code)
     }
 
     const outputPanel = document.getElementById(`${id}-output`)
@@ -791,10 +792,11 @@ const App = {
   async showOutput(id, code) {
     const hasAsync = code.includes('await') || code.includes('async') || code.includes('setTimeout') || code.includes('Promise')
     let result
-    if (hasAsync) {
+    // Python é sempre async
+    if (this.currentLanguage === 'python' || hasAsync) {
       result = await this.executeCodeAsync(code)
     } else {
-      result = this.executeCode(code)
+      result = await this.executeCode(code)
     }
 
     const outputPanel = document.getElementById(`${id}-output`)
