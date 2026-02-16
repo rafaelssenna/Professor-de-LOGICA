@@ -720,7 +720,6 @@ body {
 .exercise-editor .CodeMirror {
   height: auto;
   min-height: 120px;
-  max-height: 600px;
   font-size: 14px;
   font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
 }
