@@ -101,6 +101,9 @@ const App = {
   },
 
   async migrateLocalStorage() {
+    // Só migra localStorage se for JavaScript (não Python)
+    if (this.currentLanguage !== 'javascript') return
+
     const raw = localStorage.getItem('math_js_progress')
     if (!raw) return
     const old = JSON.parse(raw)
