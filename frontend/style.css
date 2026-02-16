@@ -137,6 +137,71 @@ body {
   margin-top: 4px;
 }
 
+/* Language Selection */
+.language-selection {
+  margin-bottom: 40px;
+}
+
+.language-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.language-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.language-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.language-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.language-card.selected {
+  border-color: var(--green);
+  background: rgba(63, 185, 80, 0.1);
+}
+
+.language-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: var(--yellow);
+}
+
+.language-icon.python-icon {
+  font-size: 56px;
+}
+
+.language-card h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.language-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
 /* Auth Forms */
 .auth-form {
   max-width: 360px;

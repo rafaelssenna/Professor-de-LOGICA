@@ -1,0 +1,152 @@
+// ============================================
+// PYTHON EXECUTOR - Executa Python no navegador usando Pyodide
+// ============================================
+
+class PythonExecutor {
+  constructor() {
+    this.pyodide = null
+    this.loading = false
+    this.loaded = false
+  }
+
+  // Carrega Pyodide (apenas uma vez)
+  async load() {
+    if (this.loaded) return
+    if (this.loading) {
+      // Aguarda o carregamento em andamento
+      while (this.loading) {
+        await new Promise(resolve => setTimeout(resolve, 100))
+      }
+      return
+    }
+
+    this.loading = true
+
+    try {
+      console.log('🐍 Carregando Pyodide...')
+      this.pyodide = await loadPyodide({
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'
+      })
+      this.loaded = true
+      console.log('✅ Pyodide carregado!')
+    } catch (error) {
+      console.error('❌ Erro ao carregar Pyodide:', error)
+      throw new Error('Falha ao carregar Python no navegador')
+    } finally {
+      this.loading = false
+    }
+  }
+
+  // Executa código Python
+  async run(code) {
+    if (!this.loaded) {
+      await this.load()
+    }
+
+    try {
+      // Captura stdout
+      let output = []
+
+      // Redireciona print() para capturar output
+      this.pyodide.runPython(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+`)
+
+      // Executa o código do usuário
+      this.pyodide.runPython(code)
+
+      // Captura o output
+      const stdout = this.pyodide.runPython('sys.stdout.getvalue()')
+
+      // Reseta stdout
+      this.pyodide.runPython(`
+sys.stdout = sys.__stdout__
+`)
+
+      return {
+        success: true,
+        output: stdout || '',
+        error: null
+      }
+    } catch (error) {
+      return {
+        success: false,
+        output: '',
+        error: this._formatError(error)
+      }
+    }
+  }
+
+  // Formata erros Python de forma amigável
+  _formatError(error) {
+    const errorStr = error.toString()
+
+    // Erros comuns traduzidos
+    const translations = {
+      'SyntaxError': 'Erro de Sintaxe',
+      'NameError': 'Variável não definida',
+      'TypeError': 'Erro de Tipo',
+      'IndentationError': 'Erro de Indentação',
+      'ValueError': 'Valor inválido',
+      'KeyError': 'Chave não encontrada',
+      'IndexError': 'Índice fora do alcance',
+      'ZeroDivisionError': 'Divisão por zero'
+    }
+
+    let message = errorStr
+
+    // Traduz o tipo de erro
+    for (const [eng, pt] of Object.entries(translations)) {
+      if (errorStr.includes(eng)) {
+        message = message.replace(eng, pt)
+        break
+      }
+    }
+
+    // Remove traceback muito longo
+    const lines = message.split('\n')
+    if (lines.length > 5) {
+      message = lines.slice(-3).join('\n')
+    }
+
+    return message
+  }
+
+  // Valida código sem executar (verifica sintaxe)
+  async validate(code) {
+    if (!this.loaded) {
+      await this.load()
+    }
+
+    try {
+      // Tenta compilar o código
+      this.pyodide.runPython(`compile('''${code.replace(/'/g, "\\'")}''', '<string>', 'exec')`)
+      return { valid: true, error: null }
+    } catch (error) {
+      return { valid: false, error: this._formatError(error) }
+    }
+  }
+
+  // Helper para checar se está pronto
+  isReady() {
+    return this.loaded
+  }
+
+  // Reseta o ambiente Python
+  async reset() {
+    if (!this.loaded) return
+
+    // Limpa todas as variáveis globais
+    this.pyodide.runPython(`
+# Limpa variáveis do usuário
+for var in list(globals().keys()):
+    if not var.startswith('_'):
+        del globals()[var]
+`)
+  }
+}
+
+// Instância global
+const pythonExecutor = new PythonExecutor()

@@ -20,8 +20,26 @@
       <span class="logo-bracket">}</span>
     </div>
     <h1>MATH Academy</h1>
-    <p class="welcome-subtitle">Aprenda JavaScript do zero ao sistema real</p>
-    <div class="welcome-stats">
+    <p class="welcome-subtitle">Aprenda programação do zero ao sistema real</p>
+
+    <!-- SELEÇÃO DE LINGUAGEM -->
+    <div class="language-selection" id="language-selection">
+      <h3 class="language-title">Escolha sua linguagem:</h3>
+      <div class="language-cards">
+        <div class="language-card" onclick="App.selectLanguage('javascript')">
+          <div class="language-icon">{JS}</div>
+          <h4>JavaScript</h4>
+          <p>Web, APIs e Front-end</p>
+        </div>
+        <div class="language-card" onclick="App.selectLanguage('python')">
+          <div class="language-icon python-icon">🐍</div>
+          <h4>Python</h4>
+          <p>Dados, IA e Automação</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="welcome-stats hidden" id="welcome-stats">
       <div class="stat-card">
         <span class="stat-number">10</span>
         <span class="stat-label">Modulos</span>
@@ -68,8 +86,8 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="topbar-brand">
-        <span class="brand-icon">{JS}</span>
-        <span class="brand-text">MATH Academy</span>
+        <span class="brand-icon" id="brand-icon">{JS}</span>
+        <span class="brand-text" id="brand-text">MATH Academy</span>
       </div>
     </div>
     <div class="topbar-center">
@@ -141,16 +159,22 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/python/python.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/closebrackets.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/matchbrackets.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script src="simulators/express-simulator.js"></script>
 <script src="simulators/sql-simulator.js"></script>
 <script src="course-data.js"></script>
+<script src="course-data-python.js"></script>
+<script src="python-executor.js"></script>
 <script src="config.js"></script>
 <script src="api.js"></script>
 <script src="inline-suggestions.js"></script>
+<script src="inline-suggestions-python.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
