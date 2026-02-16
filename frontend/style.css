@@ -793,6 +793,54 @@ body {
   color: inherit;
 }
 
+/* Prism.js syntax highlighting - cores VS Code Dark+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #d4d4d4;
+  background: #1e1e1e;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.token.string,
+.token.attr-value {
+  color: #ce9178;
+}
+
+.token.number,
+.token.boolean {
+  color: #b5cea8;
+}
+
+.token.keyword {
+  color: #c586c0;
+}
+
+.token.function {
+  color: #dcdcaa;
+}
+
+.token.operator,
+.token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.property,
+.token.class-name {
+  color: #4ec9b0;
+}
+
+.token.variable,
+.token.parameter {
+  color: #9cdcfe;
+}
+
 .exercise-actions {
   display: flex;
   gap: 8px;

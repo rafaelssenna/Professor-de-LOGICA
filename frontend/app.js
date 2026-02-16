@@ -285,13 +285,19 @@ const App = {
         <span class="code-block-title">${section.title}</span>
         <div class="code-block-actions">${actions}</div>
       </div>
-      <pre id="${id}"><code>${this.escapeHtml(section.code)}</code></pre>
+      <pre id="${id}"><code class="language-javascript">${this.escapeHtml(section.code)}</code></pre>
       <div class="output-panel" id="${id}-output">
         <div class="output-header">Saida</div>
         <pre class="output-content"></pre>
       </div>
     `
     container.appendChild(block)
+
+    // Aplica Prism.js syntax highlighting
+    if (typeof Prism !== 'undefined') {
+      const codeEl = block.querySelector('code')
+      if (codeEl) Prism.highlightElement(codeEl)
+    }
   },
 
   renderExercise(container, section, lessonId, exIdx) {
