@@ -339,7 +339,13 @@ const App = {
       </div>
     `
     container.appendChild(block)
-    this.editors.push({ id: `${id}-editor`, instance: null, starterCode: section.starterCode })
+    this.editors.push({
+      id: `${id}-editor`,
+      instance: null,
+      starterCode: section.starterCode,
+      lessonId: lessonId,
+      exerciseIdx: exIdx
+    })
   },
 
   // ---- EDITORS ----
@@ -358,8 +364,23 @@ const App = {
           tabSize: 2,
           indentWithTabs: false,
           lineWrapping: true,
-          viewportMargin: Infinity
+          viewportMargin: Infinity,
+          extraKeys: {
+            'Tab': function(cm) {
+              // Se tem sugestao inline, aceita
+              if (typeof InlineSuggestions !== 'undefined' && InlineSuggestions.accept()) {
+                return
+              }
+              // Senao, indent normal
+              cm.execCommand('defaultTab')
+            }
+          }
         })
+
+        // Ativa sugestoes inline se estiver disponivel
+        if (typeof InlineSuggestions !== 'undefined' && ed.lessonId && ed.exerciseIdx !== undefined) {
+          InlineSuggestions.attach(ed.instance, ed.lessonId, ed.exerciseIdx)
+        }
       }
     })
   },

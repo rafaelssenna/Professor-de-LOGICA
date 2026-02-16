@@ -1570,3 +1570,13 @@ pre[class*="language-"] {
     right: 16px;
   }
 }
+
+/* Inline Suggestions (Copilot style) */
+.inline-suggestion {
+  color: #666 !important;
+  opacity: 0.5;
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+  font-family: 'Fira Code', 'Consolas', monospace;
+}
