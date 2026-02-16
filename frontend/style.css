@@ -724,6 +724,12 @@ body {
   font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
 }
 
+/* Syntax highlighting - Comentarios */
+.cm-comment {
+  color: #6a9955 !important;
+  font-style: italic;
+}
+
 .exercise-actions {
   display: flex;
   gap: 8px;

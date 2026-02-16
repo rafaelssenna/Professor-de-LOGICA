@@ -504,25 +504,30 @@ const COURSE_DATA = {
           sections: [
             {
               type: "explanation",
-              title: "O que e um Loop? Pensa assim...",
-              content: "Imagina que voce tem uma lista de 50 OS pra mostrar na tela. Voce vai escrever <code>console.log</code> 50 vezes? Claro que nao!<br><br>O <strong>loop</strong> (repeticao) faz isso pra voce. Ele pega um bloco de codigo e <strong>repete quantas vezes voce quiser</strong>.<br><br>Pensa na Helsen: todo dia voce verifica CADA maquina. E sempre a mesma acao, repetida pra cada maquina. Isso e um loop."
+              title: "O que e um Loop? A Analogia da Escada",
+              content: "Imagina que voce precisa subir uma escada de 10 degraus. Cada degrau voce faz a MESMA coisa:<br><br>1. Pe direito sobe<br>2. Pe esquerdo sobe<br>3. Repete...<br><br>Voce NAO pensa \"vou fazer isso 10 vezes\". Seu cerebro automaticamente repete ate acabar os degraus.<br><br>O <strong>loop</strong> e a mesma coisa! Ele pega uma lista e faz a MESMA ACAO pra cada item da lista. Tipo:<br><br>🔧 Lista de 50 OS → mostrar cada uma na tela<br>🔧 Lista de valores → somar todos<br>🔧 Lista de tecnicos → enviar email pra cada um<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Loop = <strong>\"Faca isso pra CADA item da lista\"</strong></div>"
+            },
+            {
+              type: "explanation",
+              title: "Sem Loop vs Com Loop (olha a diferenca!)",
+              content: "Imagina que voce tem 3 clientes e quer mostrar cada um.<br><br><strong>❌ SEM LOOP (repetindo codigo):</strong><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'>let clientes = [\"Fabrica ABC\", \"Metal XYZ\", \"Industria 123\"]\n\nconsole.log(clientes[0])  // Fabrica ABC\nconsole.log(clientes[1])  // Metal XYZ\nconsole.log(clientes[2])  // Industria 123\n\n<span style='color:#f48771'>// E se tiver 100 clientes? 100 linhas??? NÃO DÁ!</span></pre><br><strong>✅ COM LOOP (1 linha resolve tudo!):</strong><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'>let clientes = [\"Fabrica ABC\", \"Metal XYZ\", \"Industria 123\"]\n\nfor (let cliente of clientes) {\n  console.log(cliente)\n}\n\n<span style='color:#4ec9b0'>// Funciona com 3, 100 ou 10.000 clientes!</span></pre>"
             },
             // ========== FOR...OF (o mais simples) ==========
             {
               type: "explanation",
-              title: "for...of — percorrer uma lista (o mais facil!)",
-              content: "O <strong>for...of</strong> e o jeito mais simples de percorrer um array. Ele pega <strong>cada item</strong> da lista, um por um, e faz algo com ele.<br><br>A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>for</span> (<span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>item</span> <span style='color:#c586c0'>of</span> <span style='color:#9cdcfe'>lista</span>) {\n  <span style='color:#6a9955'>// faz algo com cada item</span>\n}</pre><br>Traduzindo: <strong>\"PARA CADA item DA lista, faca isso\"</strong><br><br>- <code>item</code> = variavel temporaria que recebe cada valor da lista (pode dar o nome que quiser)<br>- <code>lista</code> = o array que voce quer percorrer"
+              title: "for...of — O Loop mais Simples (comece por aqui!)",
+              content: "O <strong>for...of</strong> e tipo um robo que vai olhando cada item da lista, um por um.<br><br>A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>for</span> (<span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>item</span> <span style='color:#c586c0'>of</span> <span style='color:#9cdcfe'>lista</span>) {\n  <span style='color:#6a9955'>// faz algo com cada item</span>\n}</pre><br>Leia assim: <strong>\"PARA CADA item DA lista, faca isso\"</strong><br><br>📦 <code>lista</code> = a caixa cheia de coisas<br>🔍 <code>item</code> = a coisa que o robo ta olhando AGORA (muda sozinho a cada rodada)<br>⚙️ <code>{ }</code> = o que fazer com cada coisa<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 O nome <code>item</code> voce escolhe! Pode ser <code>nome</code>, <code>os</code>, <code>valor</code>... o que fizer sentido.</div>"
             },
             {
               type: "code-example",
-              title: "for...of na pratica",
-              code: 'let tecnicos = ["Carlos", "Ana", "Pedro"]\n\n// Para CADA nome DA lista tecnicos:\nfor (let nome of tecnicos) {\n  console.log("Tecnico:", nome)\n}\n\n// O que acontece passo a passo:\n// Rodada 1: nome = "Carlos"  → mostra "Tecnico: Carlos"\n// Rodada 2: nome = "Ana"     → mostra "Tecnico: Ana"\n// Rodada 3: nome = "Pedro"   → mostra "Tecnico: Pedro"\n// Acabou a lista? PARA!',
+              title: "Exemplo Visual: O Robo Percorrendo a Lista",
+              code: 'let tecnicos = ["Carlos", "Ana", "Pedro"]\n\n// O robo vai olhar cada nome, um por um:\nfor (let nome of tecnicos) {\n  console.log("Tecnico:", nome)\n}\n\n// ==== O QUE ACONTECE POR DENTRO ====\n//\n// Rodada 1:\n//   Robo pega: "Carlos"\n//   Variavel nome = "Carlos"\n//   Executa: console.log("Tecnico:", "Carlos")\n//   Saida: Tecnico: Carlos\n//\n// Rodada 2:\n//   Robo pega: "Ana"\n//   Variavel nome = "Ana"\n//   Executa: console.log("Tecnico:", "Ana")\n//   Saida: Tecnico: Ana\n//\n// Rodada 3:\n//   Robo pega: "Pedro"\n//   Variavel nome = "Pedro"\n//   Executa: console.log("Tecnico:", "Pedro")\n//   Saida: Tecnico: Pedro\n//\n// Lista acabou? PARA!\n//\n// Troque os nomes e rode de novo!',
               runnable: true
             },
             {
               type: "code-example",
-              title: "Somando valores com for...of",
-              code: 'let valores = [350, 820, 1200, 450]\nlet total = 0\n\nfor (let v of valores) {\n  total += v   // total = total + v\n}\n\nconsole.log(`Total: R$${total}`)\n\n// Passo a passo:\n// Inicio: total = 0\n// Rodada 1: total = 0 + 350 = 350\n// Rodada 2: total = 350 + 820 = 1170\n// Rodada 3: total = 1170 + 1200 = 2370\n// Rodada 4: total = 2370 + 450 = 2820',
+              title: "Exemplo Real: Somando Valores de OS",
+              code: 'let valores = [350, 820, 1200, 450]\nlet total = 0\n\n// Para CADA valor DA lista, soma no total:\nfor (let v of valores) {\n  total += v   // total = total + v\n}\n\nconsole.log(`Total: R$${total}`)\n\n// ===== RODADA POR RODADA =====\n//\n// ANTES DO LOOP: total = 0\n//\n// Rodada 1:\n//   v = 350\n//   total = 0 + 350 = 350\n//\n// Rodada 2:\n//   v = 820\n//   total = 350 + 820 = 1170\n//\n// Rodada 3:\n//   v = 1200\n//   total = 1170 + 1200 = 2370\n//\n// Rodada 4:\n//   v = 450\n//   total = 2370 + 450 = 2820\n//\n// Lista acabou!\n// Mostra: Total: R$2820',
               runnable: true
             },
             {
