@@ -13,16 +13,18 @@ router.use(authenticate)
 
 // GET /api/progress - Carregar progresso do aluno
 router.get('/', async (req, res) => {
+  const language = req.query.language || 'javascript'
+
   try {
     const result = await pool.query(
-      'SELECT current_lesson, lessons, started_at, last_access FROM progress WHERE student_id = $1',
-      [req.student.id]
+      'SELECT current_lesson, lessons, started_at, last_access FROM progress WHERE student_id = $1 AND language = $2',
+      [req.student.id, language]
     )
 
     if (result.rows.length === 0) {
       await pool.query(
-        'INSERT INTO progress (student_id) VALUES ($1) ON CONFLICT DO NOTHING',
-        [req.student.id]
+        'INSERT INTO progress (student_id, language) VALUES ($1, $2) ON CONFLICT (student_id, language) DO NOTHING',
+        [req.student.id, language]
       )
       return res.json({
         currentLesson: '1-1',
@@ -47,14 +49,14 @@ router.get('/', async (req, res) => {
 
 // PUT /api/progress - Salvar progresso do aluno
 router.put('/', async (req, res) => {
-  const { currentLesson, lessons } = req.body
+  const { currentLesson, lessons, language = 'javascript' } = req.body
 
   try {
     await pool.query(
       `UPDATE progress
        SET current_lesson = $1, lessons = $2, last_access = NOW()
-       WHERE student_id = $3`,
-      [currentLesson, JSON.stringify(lessons), req.student.id]
+       WHERE student_id = $3 AND language = $4`,
+      [currentLesson, JSON.stringify(lessons), req.student.id, language]
     )
     res.json({ ok: true })
   } catch (err) {
@@ -65,10 +67,12 @@ router.put('/', async (req, res) => {
 
 // GET /api/progress/code-drafts - Carregar TODOS os rascunhos
 router.get('/code-drafts', async (req, res) => {
+  const language = req.query.language || 'javascript'
+
   try {
     const result = await pool.query(
-      'SELECT lesson_id, exercise_idx, code FROM code_drafts WHERE student_id = $1',
-      [req.student.id]
+      'SELECT lesson_id, exercise_idx, code FROM code_drafts WHERE student_id = $1 AND language = $2',
+      [req.student.id, language]
     )
     const drafts = {}
     for (const row of result.rows) {
@@ -84,15 +88,15 @@ router.get('/code-drafts', async (req, res) => {
 // PUT /api/progress/code-drafts/:lessonId/:exerciseIdx - Salvar rascunho (upsert)
 router.put('/code-drafts/:lessonId/:exerciseIdx', async (req, res) => {
   const { lessonId, exerciseIdx } = req.params
-  const { code } = req.body
+  const { code, language = 'javascript' } = req.body
 
   try {
     await pool.query(
-      `INSERT INTO code_drafts (student_id, lesson_id, exercise_idx, code, updated_at)
-       VALUES ($1, $2, $3, $4, NOW())
-       ON CONFLICT (student_id, lesson_id, exercise_idx)
-       DO UPDATE SET code = $4, updated_at = NOW()`,
-      [req.student.id, lessonId, parseInt(exerciseIdx), code]
+      `INSERT INTO code_drafts (student_id, language, lesson_id, exercise_idx, code, updated_at)
+       VALUES ($1, $2, $3, $4, $5, NOW())
+       ON CONFLICT (student_id, language, lesson_id, exercise_idx)
+       DO UPDATE SET code = $5, updated_at = NOW()`,
+      [req.student.id, language, lessonId, parseInt(exerciseIdx), code]
     )
     res.json({ ok: true })
   } catch (err) {
@@ -104,11 +108,12 @@ router.put('/code-drafts/:lessonId/:exerciseIdx', async (req, res) => {
 // DELETE /api/progress/code-drafts/:lessonId/:exerciseIdx - Apagar rascunho
 router.delete('/code-drafts/:lessonId/:exerciseIdx', async (req, res) => {
   const { lessonId, exerciseIdx } = req.params
+  const language = req.query.language || 'javascript'
 
   try {
     await pool.query(
-      'DELETE FROM code_drafts WHERE student_id = $1 AND lesson_id = $2 AND exercise_idx = $3',
-      [req.student.id, lessonId, parseInt(exerciseIdx)]
+      'DELETE FROM code_drafts WHERE student_id = $1 AND language = $2 AND lesson_id = $3 AND exercise_idx = $4',
+      [req.student.id, language, lessonId, parseInt(exerciseIdx)]
     )
     res.json({ ok: true })
   } catch (err) {
