@@ -674,75 +674,75 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que sao Metodos de Array?",
-              content: "Arrays tem <strong>funcoes prontas</strong> (metodos) que facilitam MUITO a vida. No sistema MATH, usamos em TODO lugar:<br><br>🔍 <strong>.find()</strong> → achar uma licao especifica pelo ID<br>🎯 <strong>.filter()</strong> → pegar so as linhas de saida que nao estao vazias<br>🔄 <strong>.map()</strong> → transformar argumentos do console.log em texto<br><br>Sem esses metodos, o MATH seria MUITO mais complicado de fazer."
+              content: "Arrays tem <strong>funcoes prontas</strong> (metodos) que facilitam MUITO a vida. No sistema da Helsen Service, usamos em TODO lugar:<br><br>🔍 <strong>.find()</strong> → achar um tecnico especifico pelo ID (Leon Mendes, Dayvison Jepson)<br>🎯 <strong>.filter()</strong> → pegar so as OS com status \"assigned\" ou \"finished\"<br>🔄 <strong>.map()</strong> → pegar lista de clientes de todas as OS do mes<br><br>Sem esses metodos, o sistema da Helsen seria MUITO mais complicado de fazer."
             },
             // ========== .find() ==========
             {
               type: "explanation",
               title: ".find() — Procurar UM item especifico",
-              content: "Imagina que voce tem uma lista de 50 alunos e quer achar um aluno especifico. Sem .find() voce teria que fazer um loop e verificar um por um.<br><br>O <strong>.find()</strong> faz isso automaticamente! Ele procura na lista e retorna o PRIMEIRO item que passou no teste.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real no MATH:</strong> Quando voce clica numa licao, o sistema usa <code>.find()</code> pra achar a licao pelo ID na lista de todas as licoes.</div>"
+              content: "Imagina que voce tem uma lista de 50 tecnicos da Helsen e quer achar um tecnico especifico. Sem .find() voce teria que fazer um loop e verificar um por um.<br><br>O <strong>.find()</strong> faz isso automaticamente! Ele procura na lista e retorna o PRIMEIRO item que passou no teste.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real na Helsen:</strong> Quando uma OS precisa ser atribuida a um tecnico, o sistema usa <code>.find()</code> pra achar o tecnico pelo ID no banco de dados.</div>"
             },
             {
               type: "code-example",
-              title: "Codigo REAL do MATH — find() buscando licao",
-              code: '// Exatamente como o MATH funciona por dentro!\n// Quando voce clica numa licao, o sistema faz isso:\n\nlet todasLicoes = [\n  { id: "1-1", title: "Variaveis" },\n  { id: "2-1", title: "If/Else" },\n  { id: "3-1", title: "Arrays" }\n]\n\n// Usuario clicou na licao "2-1"\nlet licaoId = "2-1"\n\n// Sistema procura a licao com esse ID\nlet licao = todasLicoes.find(l => l.id === licaoId)\n\nconsole.log("Achou:", licao.title)\nconsole.log("ID:", licao.id)\n\n// Se buscar uma licao que nao existe:\nlet naoExiste = todasLicoes.find(l => l.id === "99-99")\nconsole.log("Licao 99-99:", naoExiste)  // undefined',
+              title: "Exemplo REAL da Helsen — find() buscando tecnico",
+              code: '// Dados REAIS do banco da Helsen Service!\n\nlet tecnicos = [\n  { id: 48, username: "Dayvison Jepson", hourly_rate: 175 },\n  { id: 41, username: "Leon Mendes", hourly_rate: 175 },\n  { id: 40, username: "Diego Henrique", hourly_rate: 175 },\n  { id: 42, username: "Valdinei Pereira", hourly_rate: 175 }\n]\n\n// Sistema precisa atribuir OS pro tecnico ID 41\nlet tecnicoId = 41\n\n// Procura o tecnico pelo ID\nlet tecnico = tecnicos.find(t => t.id === tecnicoId)\n\nconsole.log("Tecnico:", tecnico.username)\nconsole.log("Taxa hora:", "R$" + tecnico.hourly_rate)\n\n// Se buscar um tecnico que nao existe:\nlet naoExiste = tecnicos.find(t => t.id === 999)\nconsole.log("ID 999:", naoExiste)  // undefined',
               runnable: true
             },
             {
               type: "explanation",
               title: "Como .find() funciona passo a passo",
-              content: "Quando voce escreve:<br><br><code>alunos.find(a => a.nome === \"Ana\")</code><br><br>O JavaScript faz:<br><br>1. Pega o primeiro aluno: <code>{ nome: \"Rafael\", nota: 8 }</code><br>2. Testa: <code>\"Rafael\" === \"Ana\"</code>? NAO!<br>3. Pega o segundo aluno: <code>{ nome: \"Ana\", nota: 9 }</code><br>4. Testa: <code>\"Ana\" === \"Ana\"</code>? SIM! Achou!<br>5. Retorna esse aluno e PARA de procurar<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Se procurar a lista toda e nao achar nada, retorna <code>undefined</code>.</div>"
+              content: "Quando voce escreve:<br><br><code>tecnicos.find(t => t.id === 41)</code><br><br>O JavaScript faz:<br><br>1. Pega o primeiro tecnico: <code>{ id: 48, username: \"Dayvison Jepson\" }</code><br>2. Testa: <code>48 === 41</code>? NAO!<br>3. Pega o segundo tecnico: <code>{ id: 41, username: \"Leon Mendes\" }</code><br>4. Testa: <code>41 === 41</code>? SIM! Achou!<br>5. Retorna Leon Mendes e PARA de procurar<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>✓ O .find() para assim que acha o primeiro item que passa no teste.<br>✓ Se procurar a lista toda e nao achar nada, retorna <code>undefined</code>.</div>"
             },
             {
               type: "exercise",
-              title: "Exercicio 1 - Procurar uma OS",
-              instructions: "Use <strong>.find()</strong> pra procurar a OS com numero 1502. Mostre o cliente dela.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: <code>ordens.find(os => os.numero === 1502)</code></div>",
-              starterCode: 'let ordens = [\n  { numero: 1501, cliente: "Fabrica ABC" },\n  { numero: 1502, cliente: "Metal XYZ" },\n  { numero: 1503, cliente: "Industria 123" }\n]\n\n// Procure a OS 1502:\n\n\n// Mostre o cliente:\n',
-              solution: 'let ordens = [\n  { numero: 1501, cliente: "Fabrica ABC" },\n  { numero: 1502, cliente: "Metal XYZ" },\n  { numero: 1503, cliente: "Industria 123" }\n]\n\nlet os = ordens.find(os => os.numero === 1502)\nconsole.log("Cliente:", os.cliente)',
+              title: "Exercicio 1 - Procurar uma OS REAL",
+              instructions: "Use <strong>.find()</strong> pra procurar a OS com numero 6632. Mostre o cliente e o valor total dela.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Essas são OS REAIS do banco da Helsen!<br>Dica: <code>ordens.find(os => os.numero === 6632)</code></div>",
+              starterCode: '// OS REAIS do banco Helsen Service!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem e Servicos LDTA", valor: 1145, status: "completed" },\n  { numero: 6632, cliente: "Usinagem Castro LTDA", valor: 700, status: "avulso" },\n  { numero: 6620, cliente: "Off Limits Industria de Componentes", valor: 445, status: "completed" }\n]\n\n// Procure a OS 6632:\n\n\n// Mostre o cliente e valor:\n',
+              solution: '// OS REAIS do banco Helsen Service!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem e Servicos LDTA", valor: 1145, status: "completed" },\n  { numero: 6632, cliente: "Usinagem Castro LTDA", valor: 700, status: "avulso" },\n  { numero: 6620, cliente: "Off Limits Industria de Componentes", valor: 445, status: "completed" }\n]\n\nlet os = ordens.find(os => os.numero === 6632)\nconsole.log("Cliente:", os.cliente)\nconsole.log("Valor: R$", os.valor)',
               validation: "structure",
-              checks: { codeHas: [".find(", "console.log"], outputHas: ["Metal XYZ"] }
+              checks: { codeHas: [".find(", "console.log"], outputHas: ["Usinagem Castro", "700"] }
             },
             // ========== .filter() ==========
             {
               type: "explanation",
               title: ".filter() — Filtrar VARIOS itens",
-              content: "O <strong>.filter()</strong> e parecido com .find(), mas ao inves de retornar UM item, ele retorna TODOS os itens que passaram no teste.<br><br>Pensa assim: voce tem 100 OS e quer pegar SÓ as que estao abertas. O .filter() pega todas as abertas e coloca num array novo.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real no MATH:</strong> Quando o sistema valida sua resposta, ele usa <code>.filter()</code> pra pegar so as linhas de saida que nao estao vazias, ignorando linhas em branco.</div>"
+              content: "O <strong>.filter()</strong> e parecido com .find(), mas ao inves de retornar UM item, ele retorna TODOS os itens que passaram no teste.<br><br>Pensa assim: voce tem 100 OS da Helsen e quer pegar SÓ as que estao com status \"completed\" (finalizadas). O .filter() pega todas as finalizadas e coloca num array novo.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real na Helsen:</strong> No dashboard, quando o gerente quer ver quantas OS foram finalizadas no mes, o sistema usa <code>.filter()</code> pra pegar so as OS com status \"completed\".</div>"
             },
             {
               type: "code-example",
-              title: "Codigo REAL do MATH — filter() removendo linhas vazias",
-              code: '// Quando voce roda seu codigo no MATH, o sistema\n// usa filter() pra limpar a saida!\n\nlet saidaBruta = [\n  "Total: 100",\n  "",\n  "(sem saida)",\n  "Resultado: OK",\n  "  ",\n  "Fim"\n]\n\n// Sistema remove linhas vazias e "(sem saida)"\nlet saidaLimpa = saidaBruta.filter(linha => {\n  return linha.trim().length > 0 && linha.trim() !== "(sem saida)"\n})\n\nconsole.log("Linhas validas:", saidaLimpa.length)\nconsole.log("Saida:")\nfor (let linha of saidaLimpa) {\n  console.log(linha)\n}',
+              title: "Exemplo REAL da Helsen — filter() por status",
+              code: '// OS REAIS do banco da Helsen Service!\n\nlet todasOS = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145, status: "completed" },\n  { numero: 6632, cliente: "Usinagem Castro", valor: 700, status: "avulso" },\n  { numero: 6620, cliente: "Off Limits Industria", valor: 445, status: "completed" },\n  { numero: 6579, cliente: "JMF Tecnologia", valor: 545, status: "archived" },\n  { numero: 6841, cliente: "A.T.P Assemblege", valor: 1385, status: "completed" },\n  { numero: 6843, cliente: "Del Rey Rubber", valor: null, status: "accepted" }\n]\n\n// Pegar so as OS finalizadas (completed)\nlet finalizadas = todasOS.filter(os => os.status === "completed")\n\nconsole.log("Total de OS finalizadas:", finalizadas.length)\nconsole.log("\\nOS finalizadas:")\n\nfor (let os of finalizadas) {\n  console.log(`OS ${os.numero} - ${os.cliente} - R$ ${os.valor}`)\n}',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 2 - Filtrar tecnicos disponiveis",
-              instructions: "Use <strong>.filter()</strong> pra pegar so os tecnicos com <code>disponivel: true</code>. Mostre os nomes deles.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: depois de filtrar, use um loop <code>for...of</code> pra mostrar cada nome.</div>",
-              starterCode: 'let tecnicos = [\n  { nome: "Carlos", disponivel: true },\n  { nome: "Ana", disponivel: false },\n  { nome: "Pedro", disponivel: true },\n  { nome: "Maria", disponivel: false }\n]\n\n// Filtre os disponiveis:\n\n\n// Mostre os nomes:\n',
-              solution: 'let tecnicos = [\n  { nome: "Carlos", disponivel: true },\n  { nome: "Ana", disponivel: false },\n  { nome: "Pedro", disponivel: true },\n  { nome: "Maria", disponivel: false }\n]\n\nlet disponiveis = tecnicos.filter(t => t.disponivel === true)\n\nfor (let t of disponiveis) {\n  console.log(t.nome, "esta disponivel")\n}',
+              title: "Exercicio 2 - Filtrar OS pendentes de revisao",
+              instructions: "Use <strong>.filter()</strong> pra pegar so as OS com status \"pending_review\". Depois mostre quantas OS estao pendentes e a lista delas.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dados REAIS da Helsen!<br>Dica: depois de filtrar, use <code>for...of</code> pra mostrar cada OS.</div>",
+              starterCode: '// OS REAIS da Helsen Service!\nlet ordens = [\n  { numero: 6848, cliente: "Soltenge", status: "pending_review", valor: 445 },\n  { numero: 6847, cliente: "WF Ferramentaria", status: "pending_review", valor: 532 },\n  { numero: 6841, cliente: "A.T.P Assemblege", status: "completed", valor: 1385 },\n  { numero: 6843, cliente: "Del Rey Rubber", status: "accepted", valor: null },\n  { numero: 6840, cliente: "WR Industria", status: "pending_review", valor: 1145 }\n]\n\n// Filtre as pending_review:\n\n\n// Mostre quantas sao:\n\n\n// Mostre cada uma:\n',
+              solution: '// OS REAIS da Helsen Service!\nlet ordens = [\n  { numero: 6848, cliente: "Soltenge", status: "pending_review", valor: 445 },\n  { numero: 6847, cliente: "WF Ferramentaria", status: "pending_review", valor: 532 },\n  { numero: 6841, cliente: "A.T.P Assemblege", status: "completed", valor: 1385 },\n  { numero: 6843, cliente: "Del Rey Rubber", status: "accepted", valor: null },\n  { numero: 6840, cliente: "WR Industria", status: "pending_review", valor: 1145 }\n]\n\nlet pendentes = ordens.filter(os => os.status === "pending_review")\n\nconsole.log("Total pendente de revisao:", pendentes.length)\nconsole.log("\\nLista:")\n\nfor (let os of pendentes) {\n  console.log(`OS ${os.numero} - ${os.cliente}`)\n}',
               validation: "structure",
-              checks: { codeHas: [".filter(", "for", "of", "console.log"], outputHas: ["Carlos", "Pedro"], minOutput: 2 }
+              checks: { codeHas: [".filter(", "for", "of", "console.log"], outputHas: ["6848", "6847", "6840"], minOutput: 3 }
             },
             // ========== .map() ==========
             {
               type: "explanation",
               title: ".map() — Transformar cada item",
-              content: "O <strong>.map()</strong> pega cada item da lista, transforma ele, e coloca num array novo.<br><br>Pensa assim: voce tem uma lista de numeros e quer dobrar cada um. Sem .map() voce faria um loop e criaria um array novo. Com .map() e automático!<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real no MATH:</strong> Quando voce da console.log, o sistema usa <code>.map()</code> pra transformar cada argumento em texto antes de mostrar na tela.</div>"
+              content: "O <strong>.map()</strong> pega cada item da lista, transforma ele, e coloca num array novo.<br><br>Pensa assim: voce tem uma lista de OS da Helsen e quer pegar SÓ os valores (grand_total) de cada uma. Com .map() voce transforma um array de objetos num array de numeros!<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Uso real na Helsen:</strong> Quando o sistema precisa calcular o faturamento total do mes, ele usa <code>.map()</code> pra extrair os valores de todas as OS, depois soma tudo.</div>"
             },
             {
               type: "code-example",
-              title: "Codigo REAL do MATH — map() transformando argumentos",
-              code: '// Quando voce faz console.log(10, "texto", true)\n// o MATH usa map() pra transformar cada argumento em texto!\n\nlet argumentos = [10, "texto", true, { id: 1 }]\n\n// Sistema transforma cada argumento em string\nlet textos = argumentos.map(arg => {\n  if (typeof arg === "object") {\n    return JSON.stringify(arg)  // objeto vira texto\n  }\n  return String(arg)  // numero/boolean vira texto\n})\n\nconsole.log("Argumentos originais:")\nconsole.log(argumentos)\n\nconsole.log("\\nTransformados em texto:")\nconsole.log(textos)\n\nconsole.log("\\nJunta tudo com espaco:")\nconsole.log(textos.join(" "))',
+              title: "Exemplo REAL da Helsen — map() extraindo valores",
+              code: '// OS REAIS do banco da Helsen Service!\n\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145, status: "completed" },\n  { numero: 6620, cliente: "Off Limits", valor: 445, status: "completed" },\n  { numero: 6841, cliente: "A.T.P Assemblege", valor: 1385, status: "completed" },\n  { numero: 6839, cliente: "Estampos Qualytec", valor: 1312, status: "completed" }\n]\n\n// Extrai so os valores usando map()\nlet valores = ordens.map(os => os.valor)\n\nconsole.log("Valores extraidos:", valores)\nconsole.log("\\nAgora podemos somar:")\n\nlet total = 0\nfor (let valor of valores) {\n  total += valor\n}\n\nconsole.log("Faturamento total: R$", total)\n\n// Tambem podemos extrair so os nomes dos clientes:\nlet clientes = ordens.map(os => os.cliente)\nconsole.log("\\nClientes:", clientes)',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 3 - Transformar valores",
-              instructions: "Use <strong>.map()</strong> pra pegar so os valores das OS. Depois some todos os valores com um loop <code>for...of</code>.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Passo 1: <code>let valores = ordens.map(os => os.valor)</code><br>Passo 2: Loop pra somar</div>",
-              starterCode: 'let ordens = [\n  { numero: 1501, valor: 350 },\n  { numero: 1502, valor: 820 },\n  { numero: 1503, valor: 1200 }\n]\n\n// Pegue so os valores:\n\n\n// Some todos:\n',
-              solution: 'let ordens = [\n  { numero: 1501, valor: 350 },\n  { numero: 1502, valor: 820 },\n  { numero: 1503, valor: 1200 }\n]\n\nlet valores = ordens.map(os => os.valor)\n\nlet soma = 0\nfor (let v of valores) {\n  soma += v\n}\n\nconsole.log("Total:", soma)',
+              title: "Exercicio 3 - Calcular faturamento REAL",
+              instructions: "Use <strong>.map()</strong> pra extrair os valores das OS. Depois some todos com <code>for...of</code> e mostre o total.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dados REAIS da Helsen!<br>Passo 1: <code>let valores = ordens.map(os => os.valor)</code><br>Passo 2: Loop pra somar tudo</div>",
+              starterCode: '// OS REAIS da Helsen Service finalizadas!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145 },\n  { numero: 6620, cliente: "Off Limits", valor: 445 },\n  { numero: 6841, cliente: "A.T.P Assemblege", valor: 1385 },\n  { numero: 6839, cliente: "Estampos Qualytec", valor: 1312 },\n  { numero: 6834, cliente: "Estampos Qualytec", valor: 1132 }\n]\n\n// Extraia so os valores:\n\n\n// Some todos:\n\n\n// Mostre o faturamento total:\n',
+              solution: '// OS REAIS da Helsen Service finalizadas!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145 },\n  { numero: 6620, cliente: "Off Limits", valor: 445 },\n  { numero: 6841, cliente: "A.T.P Assemblege", valor: 1385 },\n  { numero: 6839, cliente: "Estampos Qualytec", valor: 1312 },\n  { numero: 6834, cliente: "Estampos Qualytec", valor: 1132 }\n]\n\nlet valores = ordens.map(os => os.valor)\n\nlet total = 0\nfor (let valor of valores) {\n  total += valor\n}\n\nconsole.log("Faturamento total: R$", total)',
               validation: "structure",
-              checks: { codeHas: [".map(", "for", "of", "soma", "console.log"], outputHas: ["2370"] }
+              checks: { codeHas: [".map(", "for", "of", "total", "console.log"], outputHas: ["5419"] }
             }
           ],
           quiz: [
@@ -777,34 +777,34 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que e um Objeto?",
-              content: "Objeto = uma colecao de dados relacionados. Uma variavel guarda UM valor. Um objeto guarda VARIOS valores organizados.<br><br>No MATH, uma OS e um objeto: <code>{ numero, cliente, tecnico, valor, status }</code>"
+              content: "Objeto = uma colecao de dados relacionados. Uma variavel guarda UM valor. Um objeto guarda VARIOS valores organizados.<br><br>Na Helsen Service, uma OS e um objeto com MUITAS propriedades: <code>{ order_number, client_name, technician_id, grand_total, status, scheduled_date, ... }</code><br><br>Em vez de criar 10 variaveis separadas, voce cria 1 objeto com 10 propriedades!"
             },
             {
               type: "code-example",
-              title: "Criando e acessando objetos",
-              code: 'let os = {\n  numero: 1501,\n  cliente: "Fabrica ABC",\n  tecnico: "Carlos",\n  valor: 850,\n  urgente: true\n}\n\nconsole.log(os.numero)   // 1501\nconsole.log(os.cliente)  // "Fabrica ABC"\n\n// Modificando:\nos.status = "em_andamento"\nconsole.log(os)',
+              title: "Estrutura REAL de uma OS da Helsen",
+              code: '// Assim que uma OS e armazenada no banco da Helsen!\n\nlet os = {\n  order_number: 6650,\n  client_name: "Minerva Usinagem e Servicos LDTA",\n  technician_id: 41,  // Leon Mendes\n  status: "completed",\n  grand_total: 1145,\n  scheduled_date: "2026-01-14",\n  maintenance_type: "corretiva",\n  total_hours: 4.5\n}\n\n// Acessando as propriedades:\nconsole.log("OS:", os.order_number)\nconsole.log("Cliente:", os.client_name)\nconsole.log("Valor: R$", os.grand_total)\nconsole.log("Status:", os.status)\n\n// Modificando:\nos.status = "archived"\nconsole.log("\\nNovo status:", os.status)',
               runnable: true
             },
             {
               type: "code-example",
-              title: "Objeto dentro de objeto",
-              code: 'let osCompleta = {\n  numero: 1503,\n  cliente: {\n    nome: "Industria 123",\n    contato: "Maria",\n    tel: "(11) 99999-0000"\n  },\n  servico: {\n    descricao: "Manutencao preventiva",\n    materiais: ["Rolamento", "Oleo", "Filtro"]\n  }\n}\n\nconsole.log(osCompleta.cliente.nome)\nconsole.log(osCompleta.servico.materiais[0])',
+              title: "Objetos aninhados — estrutura REAL da Helsen",
+              code: '// No sistema Helsen, uma OS tem objetos dentro de objetos!\n\nlet osCompleta = {\n  order_number: 6841,\n  client: {\n    id: 1523,\n    name: "A.T.P Assemblege LTDA",\n    contact: "João Silva",\n    phone: "(11) 3456-7890"\n  },\n  technician: {\n    id: 42,\n    name: "Valdinei Pereira",\n    hourly_rate: 175\n  },\n  service: {\n    description: "Manutencao preventiva em torno CNC",\n    total_hours: 6.5,\n    materials: ["Rolamento SKF 6204", "Oleo lubrificante", "Filtro de ar"]\n  },\n  billing: {\n    service_cost: 1137.50,\n    material_cost: 247.50,\n    grand_total: 1385\n  }\n}\n\n// Acessando valores profundos:\nconsole.log("Cliente:", osCompleta.client.name)\nconsole.log("Tecnico:", osCompleta.technician.name)\nconsole.log("Taxa/hora: R$", osCompleta.technician.hourly_rate)\nconsole.log("Primeiro material:", osCompleta.service.materials[0])\nconsole.log("Total: R$", osCompleta.billing.grand_total)',
               runnable: true
             },
             {
               type: "code-example",
-              title: "Desestruturacao",
-              code: 'let os = { numero: 1502, cliente: "Metal XYZ", valor: 1200 }\n\n// Forma rapida de pegar valores:\nlet { numero, cliente, valor } = os\n\nconsole.log(numero)  // 1502\nconsole.log(cliente)  // "Metal XYZ"\nconsole.log(valor)    // 1200',
+              title: "Desestruturacao — forma rapida de extrair dados",
+              code: '// OS REAL da Helsen\nlet os = {\n  order_number: 6632,\n  client_name: "Usinagem Castro LTDA",\n  status: "avulso",\n  grand_total: 700,\n  technician_id: 41\n}\n\n// SEM desestruturacao (forma longa):\nlet numero1 = os.order_number\nlet cliente1 = os.client_name\nlet valor1 = os.grand_total\n\nconsole.log("Forma longa:", numero1, cliente1, valor1)\n\n// COM desestruturacao (forma rapida):\nlet { order_number, client_name, grand_total } = os\n\nconsole.log("\\nForma rapida:", order_number, client_name, grand_total)\n\n// Muito usado na Helsen quando o backend retorna OS:\nconsole.log(`\\nOS ${order_number} - ${client_name} - R$ ${grand_total}`)',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Crie objeto <strong>maquina</strong> com: id, nome, fabricante, anoFabricacao, funcionando (boolean). Valores que quiser! Mostre: \"Maquina [nome] ([fabricante]) - Funcionando/Parada\" (use ternario).",
-              starterCode: '// Crie o objeto:\n\n\n// Mostre a mensagem:\n',
-              solution: 'let maquina = {\n  id: 1,\n  nome: "Torno CNC",\n  fabricante: "Romi",\n  anoFabricacao: 2019,\n  funcionando: true\n}\n\nlet status = maquina.funcionando ? "Funcionando" : "Parada"\nconsole.log(`Maquina ${maquina.nome} (${maquina.fabricante}) - ${status}`)',
+              title: "Exercicio 1 - Criar objeto de Tecnico REAL",
+              instructions: "Crie um objeto <strong>tecnico</strong> seguindo a estrutura da Helsen com: id, username, hourly_rate, disponivel (boolean). Use dados reais ou invente! Depois use desestruturacao pra extrair o nome e taxa, e mostre: \"Tecnico [nome] - R$ [taxa]/hora - Disponivel/Indisponivel\".<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use ternario pro status!</div>",
+              starterCode: '// Crie o objeto tecnico:\n\n\n// Use desestruturacao:\n\n\n// Mostre a mensagem com ternario:\n',
+              solution: 'let tecnico = {\n  id: 41,\n  username: "Leon Mendes",\n  hourly_rate: 175,\n  disponivel: true\n}\n\n// Desestruturacao:\nlet { username, hourly_rate, disponivel } = tecnico\n\n// Ternario pra status:\nlet status = disponivel ? "Disponivel" : "Indisponivel"\n\nconsole.log(`Tecnico ${username} - R$ ${hourly_rate}/hora - ${status}`)',
               validation: "structure",
-              checks: { codeHas: ["maquina", "{", "}", "?", ":", "console.log", "nome", "fabricante", "funcionando"], minOutput: 1 }
+              checks: { codeHas: ["tecnico", "{", "}", "username", "hourly_rate", "disponivel", "?", ":", "console.log"], minOutput: 1 }
             }
           ],
           quiz: [
@@ -832,35 +832,35 @@ const COURSE_DATA = {
       lessons: [
         {
           id: "6-1",
-          title: "Lendo Codigo do MATH",
+          title: "Lendo Codigo REAL da Helsen",
           duration: "30 min",
           module: "Projeto Real",
           sections: [
             {
               type: "explanation",
-              title: "Agora voce le codigo real!",
-              content: "Voce ja sabe variaveis, if/else, loops, funcoes, arrays e objetos. Agora vamos ler codigo REAL do sistema MATH e entender cada parte. Tudo que voce aprendeu ate aqui aparece no codigo real."
+              title: "Agora voce le codigo real da Helsen Service!",
+              content: "Voce ja sabe variaveis, if/else, loops, funcoes, arrays e objetos. Agora vamos ler codigo REAL do sistema da Helsen Service e entender cada parte.<br><br>Tudo que voce aprendeu ate aqui aparece no sistema real: validacao de tecnicos, calculo de OS, relatorios, etc."
             },
             {
               type: "code-example",
-              title: "Verificacao de permissao (middleware)",
-              code: '// Versao simplificada do MATH\nfunction verificarPermissao(usuario) {\n  if (!usuario.ativo) {\n    return { permitido: false, motivo: "Usuario inativo" }\n  }\n  \n  switch (usuario.tipo) {\n    case "admin":\n      return { permitido: true, nivel: "total" }\n    case "tecnico":\n      return { permitido: true, nivel: "parcial" }\n    case "cliente":\n      return { permitido: true, nivel: "limitado" }\n    default:\n      return { permitido: false, motivo: "Tipo desconhecido" }\n  }\n}\n\nconsole.log(verificarPermissao({ nome: "Carlos", tipo: "admin", ativo: true }))\nconsole.log(verificarPermissao({ nome: "Ana", tipo: "tecnico", ativo: false }))',
+              title: "Logica REAL — Validar se tecnico pode aceitar OS",
+              code: '// Funcao real do sistema Helsen Service!\n// Valida se um tecnico pode aceitar uma nova OS\n\nfunction podePegarOS(tecnico, osAtivas) {\n  // Tecnico inativo nao pode pegar OS\n  if (!tecnico.active) {\n    return {\n      pode: false,\n      motivo: `${tecnico.username} esta inativo no sistema`\n    }\n  }\n\n  // Limite: maximo 5 OS ativas por tecnico\n  let osDoTecnico = osAtivas.filter(os => os.technician_id === tecnico.id)\n  \n  if (osDoTecnico.length >= 5) {\n    return {\n      pode: false,\n      motivo: `${tecnico.username} ja tem ${osDoTecnico.length} OS ativas (limite: 5)`\n    }\n  }\n\n  return {\n    pode: true,\n    osAtivas: osDoTecnico.length,\n    vagas: 5 - osDoTecnico.length\n  }\n}\n\n// Teste com dados REAIS:\nlet leon = { id: 41, username: "Leon Mendes", active: true }\nlet osAtivas = [\n  { id: 1, technician_id: 41, status: "accepted" },\n  { id: 2, technician_id: 41, status: "accepted" },\n  { id: 3, technician_id: 40, status: "accepted" }\n]\n\nconsole.log(podePegarOS(leon, osAtivas))\n\n// Tecnico inativo:\nlet inativo = { id: 50, username: "Tecnico Teste", active: false }\nconsole.log("\\n", podePegarOS(inativo, osAtivas))',
               runnable: true
             },
             {
               type: "code-example",
-              title: "Calculo de OS (billing)",
-              code: 'function calcularOS(os) {\n  let base = 0\n  switch (os.tipo) {\n    case "preventiva": base = 300; break\n    case "corretiva": base = 450; break\n    case "emergencial": base = 700; break\n  }\n\n  let maoDeObra = os.horas * os.valorHora\n  let materiais = os.materiais.reduce((a, m) => a + m.valor, 0)\n  let sub = base + maoDeObra + materiais\n  let desc = os.desconto ? sub * (os.desconto / 100) : 0\n  let total = sub - desc\n\n  return { base, maoDeObra, materiais, sub, desc, total: total.toFixed(2) }\n}\n\nlet r = calcularOS({\n  tipo: "corretiva",\n  horas: 5, valorHora: 90,\n  materiais: [{ valor: 120 }, { valor: 45 }],\n  desconto: 10\n})\nconsole.log(r)',
+              title: "Logica REAL — Calculo de faturamento da OS",
+              code: '// Assim que o sistema Helsen calcula o valor de uma OS!\n\nfunction calcularValorOS(dados) {\n  // Pega a taxa/hora do tecnico\n  let taxaHora = dados.tecnico.hourly_rate\n  \n  // Calcula custo de mao de obra\n  let custoServico = dados.total_hours * taxaHora\n  \n  // Soma os materiais usados\n  let custoMateriais = dados.materiais.reduce((total, mat) => {\n    return total + (mat.quantidade * mat.preco_unitario)\n  }, 0)\n  \n  // Custo de deslocamento (se houver)\n  let custoDeslocamento = 0\n  if (dados.displacement_km > 0) {\n    custoDeslocamento = dados.displacement_km * 3.50  // R$ 3,50 por km\n  }\n  \n  // Total geral\n  let grandTotal = custoServico + custoMateriais + custoDeslocamento\n  \n  return {\n    service_cost: custoServico.toFixed(2),\n    material_cost: custoMateriais.toFixed(2),\n    displacement_cost: custoDeslocamento.toFixed(2),\n    grand_total: grandTotal.toFixed(2)\n  }\n}\n\n// Exemplo REAL:\nlet resultado = calcularValorOS({\n  tecnico: { id: 41, username: "Leon Mendes", hourly_rate: 175 },\n  total_hours: 4.5,\n  displacement_km: 35,\n  materiais: [\n    { nome: "Rolamento SKF", quantidade: 2, preco_unitario: 85 },\n    { nome: "Oleo lubrificante", quantidade: 1, preco_unitario: 45 }\n  ]\n})\n\nconsole.log("Detalhamento da OS:")\nconsole.log("Mao de obra: R$", resultado.service_cost)\nconsole.log("Materiais: R$", resultado.material_cost)\nconsole.log("Deslocamento: R$", resultado.displacement_cost)\nconsole.log("TOTAL: R$", resultado.grand_total)',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Crie funcao <strong>gerarRelatorio</strong> que recebe array de OS (com numero, valor, status, tecnico). Retorne: totalOS, faturamento (soma dos finalizados), e tecnico mais ativo.",
-              starterCode: 'let ordens = [\n  { numero: 1, valor: 500, status: "finalizada", tecnico: "Carlos" },\n  { numero: 2, valor: 1500, status: "aberta", tecnico: "Ana" },\n  { numero: 3, valor: 800, status: "finalizada", tecnico: "Carlos" },\n  { numero: 4, valor: 300, status: "aberta", tecnico: "Ana" },\n  { numero: 5, valor: 2000, status: "finalizada", tecnico: "Carlos" }\n]\n\n// Crie a funcao:\n\n\n// Teste:\n',
-              solution: 'let ordens = [\n  { numero: 1, valor: 500, status: "finalizada", tecnico: "Carlos" },\n  { numero: 2, valor: 1500, status: "aberta", tecnico: "Ana" },\n  { numero: 3, valor: 800, status: "finalizada", tecnico: "Carlos" },\n  { numero: 4, valor: 300, status: "aberta", tecnico: "Ana" },\n  { numero: 5, valor: 2000, status: "finalizada", tecnico: "Carlos" }\n]\n\nfunction gerarRelatorio(lista) {\n  let fat = lista.filter(o => o.status === "finalizada").reduce((a, o) => a + o.valor, 0)\n  let contagem = {}\n  for (let o of lista) {\n    contagem[o.tecnico] = (contagem[o.tecnico] || 0) + 1\n  }\n  let maisAtivo = ""\n  let max = 0\n  for (let nome in contagem) {\n    if (contagem[nome] > max) { max = contagem[nome]; maisAtivo = nome }\n  }\n  return { totalOS: lista.length, faturamento: fat, maisAtivo }\n}\n\nconsole.log(gerarRelatorio(ordens))',
+              title: "Exercicio 1 - Relatorio REAL da Helsen",
+              instructions: "Crie funcao <strong>gerarRelatorio</strong> que recebe array de OS REAIS da Helsen. Retorne: <strong>totalOS</strong>, <strong>faturamento</strong> (soma das completed), e <strong>tecnicoMaisAtivo</strong> (quem tem mais OS).<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use .filter() pra pegar completed, .reduce() pra somar, e um objeto pra contar OS por tecnico!</div>",
+              starterCode: '// OS REAIS da Helsen Service!\nlet ordens = [\n  { numero: 6650, valor: 1145, status: "completed", tecnico_id: 41, tecnico: "Leon Mendes" },\n  { numero: 6632, valor: 700, status: "avulso", tecnico_id: 41, tecnico: "Leon Mendes" },\n  { numero: 6841, valor: 1385, status: "completed", tecnico_id: 42, tecnico: "Valdinei Pereira" },\n  { numero: 6839, valor: 1312, status: "completed", tecnico_id: 41, tecnico: "Leon Mendes" },\n  { numero: 6843, valor: null, status: "accepted", tecnico_id: 42, tecnico: "Valdinei Pereira" }\n]\n\n// Crie a funcao gerarRelatorio:\n\n\n// Teste:\nlet relatorio = gerarRelatorio(ordens)\nconsole.log(relatorio)',
+              solution: '// OS REAIS da Helsen Service!\nlet ordens = [\n  { numero: 6650, valor: 1145, status: "completed", tecnico_id: 41, tecnico: "Leon Mendes" },\n  { numero: 6632, valor: 700, status: "avulso", tecnico_id: 41, tecnico: "Leon Mendes" },\n  { numero: 6841, valor: 1385, status: "completed", tecnico_id: 42, tecnico: "Valdinei Pereira" },\n  { numero: 6839, valor: 1312, status: "completed", tecnico_id: 41, tecnico: "Leon Mendes" },\n  { numero: 6843, valor: null, status: "accepted", tecnico_id: 42, tecnico: "Valdinei Pereira" }\n]\n\nfunction gerarRelatorio(lista) {\n  // Soma faturamento das completed\n  let finalizadas = lista.filter(os => os.status === "completed")\n  let faturamento = finalizadas.reduce((total, os) => total + os.valor, 0)\n  \n  // Conta OS por tecnico\n  let contagem = {}\n  for (let os of lista) {\n    contagem[os.tecnico] = (contagem[os.tecnico] || 0) + 1\n  }\n  \n  // Acha o mais ativo\n  let maisAtivo = ""\n  let maxOS = 0\n  for (let nome in contagem) {\n    if (contagem[nome] > maxOS) {\n      maxOS = contagem[nome]\n      maisAtivo = nome\n    }\n  }\n  \n  return {\n    totalOS: lista.length,\n    faturamento: faturamento,\n    tecnicoMaisAtivo: maisAtivo\n  }\n}\n\nlet relatorio = gerarRelatorio(ordens)\nconsole.log(relatorio)',
               validation: "structure",
-              checks: { codeHas: ["function gerarRelatorio", "return", "console.log"], outputHas: ["5", "3300", "Carlos"] }
+              checks: { codeHas: ["function gerarRelatorio", "filter", "reduce", "return", "console.log"], outputHas: ["5", "3842", "Leon Mendes"] }
             }
           ],
           quiz: [
@@ -895,12 +895,12 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Por que async?",
-              content: "No mundo real, muitas coisas <strong>demoram</strong>: buscar dados no banco, chamar API, ler arquivo. JavaScript nao fica parado esperando. Ele usa <strong>async/await</strong> pra lidar com isso.<br><br>No MATH, toda chamada ao backend usa async/await."
+              content: "No mundo real, muitas coisas <strong>demoram</strong>: buscar OS no banco PostgreSQL, buscar dados de um tecnico, calcular relatorios. JavaScript nao fica parado esperando.<br><br>Ele usa <strong>async/await</strong> pra lidar com isso.<br><br>Na Helsen Service, TODA chamada ao backend (buscar OS, salvar dados, etc) usa async/await."
             },
             {
               type: "code-example",
-              title: "Promise + async/await",
-              code: '// Simula busca no banco (demora 1 segundo)\nfunction buscarTecnico(id) {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      if (id === 1) resolve({ nome: "Carlos", esp: "Eletrica" })\n      else if (id === 2) resolve({ nome: "Ana", esp: "Mecanica" })\n      else reject(new Error("Nao encontrado"))\n    }, 1000)\n  })\n}\n\nasync function main() {\n  console.log("Buscando...")\n  try {\n    let tec = await buscarTecnico(1)\n    console.log(`Encontrou: ${tec.nome}`)\n  } catch (erro) {\n    console.log(`Erro: ${erro.message}`)\n  }\n}\n\nmain()',
+              title: "Exemplo REAL — buscar tecnico no banco da Helsen",
+              code: '// Simula busca no banco PostgreSQL da Helsen\n// (na vida real, demora alguns milissegundos)\n\nfunction buscarTecnicoPorId(id) {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      // Simula busca: SELECT * FROM technicians WHERE id = ?\n      if (id === 41) {\n        resolve({ id: 41, username: "Leon Mendes", hourly_rate: 175, active: true })\n      } else if (id === 42) {\n        resolve({ id: 42, username: "Valdinei Pereira", hourly_rate: 175, active: true })\n      } else if (id === 48) {\n        resolve({ id: 48, username: "Dayvison Jepson", hourly_rate: 175, active: true })\n      } else {\n        reject(new Error(`Tecnico ID ${id} nao encontrado`))\n      }\n    }, 800)  // Simula delay do banco\n  })\n}\n\n// Funcao async que usa await\nasync function atribuirOS() {\n  console.log("Buscando tecnico ID 41 no banco...")\n  \n  try {\n    let tecnico = await buscarTecnicoPorId(41)\n    console.log(`✓ Encontrado: ${tecnico.username}`)\n    console.log(`Taxa/hora: R$ ${tecnico.hourly_rate}`)\n    console.log("OS atribuida com sucesso!")\n  } catch (erro) {\n    console.log(`✗ Erro: ${erro.message}`)\n  }\n}\n\natribuirOS()',
               runnable: true
             },
             {
@@ -910,12 +910,12 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Crie funcao <strong>buscarCliente</strong> que retorna Promise. ID 1 = {nome: 'Fabrica ABC'}, ID 2 = {nome: 'Metal XYZ'}, outro = erro. Crie funcao async pra chamar e mostrar.",
-              starterCode: '// Crie buscarCliente:\n\n\n// Crie funcao async pra chamar:\n',
-              solution: 'function buscarCliente(id) {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      if (id === 1) resolve({ nome: "Fabrica ABC" })\n      else if (id === 2) resolve({ nome: "Metal XYZ" })\n      else reject(new Error("Nao encontrado"))\n    }, 500)\n  })\n}\n\nasync function main() {\n  try {\n    let c = await buscarCliente(1)\n    console.log(`Cliente: ${c.nome}`)\n  } catch (e) {\n    console.log(e.message)\n  }\n}\nmain()',
+              title: "Exercicio 1 - Buscar OS REAL no banco",
+              instructions: "Crie funcao <strong>buscarOS</strong> que retorna Promise. Se numero = 6650, retorna a OS da Minerva. Se 6632, retorna OS da Usinagem Castro. Outro numero = erro \"OS nao encontrada\". Depois crie funcao <strong>async</strong> que busca a OS 6650 e mostra o cliente.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use setTimeout pra simular delay do banco!</div>",
+              starterCode: '// Crie buscarOS que retorna Promise:\n\n\n// Crie funcao async pra buscar OS 6650:\n\n\n// Chame a funcao:\n',
+              solution: 'function buscarOS(numero) {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      if (numero === 6650) {\n        resolve({ order_number: 6650, client_name: "Minerva Usinagem e Servicos LDTA", grand_total: 1145 })\n      } else if (numero === 6632) {\n        resolve({ order_number: 6632, client_name: "Usinagem Castro LTDA", grand_total: 700 })\n      } else {\n        reject(new Error("OS nao encontrada"))\n      }\n    }, 600)\n  })\n}\n\nasync function buscarEMostrar() {\n  console.log("Buscando OS 6650...")\n  try {\n    let os = await buscarOS(6650)\n    console.log(`Cliente: ${os.client_name}`)\n    console.log(`Valor: R$ ${os.grand_total}`)\n  } catch (erro) {\n    console.log(`Erro: ${erro.message}`)\n  }\n}\n\nbuscarEMostrar()',
               validation: "structure",
-              checks: { codeHas: ["Promise", "async", "await", "try", "catch", "console.log"], minOutput: 1 }
+              checks: { codeHas: ["Promise", "async", "await", "try", "catch", "console.log"], outputHas: ["Minerva"] }
             }
           ],
           quiz: [
@@ -951,12 +951,12 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que e Express?",
-              content: "Express e a ferramenta que o MATH usa no <strong>backend</strong>. Ele cria um SERVIDOR que recebe pedidos (requisicoes) e responde com dados.<br><br><strong>Este modulo e conceitual</strong> - o codigo precisa ser rodado no terminal com <code>node</code>, nao funciona no navegador."
+              content: "Express e a ferramenta que a Helsen Service usa no <strong>backend</strong>. Ele cria um SERVIDOR que recebe pedidos (requisicoes) e responde com dados.<br><br>Quando o frontend quer buscar uma OS, ele faz uma requisicao pro backend Express, que busca no PostgreSQL e retorna os dados.<br><br><strong>Este modulo e conceitual</strong> - o codigo precisa ser rodado no terminal com <code>node</code>, nao funciona no navegador."
             },
             {
               type: "code-example",
-              title: "Estrutura basica de um servidor",
-              code: '// Como funciona o backend do MATH:\n\nconst express = require("express")\nconst app = express()\napp.use(express.json())\n\n// GET = buscar dados\napp.get("/tecnicos", (req, res) => {\n  let tecnicos = [\n    { id: 1, nome: "Carlos" },\n    { id: 2, nome: "Ana" }\n  ]\n  res.json({ sucesso: true, dados: tecnicos })\n})\n\n// POST = criar dados\napp.post("/os", (req, res) => {\n  let { cliente, valor } = req.body\n  if (!cliente) {\n    return res.status(400).json({ erro: "Cliente obrigatorio" })\n  }\n  res.status(201).json({ mensagem: "OS criada!" })\n})\n\napp.listen(3000)',
+              title: "Estrutura basica — backend da Helsen",
+              code: '// Como funciona o backend da Helsen Service:\n\nconst express = require("express")\nconst app = express()\napp.use(express.json())\n\n// GET = buscar dados\napp.get("/api/technicians", (req, res) => {\n  // Na vida real, busca do PostgreSQL\n  let tecnicos = [\n    { id: 41, username: "Leon Mendes", hourly_rate: 175 },\n    { id: 42, username: "Valdinei Pereira", hourly_rate: 175 }\n  ]\n  res.json({ success: true, data: tecnicos })\n})\n\n// POST = criar dados\napp.post("/api/os", (req, res) => {\n  let { client_name, technician_id } = req.body\n  \n  if (!client_name) {\n    return res.status(400).json({ error: "Cliente obrigatorio" })\n  }\n  \n  // Insere no banco PostgreSQL...\n  res.status(201).json({\n    message: "OS criada com sucesso!",\n    order_number: 6850\n  })\n})\n\napp.listen(3000, () => {\n  console.log("Servidor Helsen rodando na porta 3000")\n})',
               runnable: false
             },
             {
@@ -966,8 +966,8 @@ const COURSE_DATA = {
             },
             {
               type: "code-example",
-              title: "Rota com parametros e validacao",
-              code: '// Buscar tecnico por ID\napp.get("/tecnicos/:id", (req, res) => {\n  let id = Number(req.params.id)  // pega o :id da URL\n  let tecnico = tecnicos.find(t => t.id === id)\n  \n  if (!tecnico) {\n    return res.status(404).json({ erro: "Nao encontrado" })\n  }\n  \n  res.json({ sucesso: true, dados: tecnico })\n})\n\n// Atualizar status da OS\napp.put("/os/:id/status", (req, res) => {\n  let { status } = req.body  // pega do corpo\n  let validos = ["aberta", "finalizada", "cancelada"]\n  \n  if (!validos.includes(status)) {\n    return res.status(400).json({ erro: "Status invalido" })\n  }\n  \n  // atualiza no banco...\n  res.json({ mensagem: "Atualizado!" })\n})',
+              title: "Rotas REAIS da Helsen — parametros e validacao",
+              code: '// Buscar OS por numero\napp.get("/api/os/:numero", async (req, res) => {\n  let numero = Number(req.params.numero)  // pega o :numero da URL\n  \n  // Busca no PostgreSQL\n  let os = await db.query(\n    "SELECT * FROM os WHERE order_number = $1",\n    [numero]\n  )\n  \n  if (os.rows.length === 0) {\n    return res.status(404).json({ error: "OS nao encontrada" })\n  }\n  \n  res.json({ success: true, data: os.rows[0] })\n})\n\n// Atualizar status da OS\napp.put("/api/os/:numero/status", async (req, res) => {\n  let { status } = req.body\n  let statusValidos = ["assigned", "accepted", "completed", "archived"]\n  \n  if (!statusValidos.includes(status)) {\n    return res.status(400).json({\n      error: "Status invalido",\n      validos: statusValidos\n    })\n  }\n  \n  // Atualiza no PostgreSQL\n  await db.query(\n    "UPDATE os SET status = $1 WHERE order_number = $2",\n    [status, req.params.numero]\n  )\n  \n  res.json({ message: "Status atualizado com sucesso!" })\n})',
               runnable: false
             }
           ],
@@ -1004,12 +1004,12 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Por que banco de dados?",
-              content: "Ate agora guardamos dados em arrays. Mas quando o servidor desliga, <strong>tudo some!</strong> Banco de dados = guardar dados <strong>permanente</strong>.<br><br>O MATH usa <strong>PostgreSQL</strong>. A logica e a mesma de qualquer banco SQL."
+              content: "Ate agora guardamos dados em arrays. Mas quando o servidor desliga, <strong>tudo some!</strong> Banco de dados = guardar dados <strong>permanente</strong>.<br><br>A Helsen Service usa <strong>PostgreSQL</strong> hospedado na Railway. Todas as OS, tecnicos, clientes e materiais ficam salvos la.<br><br>Mesmo se o servidor cair, os dados permanecem seguros no banco."
             },
             {
               type: "code-example",
-              title: "Criando tabelas e inserindo dados",
-              code: '// SQL = linguagem do banco de dados\n\n// Criar tabela:\n// CREATE TABLE tecnicos (\n//   id SERIAL PRIMARY KEY,\n//   nome TEXT NOT NULL,\n//   especialidade TEXT,\n//   ativo BOOLEAN DEFAULT true\n// )\n\n// Inserir dados:\n// INSERT INTO tecnicos (nome, especialidade)\n// VALUES (\'Carlos\', \'Eletrica\')\n\n// Buscar dados:\n// SELECT * FROM tecnicos WHERE ativo = true\n\n// No Node.js com PostgreSQL:\nasync function listarTecnicos() {\n  let resultado = await db.query(\n    "SELECT * FROM tecnicos WHERE ativo = true"\n  )\n  return resultado.rows\n}',
+              title: "Estrutura REAL do banco da Helsen",
+              code: '// SQL = linguagem do banco de dados\n\n// Assim sao as tabelas REAIS da Helsen:\n\n// Tabela de tecnicos:\n// CREATE TABLE technicians (\n//   id SERIAL PRIMARY KEY,\n//   username VARCHAR(100) NOT NULL,\n//   hourly_rate NUMERIC(10,2),\n//   active BOOLEAN DEFAULT true\n// )\n\n// Tabela de OS:\n// CREATE TABLE os (\n//   id SERIAL PRIMARY KEY,\n//   order_number INTEGER UNIQUE,\n//   client_name VARCHAR(255),\n//   technician_id INTEGER REFERENCES technicians(id),\n//   status VARCHAR(50),\n//   grand_total NUMERIC(10,2),\n//   created_at TIMESTAMP DEFAULT NOW()\n// )\n\n// Buscar tecnicos ativos:\n// SELECT * FROM technicians WHERE active = true\n\n// No Node.js com PostgreSQL:\nconst { Client } = require("pg")\nconst db = new Client({ connectionString: process.env.DATABASE_URL })\n\nasync function listarTecnicos() {\n  let resultado = await db.query(\n    "SELECT id, username, hourly_rate FROM technicians WHERE active = true"\n  )\n  return resultado.rows  // [{ id: 41, username: "Leon Mendes", ... }]\n}',
               runnable: false
             },
             {
@@ -1019,8 +1019,8 @@ const COURSE_DATA = {
             },
             {
               type: "code-example",
-              title: "Queries do MATH",
-              code: '// Buscar OS abertas de um tecnico:\n// SELECT * FROM ordens_servico\n// WHERE status = \'aberta\' AND tecnico_id = 1\n\n// Dashboard - estatisticas:\n// SELECT\n//   COUNT(*) as total,\n//   SUM(CASE WHEN status = \'aberta\' THEN 1 ELSE 0 END) as abertas,\n//   SUM(CASE WHEN status = \'finalizada\' THEN 1 ELSE 0 END) as finalizadas,\n//   SUM(valor) as valor_total\n// FROM ordens_servico\n\n// OS com nome do tecnico (JOIN):\n// SELECT os.numero, os.cliente, t.nome as tecnico\n// FROM ordens_servico os\n// LEFT JOIN tecnicos t ON os.tecnico_id = t.id',
+              title: "Queries simples da Helsen",
+              code: '// Exemplos de SQL que a Helsen Service usa:\n\n// Buscar tecnicos ativos:\n// SELECT * FROM technicians WHERE active = true\n\n// Buscar OS de um tecnico:\n// SELECT * FROM os WHERE technician_id = 41\n\n// Buscar OS finalizadas:\n// SELECT * FROM os WHERE status = \'completed\'\n\n// Contar quantas OS tem:\n// SELECT COUNT(*) FROM os\n\n// Somar valor total das OS:\n// SELECT SUM(grand_total) FROM os WHERE status = \'completed\'\n\n// No Node.js, voce usa assim:\nasync function buscarOS(tecnicoId) {\n  let resultado = await db.query(\n    "SELECT * FROM os WHERE technician_id = $1",\n    [tecnicoId]\n  )\n  return resultado.rows\n}',
               runnable: false
             }
           ],
@@ -1057,7 +1057,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Voce chegou no final!",
-              content: "Parabens! Voce aprendeu tudo que precisa pra entender o sistema MATH. Agora o desafio: <strong>criar um mini sistema de OS sozinho.</strong><br><br>Volte nas aulas 12 e 13 (Express e Banco de Dados) e use o que aprendeu pra construir."
+              content: "Parabens! Voce aprendeu tudo que precisa pra entender como a Helsen Service funciona. Agora o desafio: <strong>criar um mini sistema de OS sozinho.</strong><br><br>Use tudo que voce aprendeu: variaveis, loops, funcoes, arrays, objetos, async. Voce ja sabe o suficiente!"
             },
             {
               type: "explanation",
