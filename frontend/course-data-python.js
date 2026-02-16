@@ -902,6 +902,1015 @@ print(len(completas))  # 2</code></pre>
           ]
         }
       ]
+    },
+
+    // ========== MÓDULO 6: CLASSES ==========
+    {
+      id: 6,
+      title: "Classes",
+      lessons: [
+        {
+          id: "6-1",
+          title: "Classes em Python",
+          duration: "25 min",
+          module: "Classes",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 O que são Classes?</h2>
+          <p>Classes são <strong>moldes para criar objetos</strong>. Como uma receita que você pode usar para criar vários objetos similares.</p>
+          <p>Em Python, classes são muito usadas para organizar código. Na Helsen Service, podemos ter uma classe <code>Tecnico</code>, uma classe <code>OrdemServico</code>, etc.</p>
+          <p><strong>Exemplo básico:</strong></p>
+          <pre><code>class Tecnico:
+    def __init__(self, nome, valor_hora):
+        self.nome = nome
+        self.valor_hora = valor_hora
+
+# Criando um técnico
+leon = Tecnico("Leon Mendes", 175)
+print(leon.nome)  # Leon Mendes</code></pre>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💻 Entendendo __init__ e self</h2>
+          <p><code>__init__</code> é o <strong>construtor</strong> da classe. É chamado automaticamente quando você cria um objeto.</p>
+          <p><code>self</code> representa <strong>o próprio objeto</strong>. É como dizer "eu mesmo".</p>
+          <pre><code>class Tecnico:
+    def __init__(self, nome, valor_hora):
+        self.nome = nome           # guarda nome neste objeto
+        self.valor_hora = valor_hora  # guarda valor_hora neste objeto
+
+tecnico1 = Tecnico("Leon Mendes", 175)
+tecnico2 = Tecnico("Dayvison Jepson", 175)
+
+print(tecnico1.nome)  # Leon Mendes
+print(tecnico2.nome)  # Dayvison Jepson</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Crie uma classe <code>OrdemServico</code> com <code>__init__</code> que recebe <code>numero</code> e <code>cliente</code>. Crie uma OS com número <code>6650</code> e cliente <code>&quot;Minerva Usinagem&quot;</code>. Exiba o número.",
+              starterCode: "# Crie a classe\n\n# Crie uma OS\n\n# Exiba o numero\n",
+              solution: 'class OrdemServico:\n    def __init__(self, numero, cliente):\n        self.numero = numero\n        self.cliente = cliente\n\nos = OrdemServico(6650, "Minerva Usinagem")\nprint(os.numero)',
+              validation: (code) => {
+                return code.includes('class') && code.includes('__init__') && code.includes('self')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Métodos de Classe</h2>
+          <p>Métodos são <strong>funções dentro de classes</strong>. Eles definem o que o objeto pode fazer.</p>
+          <pre><code>class Tecnico:
+    def __init__(self, nome, valor_hora):
+        self.nome = nome
+        self.valor_hora = valor_hora
+
+    def calcular_custo(self, horas):
+        return self.valor_hora * horas
+
+    def apresentar(self):
+        return f"Técnico: {self.nome} - R$ {self.valor_hora}/hora"
+
+leon = Tecnico("Leon Mendes", 175)
+print(leon.apresentar())
+print(f"Custo por 8 horas: R$ {leon.calcular_custo(8)}")</code></pre>
+          <p><strong>Saída:</strong></p>
+          <pre>Técnico: Leon Mendes - R$ 175/hora
+Custo por 8 horas: R$ 1400</pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1B",
+              instructions: "Adicione um método <code>mostrar_info</code> na classe <code>OrdemServico</code> que retorna: <code>OS [numero] - [cliente]</code>. Chame o método e exiba.",
+              starterCode: 'class OrdemServico:\n    def __init__(self, numero, cliente):\n        self.numero = numero\n        self.cliente = cliente\n    \n    # Adicione o método aqui\n\nos = OrdemServico(6650, "Minerva Usinagem")\n# Chame o método\n',
+              solution: 'class OrdemServico:\n    def __init__(self, numero, cliente):\n        self.numero = numero\n        self.cliente = cliente\n    \n    def mostrar_info(self):\n        return f"OS {self.numero} - {self.cliente}"\n\nos = OrdemServico(6650, "Minerva Usinagem")\nprint(os.mostrar_info())',
+              validation: (code) => {
+                return code.includes('def mostrar_info') && code.includes('return')
+              }
+            }
+          ]
+        },
+        {
+          id: "6-2",
+          title: "Classes com Dados da Helsen",
+          duration: "28 min",
+          module: "Classes",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 Classe completa de Técnico</h2>
+          <p>Vamos criar uma classe completa baseada nos dados reais da Helsen Service:</p>
+          <pre><code>class Tecnico:
+    def __init__(self, id, nome, valor_hora, ativo=True):
+        self.id = id
+        self.nome = nome
+        self.valor_hora = valor_hora
+        self.ativo = ativo
+        self.os_ativas = []
+
+    def atribuir_os(self, numero_os):
+        if not self.ativo:
+            return "Técnico inativo não pode receber OS"
+
+        if len(self.os_ativas) >= 5:
+            return f"{self.nome} já tem 5 OS ativas (limite)"
+
+        self.os_ativas.append(numero_os)
+        return f"OS {numero_os} atribuída para {self.nome}"
+
+    def listar_os(self):
+        if len(self.os_ativas) == 0:
+            return f"{self.nome} não tem OS ativas"
+
+        return f"{self.nome} tem {len(self.os_ativas)} OS: {self.os_ativas}"
+
+# Testando
+leon = Tecnico(41, "Leon Mendes", 175)
+print(leon.atribuir_os(6650))
+print(leon.atribuir_os(6632))
+print(leon.listar_os())</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Crie uma classe <code>OrdemServico</code> completa com: <code>numero</code>, <code>cliente</code>, <code>valor</code> e <code>status</code> (padrão: <code>&quot;aberta&quot;</code>). Adicione método <code>finalizar</code> que muda status para <code>&quot;completed&quot;</code>.",
+              starterCode: "# Crie a classe completa\n\n# Crie uma OS\n\n# Finalize e exiba status\n",
+              solution: 'class OrdemServico:\n    def __init__(self, numero, cliente, valor, status="aberta"):\n        self.numero = numero\n        self.cliente = cliente\n        self.valor = valor\n        self.status = status\n    \n    def finalizar(self):\n        self.status = "completed"\n        return f"OS {self.numero} finalizada"\n\nos = OrdemServico(6650, "Minerva Usinagem", 1145)\nprint(os.finalizar())\nprint(f"Status: {os.status}")',
+              validation: (code) => {
+                return code.includes('class OrdemServico') && code.includes('def finalizar')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Trabalhando com listas de objetos</h2>
+          <p>Podemos criar múltiplos objetos e guardá-los em listas:</p>
+          <pre><code>class Tecnico:
+    def __init__(self, id, nome, valor_hora):
+        self.id = id
+        self.nome = nome
+        self.valor_hora = valor_hora
+
+# Lista de técnicos
+tecnicos = [
+    Tecnico(41, "Leon Mendes", 175),
+    Tecnico(42, "Valdinei Pereira", 175),
+    Tecnico(48, "Dayvison Jepson", 175)
+]
+
+# Percorrendo
+for tec in tecnicos:
+    print(f"{tec.nome} - R$ {tec.valor_hora}/hora")
+
+# Buscando um específico
+leon = [t for t in tecnicos if t.id == 41][0]
+print(f"\\nEncontrado: {leon.nome}")</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "2A",
+              instructions: "Crie uma lista com 3 objetos <code>OrdemServico</code> usando dados da Helsen. Use list comprehension para filtrar apenas as OS com <code>status == &quot;completed&quot;</code>. Exiba quantas são.",
+              starterCode: "class OrdemServico:\n    def __init__(self, numero, cliente, valor, status):\n        self.numero = numero\n        self.cliente = cliente\n        self.valor = valor\n        self.status = status\n\n# Crie lista de 3 OS\n\n# Filtre as completed\n\n# Exiba quantidade\n",
+              solution: 'class OrdemServico:\n    def __init__(self, numero, cliente, valor, status):\n        self.numero = numero\n        self.cliente = cliente\n        self.valor = valor\n        self.status = status\n\ntodas_os = [\n    OrdemServico(6650, "Minerva Usinagem", 1145, "completed"),\n    OrdemServico(6632, "Usinagem Castro", 700, "avulso"),\n    OrdemServico(6620, "Off Limits", 445, "completed")\n]\n\ncompletas = [os for os in todas_os if os.status == "completed"]\nprint(f"OS completas: {len(completas)}")',
+              validation: (code) => {
+                return code.includes('[') && code.includes('for') && code.includes('if') && code.includes('status')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Método que calcula valores</h2>
+          <p>Classes podem ter métodos que fazem cálculos:</p>
+          <pre><code>class OrdemServico:
+    def __init__(self, numero, cliente, horas, valor_hora):
+        self.numero = numero
+        self.cliente = cliente
+        self.horas = horas
+        self.valor_hora = valor_hora
+
+    def calcular_total(self):
+        return self.horas * self.valor_hora
+
+    def calcular_comissao(self, percentual):
+        total = self.calcular_total()
+        return total * (percentual / 100)
+
+os = OrdemServico(6650, "Minerva Usinagem", 6.5, 175)
+print(f"Total: R$ {os.calcular_total()}")
+print(f"Comissão 10%: R$ {os.calcular_comissao(10)}")</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "2B",
+              instructions: "Adicione um método <code>calcular_desconto</code> na classe que recebe um percentual e retorna o valor total com desconto aplicado. Teste com 15% de desconto.",
+              starterCode: 'class OrdemServico:\n    def __init__(self, numero, cliente, valor):\n        self.numero = numero\n        self.cliente = cliente\n        self.valor = valor\n    \n    # Adicione o método calcular_desconto\n\nos = OrdemServico(6650, "Minerva Usinagem", 1145)\n# Calcule com 15% desconto\n',
+              solution: 'class OrdemServico:\n    def __init__(self, numero, cliente, valor):\n        self.numero = numero\n        self.cliente = cliente\n        self.valor = valor\n    \n    def calcular_desconto(self, percentual):\n        desconto = self.valor * (percentual / 100)\n        return self.valor - desconto\n\nos = OrdemServico(6650, "Minerva Usinagem", 1145)\nvalor_com_desconto = os.calcular_desconto(15)\nprint(f"Valor com 15% desconto: R$ {valor_com_desconto}")',
+              validation: (code) => {
+                return code.includes('def calcular_desconto') && code.includes('percentual')
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    // ========== MÓDULO 7: ASYNC/AWAIT ==========
+    {
+      id: 7,
+      title: "Async/Await",
+      lessons: [
+        {
+          id: "7-1",
+          title: "Asyncio Básico",
+          duration: "22 min",
+          module: "Async/Await",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 Por que async em Python?</h2>
+          <p>Muitas operações <strong>demoram</strong>: buscar dados no banco PostgreSQL, fazer requisições HTTP, ler arquivos grandes.</p>
+          <p>Python tem o módulo <code>asyncio</code> para lidar com operações assíncronas. Na Helsen Service, todas as consultas ao banco usam <code>async/await</code>.</p>
+          <p><strong>Comparação:</strong></p>
+          <pre><code># Código SÍNCRONO (espera terminar)
+def buscar_dados():
+    time.sleep(2)  # Bloqueia por 2 segundos
+    return "dados"
+
+# Código ASSÍNCRONO (não bloqueia)
+async def buscar_dados_async():
+    await asyncio.sleep(2)  # Libera para outras tarefas
+    return "dados"</code></pre>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💻 Primeiro exemplo async</h2>
+          <pre><code>import asyncio
+
+async def buscar_tecnico(id):
+    print(f"Buscando técnico ID {id}...")
+    await asyncio.sleep(1)  # Simula busca no banco
+
+    if id == 41:
+        return {"id": 41, "nome": "Leon Mendes", "valor_hora": 175}
+    elif id == 42:
+        return {"id": 42, "nome": "Valdinei Pereira", "valor_hora": 175}
+    else:
+        return None
+
+async def main():
+    tecnico = await buscar_tecnico(41)
+    print(f"Encontrado: {tecnico['nome']}")
+
+# Executando
+asyncio.run(main())</code></pre>
+          <p><strong>Saída:</strong></p>
+          <pre>Buscando técnico ID 41...
+Encontrado: Leon Mendes</pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Crie uma função <code>async def buscar_os(numero)</code> que simula busca no banco com <code>await asyncio.sleep(1)</code>. Se número for <code>6650</code>, retorna dicionário da OS da Minerva. Crie <code>main()</code> que busca e exibe o cliente.",
+              starterCode: "import asyncio\n\n# Crie buscar_os\n\n# Crie main\n\n# Execute\n",
+              solution: 'import asyncio\n\nasync def buscar_os(numero):\n    await asyncio.sleep(1)\n    if numero == 6650:\n        return {"numero": 6650, "cliente": "Minerva Usinagem", "valor": 1145}\n    return None\n\nasync def main():\n    os = await buscar_os(6650)\n    print(f"Cliente: {os[\'cliente\']}")\n\nasyncio.run(main())',
+              validation: (code) => {
+                return code.includes('async def') && code.includes('await') && code.includes('asyncio')
+              }
+            }
+          ]
+        },
+        {
+          id: "7-2",
+          title: "Múltiplas tarefas assíncronas",
+          duration: "25 min",
+          module: "Async/Await",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 Executando múltiplas tarefas</h2>
+          <p>O poder do <code>async</code> é executar várias operações ao mesmo tempo:</p>
+          <pre><code>import asyncio
+
+async def buscar_tecnico(id):
+    await asyncio.sleep(1)
+    return f"Técnico {id}"
+
+async def buscar_os(numero):
+    await asyncio.sleep(1)
+    return f"OS {numero}"
+
+async def main():
+    # Executar em paralelo
+    resultado = await asyncio.gather(
+        buscar_tecnico(41),
+        buscar_os(6650),
+        buscar_os(6632)
+    )
+
+    print(resultado)
+
+asyncio.run(main())</code></pre>
+          <p>Com <code>asyncio.gather()</code>, todas as 3 buscas rodam ao mesmo tempo! Total: ~1 segundo em vez de 3.</p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Crie duas funções async: <code>buscar_tecnico</code> e <code>buscar_cliente</code>. Use <code>asyncio.gather()</code> para buscar os dois ao mesmo tempo e exiba os resultados.",
+              starterCode: "import asyncio\n\nasync def buscar_tecnico(id):\n    await asyncio.sleep(1)\n    return {\"id\": id, \"nome\": \"Leon Mendes\"}\n\nasync def buscar_cliente(id):\n    await asyncio.sleep(1)\n    return {\"id\": id, \"nome\": \"Minerva Usinagem\"}\n\n# Crie main com gather\n\n# Execute\n",
+              solution: 'import asyncio\n\nasync def buscar_tecnico(id):\n    await asyncio.sleep(1)\n    return {"id": id, "nome": "Leon Mendes"}\n\nasync def buscar_cliente(id):\n    await asyncio.sleep(1)\n    return {"id": id, "nome": "Minerva Usinagem"}\n\nasync def main():\n    tecnico, cliente = await asyncio.gather(\n        buscar_tecnico(41),\n        buscar_cliente(100)\n    )\n    print(f"Técnico: {tecnico[\'nome\']}")\n    print(f"Cliente: {cliente[\'nome\']}")\n\nasyncio.run(main())',
+              validation: (code) => {
+                return code.includes('asyncio.gather') && code.includes('await')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Try/Except com Async</h2>
+          <p>Tratamento de erros funciona igual:</p>
+          <pre><code>import asyncio
+
+async def buscar_os(numero):
+    await asyncio.sleep(1)
+
+    if numero == 6650:
+        return {"numero": 6650, "cliente": "Minerva Usinagem"}
+    else:
+        raise Exception(f"OS {numero} não encontrada")
+
+async def main():
+    try:
+        os = await buscar_os(9999)
+        print(os)
+    except Exception as e:
+        print(f"Erro: {e}")
+
+asyncio.run(main())</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1B",
+              instructions: "Adicione tratamento de erro na função de busca. Se o número da OS não for <code>6650</code> ou <code>6632</code>, levante uma exceção. Use <code>try/except</code> na <code>main()</code>.",
+              starterCode: "import asyncio\n\nasync def buscar_os(numero):\n    await asyncio.sleep(1)\n    # Adicione lógica com exceção\n\nasync def main():\n    # Use try/except\n    pass\n\nasyncio.run(main())\n",
+              solution: 'import asyncio\n\nasync def buscar_os(numero):\n    await asyncio.sleep(1)\n    \n    if numero == 6650:\n        return {"numero": 6650, "cliente": "Minerva Usinagem"}\n    elif numero == 6632:\n        return {"numero": 6632, "cliente": "Usinagem Castro"}\n    else:\n        raise Exception(f"OS {numero} não encontrada")\n\nasync def main():\n    try:\n        os = await buscar_os(9999)\n        print(os)\n    except Exception as e:\n        print(f"Erro: {e}")\n\nasyncio.run(main())',
+              validation: (code) => {
+                return code.includes('raise Exception') && code.includes('try') && code.includes('except')
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    // ========== MÓDULO 8: FLASK API ==========
+    {
+      id: 8,
+      title: "Flask API",
+      lessons: [
+        {
+          id: "8-1",
+          title: "Flask Básico",
+          duration: "28 min",
+          module: "Flask API",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 O que é Flask?</h2>
+          <p>Flask é um framework web para Python. É o equivalente do Express em JavaScript!</p>
+          <p>Com Flask, você cria um <strong>servidor web</strong> que recebe requisições HTTP e retorna respostas.</p>
+          <p>Na Helsen Service, poderíamos usar Flask no backend para:</p>
+          <ul>
+            <li>Criar rotas para buscar técnicos, OS e clientes</li>
+            <li>Salvar dados no banco PostgreSQL</li>
+            <li>Retornar dados em formato JSON</li>
+          </ul>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💻 Primeira aplicação Flask</h2>
+          <pre><code>from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+# Dados simulados da Helsen
+tecnicos = [
+    {"id": 41, "nome": "Leon Mendes", "valor_hora": 175},
+    {"id": 42, "nome": "Valdinei Pereira", "valor_hora": 175},
+    {"id": 48, "nome": "Dayvison Jepson", "valor_hora": 175}
+]
+
+# Rota GET - listar todos técnicos
+@app.route('/tecnicos', methods=['GET'])
+def listar_tecnicos():
+    return jsonify(tecnicos)
+
+# Rota GET - buscar técnico por ID
+@app.route('/tecnicos/&lt;int:id&gt;', methods=['GET'])
+def buscar_tecnico(id):
+    tecnico = next((t for t in tecnicos if t['id'] == id), None)
+
+    if tecnico:
+        return jsonify(tecnico)
+    else:
+        return jsonify({"error": "Técnico não encontrado"}), 404
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)</code></pre>
+          <p>Este código cria um servidor na porta 5000 com duas rotas!</p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Crie uma aplicação Flask com uma lista de OS. Adicione uma rota <code>/os</code> que retorna todas as OS em JSON. Use <code>jsonify()</code>.",
+              starterCode: "from flask import Flask, jsonify\n\napp = Flask(__name__)\n\n# Crie lista de OS\n\n# Crie rota /os\n\nif __name__ == '__main__':\n    app.run(debug=True)\n",
+              solution: 'from flask import Flask, jsonify\n\napp = Flask(__name__)\n\nos_list = [\n    {"numero": 6650, "cliente": "Minerva Usinagem", "valor": 1145},\n    {"numero": 6632, "cliente": "Usinagem Castro", "valor": 700},\n    {"numero": 6620, "cliente": "Off Limits", "valor": 445}\n]\n\n@app.route(\'/os\', methods=[\'GET\'])\ndef listar_os():\n    return jsonify(os_list)\n\nif __name__ == \'__main__\':\n    app.run(debug=True)',
+              validation: (code) => {
+                return code.includes('Flask') && code.includes('@app.route') && code.includes('jsonify')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Rotas com parâmetros</h2>
+          <p>Podemos criar rotas dinâmicas que recebem parâmetros na URL:</p>
+          <pre><code>@app.route('/os/&lt;int:numero&gt;', methods=['GET'])
+def buscar_os(numero):
+    os = next((o for o in os_list if o['numero'] == numero), None)
+
+    if os:
+        return jsonify(os)
+    else:
+        return jsonify({"error": "OS não encontrada"}), 404</code></pre>
+          <p>Agora podemos acessar: <code>http://localhost:5000/os/6650</code></p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1B",
+              instructions: "Adicione uma rota <code>/os/&lt;int:numero&gt;</code> que busca uma OS específica pelo número. Se não encontrar, retorne erro 404.",
+              starterCode: 'from flask import Flask, jsonify\n\napp = Flask(__name__)\n\nos_list = [\n    {"numero": 6650, "cliente": "Minerva Usinagem", "valor": 1145},\n    {"numero": 6632, "cliente": "Usinagem Castro", "valor": 700}\n]\n\n# Adicione rota com parâmetro\n\nif __name__ == \'__main__\':\n    app.run(debug=True)\n',
+              solution: 'from flask import Flask, jsonify\n\napp = Flask(__name__)\n\nos_list = [\n    {"numero": 6650, "cliente": "Minerva Usinagem", "valor": 1145},\n    {"numero": 6632, "cliente": "Usinagem Castro", "valor": 700}\n]\n\n@app.route(\'/os/<int:numero>\', methods=[\'GET\'])\ndef buscar_os(numero):\n    os = next((o for o in os_list if o[\'numero\'] == numero), None)\n    \n    if os:\n        return jsonify(os)\n    else:\n        return jsonify({"error": "OS não encontrada"}), 404\n\nif __name__ == \'__main__\':\n    app.run(debug=True)',
+              validation: (code) => {
+                return code.includes('@app.route') && code.includes('<int:numero>') && code.includes('404')
+              }
+            }
+          ]
+        },
+        {
+          id: "8-2",
+          title: "REST API com Flask",
+          duration: "30 min",
+          module: "Flask API",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 Criando uma API REST completa</h2>
+          <p>Uma API REST tem diferentes métodos HTTP:</p>
+          <ul>
+            <li><strong>GET</strong> - Buscar/Listar dados</li>
+            <li><strong>POST</strong> - Criar novos dados</li>
+            <li><strong>PUT</strong> - Atualizar dados existentes</li>
+            <li><strong>DELETE</strong> - Deletar dados</li>
+          </ul>
+          <p>Vamos criar uma API completa para gerenciar OS!</p>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💻 API REST - POST para criar OS</h2>
+          <pre><code>from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+os_list = []
+contador_id = 1
+
+@app.route('/os', methods=['POST'])
+def criar_os():
+    global contador_id
+
+    dados = request.get_json()
+
+    nova_os = {
+        "id": contador_id,
+        "numero": dados.get('numero'),
+        "cliente": dados.get('cliente'),
+        "valor": dados.get('valor'),
+        "status": "aberta"
+    }
+
+    os_list.append(nova_os)
+    contador_id += 1
+
+    return jsonify(nova_os), 201
+
+@app.route('/os', methods=['GET'])
+def listar_os():
+    return jsonify(os_list)</code></pre>
+          <p>Agora podemos criar OS via POST!</p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Adicione uma rota <code>PUT /os/&lt;int:id&gt;</code> que atualiza o status de uma OS. Receba o novo status via JSON no body da requisição.",
+              starterCode: 'from flask import Flask, jsonify, request\n\napp = Flask(__name__)\n\nos_list = [\n    {"id": 1, "numero": 6650, "cliente": "Minerva", "status": "aberta"},\n    {"id": 2, "numero": 6632, "cliente": "Castro", "status": "aberta"}\n]\n\n# Adicione rota PUT\n\nif __name__ == \'__main__\':\n    app.run(debug=True)\n',
+              solution: 'from flask import Flask, jsonify, request\n\napp = Flask(__name__)\n\nos_list = [\n    {"id": 1, "numero": 6650, "cliente": "Minerva", "status": "aberta"},\n    {"id": 2, "numero": 6632, "cliente": "Castro", "status": "aberta"}\n]\n\n@app.route(\'/os/<int:id>\', methods=[\'PUT\'])\ndef atualizar_os(id):\n    os = next((o for o in os_list if o[\'id\'] == id), None)\n    \n    if not os:\n        return jsonify({"error": "OS não encontrada"}), 404\n    \n    dados = request.get_json()\n    os[\'status\'] = dados.get(\'status\', os[\'status\'])\n    \n    return jsonify(os)\n\nif __name__ == \'__main__\':\n    app.run(debug=True)',
+              validation: (code) => {
+                return code.includes('PUT') && code.includes('request.get_json')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Filtrando dados com query params</h2>
+          <p>Podemos receber parâmetros na URL para filtrar:</p>
+          <pre><code>@app.route('/os', methods=['GET'])
+def listar_os():
+    status = request.args.get('status')
+
+    if status:
+        filtradas = [o for o in os_list if o['status'] == status]
+        return jsonify(filtradas)
+
+    return jsonify(os_list)</code></pre>
+          <p>Agora podemos chamar: <code>/os?status=completed</code></p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1B",
+              instructions: "Modifique a rota <code>GET /os</code> para aceitar filtro por <code>status</code> via query params. Se não houver filtro, retorna todas.",
+              starterCode: 'from flask import Flask, jsonify, request\n\napp = Flask(__name__)\n\nos_list = [\n    {"numero": 6650, "cliente": "Minerva", "status": "completed"},\n    {"numero": 6632, "cliente": "Castro", "status": "aberta"},\n    {"numero": 6620, "cliente": "Off Limits", "status": "completed"}\n]\n\n# Modifique para aceitar filtro\n@app.route(\'/os\', methods=[\'GET\'])\ndef listar_os():\n    pass\n\nif __name__ == \'__main__\':\n    app.run(debug=True)\n',
+              solution: 'from flask import Flask, jsonify, request\n\napp = Flask(__name__)\n\nos_list = [\n    {"numero": 6650, "cliente": "Minerva", "status": "completed"},\n    {"numero": 6632, "cliente": "Castro", "status": "aberta"},\n    {"numero": 6620, "cliente": "Off Limits", "status": "completed"}\n]\n\n@app.route(\'/os\', methods=[\'GET\'])\ndef listar_os():\n    status = request.args.get(\'status\')\n    \n    if status:\n        filtradas = [o for o in os_list if o[\'status\'] == status]\n        return jsonify(filtradas)\n    \n    return jsonify(os_list)\n\nif __name__ == \'__main__\':\n    app.run(debug=True)',
+              validation: (code) => {
+                return code.includes('request.args.get') && code.includes('status')
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    // ========== MÓDULO 9: SQL ==========
+    {
+      id: 9,
+      title: "SQL e Banco de Dados",
+      lessons: [
+        {
+          id: "9-1",
+          title: "Introdução ao SQL",
+          duration: "25 min",
+          module: "SQL e Banco de Dados",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 Por que banco de dados?</h2>
+          <p>Até agora guardamos dados em listas Python. Mas quando o programa fecha, <strong>tudo some!</strong></p>
+          <p>Banco de dados = guardar dados <strong>permanentemente</strong>.</p>
+          <p>A Helsen Service usa <strong>PostgreSQL</strong>. Todas as OS, técnicos, clientes ficam salvos lá.</p>
+          <p>SQL (Structured Query Language) é a linguagem para comunicar com bancos de dados.</p>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💻 Estrutura do banco da Helsen</h2>
+          <pre><code>-- Tabela de técnicos
+CREATE TABLE technicians (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    hourly_rate NUMERIC(10,2),
+    active BOOLEAN DEFAULT true
+);
+
+-- Tabela de OS
+CREATE TABLE os (
+    id SERIAL PRIMARY KEY,
+    order_number INTEGER UNIQUE,
+    client_name VARCHAR(255),
+    technician_id INTEGER REFERENCES technicians(id),
+    status VARCHAR(50),
+    grand_total NUMERIC(10,2),
+    created_at TIMESTAMP DEFAULT NOW()
+);</code></pre>
+          <p>Essas são as tabelas REAIS do sistema Helsen!</p>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Comandos SQL básicos</h2>
+          <p><strong>SELECT</strong> - Buscar dados:</p>
+          <pre><code>-- Buscar todos os técnicos
+SELECT * FROM technicians;
+
+-- Buscar técnicos ativos
+SELECT * FROM technicians WHERE active = true;
+
+-- Buscar técnico específico
+SELECT * FROM technicians WHERE id = 41;</code></pre>
+
+          <p><strong>INSERT</strong> - Inserir dados:</p>
+          <pre><code>INSERT INTO technicians (username, hourly_rate, active)
+VALUES ('Leon Mendes', 175, true);</code></pre>
+
+          <p><strong>UPDATE</strong> - Atualizar dados:</p>
+          <pre><code>UPDATE os
+SET status = 'completed'
+WHERE order_number = 6650;</code></pre>
+
+          <p><strong>DELETE</strong> - Deletar dados:</p>
+          <pre><code>DELETE FROM os
+WHERE order_number = 9999;</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Escreva uma query SQL para buscar todas as OS com <code>status = 'completed'</code>. Use <code>SELECT</code> e <code>WHERE</code>.",
+              starterCode: "-- Escreva a query aqui\n",
+              solution: "SELECT * FROM os WHERE status = 'completed';",
+              validation: (code) => {
+                return code.includes('SELECT') && code.includes('WHERE') && code.includes('completed')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Funções agregadas</h2>
+          <p>SQL tem funções para calcular sobre conjuntos de dados:</p>
+          <pre><code>-- Contar quantas OS existem
+SELECT COUNT(*) FROM os;
+
+-- Somar valor total das OS
+SELECT SUM(grand_total) FROM os WHERE status = 'completed';
+
+-- Calcular média
+SELECT AVG(grand_total) FROM os;
+
+-- Maior e menor valor
+SELECT MAX(grand_total), MIN(grand_total) FROM os;</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1B",
+              instructions: "Escreva uma query SQL para calcular a <strong>soma total</strong> de todas as OS com status <code>'completed'</code>. Use <code>SUM()</code>.",
+              starterCode: "-- Calcule a soma total\n",
+              solution: "SELECT SUM(grand_total) FROM os WHERE status = 'completed';",
+              validation: (code) => {
+                return code.includes('SUM') && code.includes('grand_total') && code.includes('completed')
+              }
+            }
+          ]
+        },
+        {
+          id: "9-2",
+          title: "SQL com Python",
+          duration: "28 min",
+          module: "SQL e Banco de Dados",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>📖 Conectando Python com PostgreSQL</h2>
+          <p>Para usar PostgreSQL em Python, usamos a biblioteca <code>psycopg2</code>:</p>
+          <pre><code>import psycopg2
+
+# Conectar ao banco
+conn = psycopg2.connect(
+    host="localhost",
+    database="helsen_db",
+    user="postgres",
+    password="senha123"
+)
+
+# Criar cursor (executor de queries)
+cursor = conn.cursor()
+
+# Executar query
+cursor.execute("SELECT * FROM technicians WHERE active = true")
+
+# Buscar resultados
+tecnicos = cursor.fetchall()
+
+for tec in tecnicos:
+    print(tec)
+
+# Fechar conexões
+cursor.close()
+conn.close()</code></pre>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💻 Inserindo dados</h2>
+          <pre><code>import psycopg2
+
+conn = psycopg2.connect(database="helsen_db")
+cursor = conn.cursor()
+
+# Inserir novo técnico
+cursor.execute("""
+    INSERT INTO technicians (username, hourly_rate, active)
+    VALUES (%s, %s, %s)
+""", ("Leon Mendes", 175, True))
+
+# IMPORTANTE: Commit para salvar
+conn.commit()
+
+print("Técnico inserido!")
+
+cursor.close()
+conn.close()</code></pre>
+          <p><code>%s</code> são placeholders para evitar SQL injection!</p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1A",
+              instructions: "Escreva código Python que busca todas as OS com <code>status = 'completed'</code> usando <code>psycopg2</code>. Use <code>cursor.execute()</code> e <code>fetchall()</code>.",
+              starterCode: 'import psycopg2\n\nconn = psycopg2.connect(database="helsen_db")\ncursor = conn.cursor()\n\n# Execute a query\n\n# Busque resultados\n\n# Exiba\n\ncursor.close()\nconn.close()\n',
+              solution: 'import psycopg2\n\nconn = psycopg2.connect(database="helsen_db")\ncursor = conn.cursor()\n\ncursor.execute("SELECT * FROM os WHERE status = %s", (\'completed\',))\nos_list = cursor.fetchall()\n\nfor os in os_list:\n    print(os)\n\ncursor.close()\nconn.close()',
+              validation: (code) => {
+                return code.includes('cursor.execute') && code.includes('fetchall') && code.includes('completed')
+              }
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📖 Usando com Flask</h2>
+          <p>Podemos integrar banco de dados com Flask:</p>
+          <pre><code>from flask import Flask, jsonify
+import psycopg2
+
+app = Flask(__name__)
+
+def get_db():
+    return psycopg2.connect(database="helsen_db")
+
+@app.route('/tecnicos', methods=['GET'])
+def listar_tecnicos():
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM technicians WHERE active = true")
+    tecnicos = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify(tecnicos)
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "1B",
+              instructions: "Crie uma rota Flask <code>GET /os</code> que busca todas as OS do banco PostgreSQL e retorna em JSON. Use <code>psycopg2</code>.",
+              starterCode: 'from flask import Flask, jsonify\nimport psycopg2\n\napp = Flask(__name__)\n\n# Crie a rota\n\nif __name__ == \'__main__\':\n    app.run(debug=True)\n',
+              solution: 'from flask import Flask, jsonify\nimport psycopg2\n\napp = Flask(__name__)\n\n@app.route(\'/os\', methods=[\'GET\'])\ndef listar_os():\n    conn = psycopg2.connect(database="helsen_db")\n    cursor = conn.cursor()\n    \n    cursor.execute("SELECT * FROM os")\n    os_list = cursor.fetchall()\n    \n    cursor.close()\n    conn.close()\n    \n    return jsonify(os_list)\n\nif __name__ == \'__main__\':\n    app.run(debug=True)',
+              validation: (code) => {
+                return code.includes('@app.route') && code.includes('psycopg2') && code.includes('cursor.execute')
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    // ========== MÓDULO 10: PROJETO FINAL ==========
+    {
+      id: 10,
+      title: "Projeto Final",
+      lessons: [
+        {
+          id: "10-1",
+          title: "Sistema MATH em Python",
+          duration: "120 min",
+          module: "Projeto Final",
+          sections: [
+            {
+              type: "text",
+              content: `
+          <h2>🎯 Desafio Final - Sistema MATH Helsen</h2>
+          <p>Parabéns! Você chegou ao final do curso de Python!</p>
+          <p>Agora o desafio: <strong>criar um sistema completo de gerenciamento de OS usando Python, Flask e PostgreSQL</strong>.</p>
+          <p>Use tudo que você aprendeu:</p>
+          <ul>
+            <li>Variáveis, loops, funções</li>
+            <li>Listas e dicionários</li>
+            <li>Classes</li>
+            <li>Async/await</li>
+            <li>Flask API</li>
+            <li>SQL e PostgreSQL</li>
+          </ul>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>📋 Requisitos do Projeto</h2>
+          <p><strong>Backend Flask com as seguintes rotas:</strong></p>
+          <ul>
+            <li><code>GET /tecnicos</code> - Listar todos os técnicos ativos</li>
+            <li><code>GET /tecnicos/:id</code> - Buscar técnico específico</li>
+            <li><code>POST /tecnicos</code> - Criar novo técnico</li>
+            <li><code>GET /os</code> - Listar todas as OS (com filtro por status)</li>
+            <li><code>GET /os/:numero</code> - Buscar OS específica</li>
+            <li><code>POST /os</code> - Criar nova OS</li>
+            <li><code>PUT /os/:id</code> - Atualizar status da OS</li>
+            <li><code>GET /dashboard</code> - Estatísticas (total OS, faturamento, etc)</li>
+          </ul>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>🗄️ Estrutura do Banco de Dados</h2>
+          <pre><code>-- Tabela de técnicos
+CREATE TABLE technicians (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    hourly_rate NUMERIC(10,2),
+    active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Tabela de clientes
+CREATE TABLE clients (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    cnpj VARCHAR(20),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Tabela de OS
+CREATE TABLE os (
+    id SERIAL PRIMARY KEY,
+    order_number INTEGER UNIQUE NOT NULL,
+    client_id INTEGER REFERENCES clients(id),
+    technician_id INTEGER REFERENCES technicians(id),
+    status VARCHAR(50) DEFAULT 'aberta',
+    grand_total NUMERIC(10,2),
+    total_hours NUMERIC(5,2),
+    scheduled_date DATE,
+    created_at TIMESTAMP DEFAULT NOW()
+);</code></pre>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>⚙️ Regras de Negócio</h2>
+          <ul>
+            <li><strong>Não pode criar OS sem cliente:</strong> Validar que client_id existe</li>
+            <li><strong>Técnico não pode ter mais de 5 OS ativas:</strong> Verificar antes de atribuir</li>
+            <li><strong>Valor mínimo de OS:</strong> R$ 100,00</li>
+            <li><strong>Status válidos:</strong> aberta, atribuida, em_andamento, completed, cancelada</li>
+            <li><strong>Só técnicos ativos podem receber OS:</strong> Verificar active = true</li>
+          </ul>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>🚀 Como começar</h2>
+          <p><strong>Passo 1:</strong> Criar pasta do projeto</p>
+          <pre><code>mkdir sistema-math-python
+cd sistema-math-python</code></pre>
+
+          <p><strong>Passo 2:</strong> Criar ambiente virtual</p>
+          <pre><code>python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\\Scripts\\activate     # Windows</code></pre>
+
+          <p><strong>Passo 3:</strong> Instalar dependências</p>
+          <pre><code>pip install flask psycopg2-binary python-dotenv</code></pre>
+
+          <p><strong>Passo 4:</strong> Criar estrutura de arquivos</p>
+          <pre><code>sistema-math-python/
+├── app.py              # Servidor Flask
+├── database.py         # Conexão com PostgreSQL
+├── models.py           # Classes (Tecnico, OS, Cliente)
+├── routes/
+│   ├── tecnicos.py     # Rotas de técnicos
+│   ├── os.py           # Rotas de OS
+│   └── dashboard.py    # Rota dashboard
+└── .env                # Variáveis de ambiente</code></pre>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>💡 Dicas de Implementação</h2>
+          <p><strong>1. Comece pelo banco:</strong> Crie as tabelas primeiro</p>
+          <p><strong>2. Crie as classes:</strong> Use POO para organizar</p>
+          <p><strong>3. Implemente rota por rota:</strong> Teste cada uma antes da próxima</p>
+          <p><strong>4. Use try/except:</strong> Trate erros de banco de dados</p>
+          <p><strong>5. Valide os dados:</strong> Verifique se campos obrigatórios existem</p>
+          <p><strong>6. Use variáveis de ambiente:</strong> Nunca commite senhas!</p>
+
+          <p><strong>Exemplo de app.py inicial:</strong></p>
+          <pre><code>from flask import Flask
+from routes import tecnicos, os, dashboard
+
+app = Flask(__name__)
+
+# Registrar blueprints
+app.register_blueprint(tecnicos.bp)
+app.register_blueprint(os.bp)
+app.register_blueprint(dashboard.bp)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)</code></pre>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>✅ Checklist do Projeto</h2>
+          <p>Marque conforme você completa cada parte:</p>
+          <ul>
+            <li>☐ Banco de dados PostgreSQL criado</li>
+            <li>☐ Tabelas criadas (technicians, clients, os)</li>
+            <li>☐ Classes Python criadas (models.py)</li>
+            <li>☐ Conexão com banco funcionando</li>
+            <li>☐ Rota GET /tecnicos</li>
+            <li>☐ Rota POST /tecnicos</li>
+            <li>☐ Rota GET /os com filtro por status</li>
+            <li>☐ Rota POST /os com validações</li>
+            <li>☐ Rota PUT /os/:id</li>
+            <li>☐ Rota GET /dashboard com estatísticas</li>
+            <li>☐ Tratamento de erros em todas as rotas</li>
+            <li>☐ Testes manuais com Postman/Insomnia</li>
+          </ul>
+        `
+            },
+            {
+              type: "text",
+              content: `
+          <h2>🎓 Você completou o curso!</h2>
+          <p>Parabéns por chegar até aqui! Você agora sabe:</p>
+          <ul>
+            <li>✅ Fundamentos de Python (variáveis, loops, funções)</li>
+            <li>✅ Estruturas de dados (listas, dicionários)</li>
+            <li>✅ Programação Orientada a Objetos (classes)</li>
+            <li>✅ Programação assíncrona (async/await)</li>
+            <li>✅ Desenvolvimento web com Flask</li>
+            <li>✅ Banco de dados com PostgreSQL e SQL</li>
+          </ul>
+          <p><strong>Próximos passos:</strong></p>
+          <ul>
+            <li>Complete o projeto final</li>
+            <li>Estude mais sobre ORMs (SQLAlchemy)</li>
+            <li>Aprenda sobre autenticação (JWT)</li>
+            <li>Explore testes automatizados (pytest)</li>
+            <li>Deploy na nuvem (Heroku, Railway, AWS)</li>
+          </ul>
+          <p>O código do sistema real da Helsen Service está disponível para você estudar e se inspirar!</p>
+        `
+            },
+            {
+              type: "exercise",
+              badge: "FINAL",
+              instructions: "Complete o projeto final seguindo todos os requisitos acima. Crie um repositório no GitHub e compartilhe o link quando terminar. Boa sorte!",
+              starterCode: "# Este é seu desafio final!\n# Crie o sistema completo seguindo os requisitos\n# Boa sorte! 🚀\n",
+              solution: "# Não há uma solução única!\n# O importante é implementar todas as funcionalidades\n# Consulte a documentação do Flask e PostgreSQL\n# E use tudo que você aprendeu no curso!",
+              validation: (code) => {
+                return true  // Este exercício não tem validação automática
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 };
