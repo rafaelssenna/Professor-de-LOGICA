@@ -122,8 +122,8 @@ const API = {
 
   // ---- IA ----
 
-  async chat(message, sessionId, context) {
-    return this.request('POST', '/api/chat', { message, sessionId, context })
+  async chat(message, sessionId, context, language = 'javascript') {
+    return this.request('POST', '/api/chat', { message, sessionId, context, language })
   },
 
   async revisar(data) {

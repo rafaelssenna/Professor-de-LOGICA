@@ -20,7 +20,11 @@ async function getAI() {
 
 const MODEL = 'gemini-2.0-flash'
 
-const SYSTEM_PROMPT = `Voce e o MATH Tutor, um professor de JavaScript para iniciantes ABSOLUTOS.
+function getSystemPrompt(language = 'javascript') {
+  const langName = language === 'python' ? 'Python' : 'JavaScript'
+  const platformName = language === 'python' ? 'PYTHON Academy' : 'MATH Academy'
+
+  return `Voce e o MATH Tutor, um professor de ${langName} para iniciantes ABSOLUTOS.
 
 REGRAS IMPORTANTES:
 - Fale em portugues brasileiro informal (sem "voce" formal, use "voce" normal)
@@ -36,7 +40,8 @@ REGRAS IMPORTANTES:
 - NUNCA use jargao tecnico sem explicar o que significa
 - Quando o aluno mandar codigo com erro, aponte o erro especifico e explique POR QUE ta errado
 
-CONTEXTO: O aluno esta aprendendo JavaScript do zero numa plataforma chamada MATH Academy. Ele construiu um sistema de gestao de manutencao industrial (MATH) usando IA, mas quer aprender a programar de verdade. Os exercicios usam exemplos de ordens de servico, tecnicos, clientes, etc.`
+CONTEXTO: O aluno esta aprendendo ${langName} do zero numa plataforma chamada ${platformName}. Ele construiu um sistema de gestao de manutencao industrial (MATH) usando IA, mas quer aprender a programar de verdade. Os exercicios usam exemplos de ordens de servico, tecnicos, clientes, etc.`
+}
 
 // ---- HISTORICO DE CONVERSAS (em memoria) ----
 
@@ -57,7 +62,7 @@ setInterval(() => {
 // ---- ROTA: CHAT COM IA ----
 
 router.post('/chat', async (req, res) => {
-  const { message, sessionId, context } = req.body
+  const { message, sessionId, context, language = 'javascript' } = req.body
 
   if (!message) {
     return res.status(400).json({ erro: 'Mensagem vazia' })
@@ -73,6 +78,7 @@ router.post('/chat', async (req, res) => {
 
   try {
     const history = getConversation(sessionId || 'default')
+    const langName = language === 'python' ? 'python' : 'javascript'
 
     let userMessage = message
     if (context) {
@@ -80,7 +86,7 @@ router.post('/chat', async (req, res) => {
 Aula: ${context.lessonTitle || ''}
 Exercicio: ${context.exerciseTitle || ''}
 Enunciado: ${context.instructions || ''}
-Codigo do aluno: \`\`\`javascript\n${context.code || ''}\n\`\`\`
+Codigo do aluno: \`\`\`${langName}\n${context.code || ''}\n\`\`\`
 Saida do codigo: ${context.output || 'nenhuma'}
 Erro: ${context.error || 'nenhum'}
 [FIM DO CONTEXTO]
@@ -94,14 +100,17 @@ Mensagem do aluno: ${message}`
       history.splice(0, history.length - 20)
     }
 
+    const systemPrompt = getSystemPrompt(language)
+    const langResponse = language === 'python' ? 'Python' : 'JavaScript'
+
     const contents = []
     contents.push({
       role: 'user',
-      parts: [{ text: `[INSTRUCOES DO SISTEMA]\n${SYSTEM_PROMPT}\n[FIM DAS INSTRUCOES]` }]
+      parts: [{ text: `[INSTRUCOES DO SISTEMA]\n${systemPrompt}\n[FIM DAS INSTRUCOES]` }]
     })
     contents.push({
       role: 'model',
-      parts: [{ text: 'Entendido! Sou o MATH Tutor, vou te ajudar a aprender JavaScript de um jeito simples e direto. Manda tua duvida!' }]
+      parts: [{ text: `Entendido! Sou o MATH Tutor, vou te ajudar a aprender ${langResponse} de um jeito simples e direto. Manda tua duvida!` }]
     })
 
     for (const msg of history) {
@@ -135,7 +144,7 @@ Mensagem do aluno: ${message}`
 // ---- ROTA: REVISAR CODIGO ----
 
 router.post('/revisar', async (req, res) => {
-  const { code, exerciseTitle, instructions, expectedOutput, userOutput, userError, solutionCode } = req.body
+  const { code, exerciseTitle, instructions, expectedOutput, userOutput, userError, solutionCode, language = 'javascript' } = req.body
 
   const client = await getAI()
   if (!client) {
@@ -143,7 +152,9 @@ router.post('/revisar', async (req, res) => {
   }
 
   try {
-    const prompt = `Voce e um revisor de codigo JavaScript para um aluno iniciante ABSOLUTO. Analise o codigo dele e de feedback educativo.
+    const langName = language === 'python' ? 'Python' : 'JavaScript'
+
+    const prompt = `Voce e um revisor de codigo ${langName} para um aluno iniciante ABSOLUTO. Analise o codigo dele e de feedback educativo.
 
 EXERCICIO: ${exerciseTitle}
 ENUNCIADO: ${instructions}
@@ -152,12 +163,12 @@ SAIDA DO ALUNO: ${userOutput || 'nenhuma'}
 ERRO: ${userError || 'nenhum'}
 
 CODIGO DO ALUNO:
-\`\`\`javascript
+\`\`\`${language}
 ${code}
 \`\`\`
 
 ${solutionCode ? `SOLUCAO CORRETA (use como referencia, NAO mostre pro aluno):
-\`\`\`javascript
+\`\`\`${language}
 ${solutionCode}
 \`\`\`` : ''}
 

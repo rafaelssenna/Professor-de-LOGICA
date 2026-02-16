@@ -774,7 +774,8 @@ const App = {
         expectedOutput: expectedOutput || '',
         userOutput: userOutput || '',
         userError: userError || '',
-        solutionCode: exerciseSection.solution
+        solutionCode: exerciseSection.solution,
+        language: this.currentLanguage // Adiciona a linguagem atual
       })
 
       let formatted = (data.revisao || 'Nao consegui revisar.')
@@ -1226,7 +1227,7 @@ const Tutor = {
     this.showTyping()
 
     try {
-      const data = await API.chat(message, this.sessionId, context)
+      const data = await API.chat(message, this.sessionId, context, this.currentLanguage)
       this.hideTyping()
       this.addMessage('ai', data.resposta || 'Nao consegui responder.')
     } catch (err) {
