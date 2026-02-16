@@ -684,8 +684,8 @@ const COURSE_DATA = {
             },
             {
               type: "code-example",
-              title: "find() — Procurando um aluno pelo nome",
-              code: 'let alunos = [\n  { nome: "Rafael", nota: 8 },\n  { nome: "Ana", nota: 9 },\n  { nome: "Pedro", nota: 7 }\n]\n\n// Procura o aluno chamado "Ana"\nlet aluno = alunos.find(a => a.nome === "Ana")\n\nconsole.log("Encontrou:", aluno.nome)\nconsole.log("Nota:", aluno.nota)\n\n// Se nao encontrar, retorna undefined\nlet naoExiste = alunos.find(a => a.nome === "Maria")\nconsole.log("Maria:", naoExiste)  // undefined',
+              title: "Codigo REAL do MATH — find() buscando licao",
+              code: '// Exatamente como o MATH funciona por dentro!\n// Quando voce clica numa licao, o sistema faz isso:\n\nlet todasLicoes = [\n  { id: "1-1", title: "Variaveis" },\n  { id: "2-1", title: "If/Else" },\n  { id: "3-1", title: "Arrays" }\n]\n\n// Usuario clicou na licao "2-1"\nlet licaoId = "2-1"\n\n// Sistema procura a licao com esse ID\nlet licao = todasLicoes.find(l => l.id === licaoId)\n\nconsole.log("Achou:", licao.title)\nconsole.log("ID:", licao.id)\n\n// Se buscar uma licao que nao existe:\nlet naoExiste = todasLicoes.find(l => l.id === "99-99")\nconsole.log("Licao 99-99:", naoExiste)  // undefined',
               runnable: true
             },
             {
@@ -710,8 +710,8 @@ const COURSE_DATA = {
             },
             {
               type: "code-example",
-              title: "filter() — Pegar SÓ as OS abertas",
-              code: 'let ordens = [\n  { numero: 1501, status: "aberta" },\n  { numero: 1502, status: "finalizada" },\n  { numero: 1503, status: "aberta" },\n  { numero: 1504, status: "cancelada" }\n]\n\n// Pega SÓ as abertas\nlet abertas = ordens.filter(os => os.status === "aberta")\n\nconsole.log("Total abertas:", abertas.length)\nconsole.log("Numeros:", abertas)\n\n// Percorre as abertas\nfor (let os of abertas) {\n  console.log("OS", os.numero, "esta aberta")\n}',
+              title: "Codigo REAL do MATH — filter() removendo linhas vazias",
+              code: '// Quando voce roda seu codigo no MATH, o sistema\n// usa filter() pra limpar a saida!\n\nlet saidaBruta = [\n  "Total: 100",\n  "",\n  "(sem saida)",\n  "Resultado: OK",\n  "  ",\n  "Fim"\n]\n\n// Sistema remove linhas vazias e "(sem saida)"\nlet saidaLimpa = saidaBruta.filter(linha => {\n  return linha.trim().length > 0 && linha.trim() !== "(sem saida)"\n})\n\nconsole.log("Linhas validas:", saidaLimpa.length)\nconsole.log("Saida:")\nfor (let linha of saidaLimpa) {\n  console.log(linha)\n}',
               runnable: true
             },
             {
@@ -731,8 +731,8 @@ const COURSE_DATA = {
             },
             {
               type: "code-example",
-              title: "map() — Pegar SÓ os nomes",
-              code: 'let alunos = [\n  { nome: "Rafael", nota: 8 },\n  { nome: "Ana", nota: 9 },\n  { nome: "Pedro", nota: 7 }\n]\n\n// Pega SÓ os nomes (transforma objeto em string)\nlet nomes = alunos.map(a => a.nome)\n\nconsole.log("Nomes:", nomes)\n// ["Rafael", "Ana", "Pedro"]\n\n// Tambem pode transformar de outro jeito:\nlet mensagens = alunos.map(a => `${a.nome} tirou ${a.nota}`)\n\nfor (let msg of mensagens) {\n  console.log(msg)\n}',
+              title: "Codigo REAL do MATH — map() transformando argumentos",
+              code: '// Quando voce faz console.log(10, "texto", true)\n// o MATH usa map() pra transformar cada argumento em texto!\n\nlet argumentos = [10, "texto", true, { id: 1 }]\n\n// Sistema transforma cada argumento em string\nlet textos = argumentos.map(arg => {\n  if (typeof arg === "object") {\n    return JSON.stringify(arg)  // objeto vira texto\n  }\n  return String(arg)  // numero/boolean vira texto\n})\n\nconsole.log("Argumentos originais:")\nconsole.log(argumentos)\n\nconsole.log("\\nTransformados em texto:")\nconsole.log(textos)\n\nconsole.log("\\nJunta tudo com espaco:")\nconsole.log(textos.join(" "))',
               runnable: true
             },
             {
