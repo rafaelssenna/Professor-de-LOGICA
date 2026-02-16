@@ -724,13 +724,18 @@ body {
   font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
 }
 
-/* Syntax highlighting customizado */
+/* Syntax highlighting customizado - cores VS Code Dark+ */
+.CodeMirror {
+  color: #d4d4d4 !important;
+}
+
 .CodeMirror .cm-comment {
   color: #6a9955 !important;
   font-style: italic;
 }
 
-.CodeMirror .cm-string {
+.CodeMirror .cm-string,
+.CodeMirror .cm-string-2 {
   color: #ce9178 !important;
 }
 
@@ -742,16 +747,28 @@ body {
   color: #c586c0 !important;
 }
 
-.CodeMirror .cm-variable {
+.CodeMirror .cm-variable,
+.CodeMirror .cm-variable-2,
+.CodeMirror .cm-variable-3 {
   color: #9cdcfe !important;
 }
 
-.CodeMirror .cm-def {
+.CodeMirror .cm-def,
+.CodeMirror .cm-property {
   color: #dcdcaa !important;
 }
 
-.CodeMirror .cm-operator {
+.CodeMirror .cm-operator,
+.CodeMirror .cm-punctuation {
   color: #d4d4d4 !important;
+}
+
+.CodeMirror .cm-atom {
+  color: #569cd6 !important;
+}
+
+.CodeMirror .cm-builtin {
+  color: #4ec9b0 !important;
 }
 
 .exercise-actions {
