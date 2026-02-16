@@ -41,7 +41,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Tipos de valores",
-              content: "<strong>String</strong> = texto (sempre entre aspas): <code>\"Maria\"</code><br><strong>Number</strong> = numero (sem aspas): <code>42</code>, <code>3.14</code><br><strong>Boolean</strong> = verdadeiro ou falso: <code>true</code>, <code>false</code>"
+              content: "<strong>String</strong> = texto (sempre entre aspas): <code>\&quot;Maria\&quot;</code><br><strong>Number</strong> = numero (sem aspas): <code>42</code>, <code>3.14</code><br><strong>Boolean</strong> = verdadeiro ou falso: <code>true</code>, <code>false</code>"
             },
             {
               type: "code-example",
@@ -52,7 +52,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Template Literal (juntando texto com variaveis)",
-              content: "Quando voce quer misturar texto com variaveis, tem um jeito muito facil chamado <strong>template literal</strong>. Funciona assim:<br><br><strong>1.</strong> Em vez de aspas normais (<code>\"\"</code>), use <strong>crase</strong> (<code>\`\`</code>). A crase e aquela tecla do lado do 1 no teclado, a mesma do acento agudo. Aperte ela sozinha (sem segurar nada).<br><br><strong>2.</strong> Pra colocar uma variavel dentro do texto, use <strong><code>${ }</code></strong> com o nome da variavel dentro. E tipo um buraco no texto onde a variavel entra.<br><br>Pense assim: e como um modelo de OS preenchido. O modelo e o texto com crase, e os <code>${}</code> sao os campos que o sistema preenche automatico.<br><br><div class='highlight-box tip'><strong>Resumo:</strong> crase (<code>\`</code>) + dolar-chave (<code>${variavel}</code>) = texto com variaveis misturadas!</div>"
+              content: "Quando voce quer misturar texto com variaveis, tem um jeito muito facil chamado <strong>template literal</strong>. Funciona assim:<br><br><strong>1.</strong> Em vez de aspas normais (<code>\&quot;\&quot;</code>), use <strong>crase</strong> (<code>\`\`</code>). A crase e aquela tecla do lado do 1 no teclado, a mesma do acento agudo. Aperte ela sozinha (sem segurar nada).<br><br><strong>2.</strong> Pra colocar uma variavel dentro do texto, use <strong><code>${ }</code></strong> com o nome da variavel dentro. E tipo um buraco no texto onde a variavel entra.<br><br>Pense assim: e como um modelo de OS preenchido. O modelo e o texto com crase, e os <code>${}</code> sao os campos que o sistema preenche automatico.<br><br><div class='highlight-box tip'><strong>Resumo:</strong> crase (<code>\`</code>) + dolar-chave (<code>${variavel}</code>) = texto com variaveis misturadas!</div>"
             },
             {
               type: "code-example",
@@ -208,7 +208,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que e if/else? Pensa assim...",
-              content: "Na Helsen Service, voce toma decisoes o tempo todo:<br><br>🔧 <em>\"SE a maquina ta quebrada, ENTAO manda o tecnico. SENAO, agenda preventiva.\"</em><br><br>🔧 <em>\"SE o cliente e VIP, ENTAO atende primeiro. SENAO, coloca na fila normal.\"</em><br><br>O computador faz a MESMA coisa! So que ao inves de pensar, ele usa <strong>if</strong> (SE) e <strong>else</strong> (SENAO).<br><br><strong>if</strong> = SE (verifica uma condicao)<br><strong>else</strong> = SENAO (o que fazer se a condicao nao for verdadeira)"
+              content: "Na Helsen Service, voce toma decisoes o tempo todo:<br><br>🔧 <em>\&quot;SE a maquina ta quebrada, ENTAO manda o tecnico. SENAO, agenda preventiva.\&quot;</em><br><br>🔧 <em>\&quot;SE o cliente e VIP, ENTAO atende primeiro. SENAO, coloca na fila normal.\&quot;</em><br><br>O computador faz a MESMA coisa! So que ao inves de pensar, ele usa <strong>if</strong> (SE) e <strong>else</strong> (SENAO).<br><br><strong>if</strong> = SE (verifica uma condicao)<br><strong>else</strong> = SENAO (o que fazer se a condicao nao for verdadeira)"
             },
             {
               type: "explanation",
@@ -246,7 +246,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1 - Seu primeiro if/else!",
-              instructions: "Vamos comecar simples! Crie uma variavel <strong>maquinaLigada</strong> (true ou false). <br><br>Use <strong>if/else</strong> pra verificar:<br>- SE maquinaLigada for <strong>true</strong>: mostre <em>\"Maquina em funcionamento\"</em><br>- SENAO: mostre <em>\"Maquina desligada\"</em><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Dica:</strong> Quando a variavel ja e true/false, voce nao precisa comparar com === true. Pode fazer direto: <code>if (maquinaLigada)</code></div>",
+              instructions: "Vamos comecar simples! Crie uma variavel <strong>maquinaLigada</strong> (true ou false). <br><br>Use <strong>if/else</strong> pra verificar:<br>- SE maquinaLigada for <strong>true</strong>: mostre <em>\&quot;Maquina em funcionamento\&quot;</em><br>- SENAO: mostre <em>\&quot;Maquina desligada\&quot;</em><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Dica:</strong> Quando a variavel ja e true/false, voce nao precisa comparar com === true. Pode fazer direto: <code>if (maquinaLigada)</code></div>",
               starterCode: '// Crie a variavel:\nlet maquinaLigada = true\n\n// Faca o if/else:\n',
               solution: 'let maquinaLigada = true\n\nif (maquinaLigada) {\n  console.log("Maquina em funcionamento")\n} else {\n  console.log("Maquina desligada")\n}',
               validation: "structure",
@@ -255,7 +255,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 2 - Classificando valor da OS",
-              instructions: "Agora com <strong>else if</strong>! Crie uma variavel <strong>valorOS</strong> com o valor que quiser.<br><br>Use <strong>if / else if / else</strong> pra classificar:<br>- SE valorOS > 1000: mostre <em>\"OS de alto valor\"</em><br>- SENAO SE valorOS >= 500: mostre <em>\"OS de valor medio\"</em><br>- SENAO: mostre <em>\"OS de valor baixo\"</em><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Lembra:</strong> O computador testa de CIMA PRA BAIXO. Se valorOS for 1500, ele ja entra no primeiro if e nao testa o resto.</div>",
+              instructions: "Agora com <strong>else if</strong>! Crie uma variavel <strong>valorOS</strong> com o valor que quiser.<br><br>Use <strong>if / else if / else</strong> pra classificar:<br>- SE valorOS > 1000: mostre <em>\&quot;OS de alto valor\&quot;</em><br>- SENAO SE valorOS >= 500: mostre <em>\&quot;OS de valor medio\&quot;</em><br>- SENAO: mostre <em>\&quot;OS de valor baixo\&quot;</em><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>Lembra:</strong> O computador testa de CIMA PRA BAIXO. Se valorOS for 1500, ele ja entra no primeiro if e nao testa o resto.</div>",
               starterCode: 'let valorOS = 750\n\n// Faca o if / else if / else:\n',
               solution: 'let valorOS = 750\n\nif (valorOS > 1000) {\n  console.log("OS de alto valor")\n} else if (valorOS >= 500) {\n  console.log("OS de valor medio")\n} else {\n  console.log("OS de valor baixo")\n}',
               validation: "structure",
@@ -331,12 +331,12 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Quando usar Switch ao inves de If/Else?",
-              content: "Voce ja sabe usar if/else. Mas imagina que voce tem uma variavel e quer comparar ela com VARIAS opcoes exatas. Tipo:<br><br><em>\"Se o status for 'aberta', faz X. Se for 'em_andamento', faz Y. Se for 'finalizada', faz Z. Se for 'cancelada', faz W.\"</em><br><br>Com if/else, ficaria assim:<br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'>if (status === \"aberta\") { ... }\nelse if (status === \"em_andamento\") { ... }\nelse if (status === \"finalizada\") { ... }\nelse if (status === \"cancelada\") { ... }\nelse { ... }</pre><br>Funciona! Mas quando tem <strong>4, 5, 6 opcoes</strong> pra mesma variavel, fica repetitivo. O <strong>switch</strong> faz a mesma coisa, so que mais organizado."
+              content: "Voce ja sabe usar if/else. Mas imagina que voce tem uma variavel e quer comparar ela com VARIAS opcoes exatas. Tipo:<br><br><em>\&quot;Se o status for 'aberta', faz X. Se for 'em_andamento', faz Y. Se for 'finalizada', faz Z. Se for 'cancelada', faz W.\&quot;</em><br><br>Com if/else, ficaria assim:<br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'>if (status === \"aberta\") { ... }\nelse if (status === \"em_andamento\") { ... }\nelse if (status === \"finalizada\") { ... }\nelse if (status === \"cancelada\") { ... }\nelse { ... }</pre><br>Funciona! Mas quando tem <strong>4, 5, 6 opcoes</strong> pra mesma variavel, fica repetitivo. O <strong>switch</strong> faz a mesma coisa, so que mais organizado."
             },
             {
               type: "explanation",
               title: "A estrutura do Switch (passo a passo)",
-              content: "O switch pega UMA variavel e compara com varios valores. A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>switch</span> (<span style='color:#9cdcfe'>variavel</span>) {\n  <span style='color:#c586c0'>case</span> <span style='color:#ce9178'>\"valor1\"</span>:\n    <span style='color:#6a9955'>// faz isso se variavel === \"valor1\"</span>\n    <span style='color:#c586c0'>break</span>\n  <span style='color:#c586c0'>case</span> <span style='color:#ce9178'>\"valor2\"</span>:\n    <span style='color:#6a9955'>// faz isso se variavel === \"valor2\"</span>\n    <span style='color:#c586c0'>break</span>\n  <span style='color:#c586c0'>default</span>:\n    <span style='color:#6a9955'>// faz isso se NENHUM case combinou</span>\n}</pre><br>Traduzindo:<br>- <strong>switch (variavel)</strong> = \"vou comparar essa variavel\"<br>- <strong>case \"valor\"</strong> = \"se for igual a esse valor, faz isso\"<br>- <strong>break</strong> = \"pronto, para aqui\" (OBRIGATORIO! senao continua rodando os proximos cases)<br>- <strong>default</strong> = \"se nao for nenhum dos valores acima\" (como o else)"
+              content: "O switch pega UMA variavel e compara com varios valores. A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>switch</span> (<span style='color:#9cdcfe'>variavel</span>) {\n  <span style='color:#c586c0'>case</span> <span style='color:#ce9178'>\"valor1\"</span>:\n    <span style='color:#6a9955'>// faz isso se variavel === \"valor1\"</span>\n    <span style='color:#c586c0'>break</span>\n  <span style='color:#c586c0'>case</span> <span style='color:#ce9178'>\"valor2\"</span>:\n    <span style='color:#6a9955'>// faz isso se variavel === \"valor2\"</span>\n    <span style='color:#c586c0'>break</span>\n  <span style='color:#c586c0'>default</span>:\n    <span style='color:#6a9955'>// faz isso se NENHUM case combinou</span>\n}</pre><br>Traduzindo:<br>- <strong>switch (variavel)</strong> = \"vou comparar essa variavel\"<br>- <strong>case \&quot;valor\&quot;</strong> = \"se for igual a esse valor, faz isso\"<br>- <strong>break</strong> = \"pronto, para aqui\" (OBRIGATORIO! senao continua rodando os proximos cases)<br>- <strong>default</strong> = \"se nao for nenhum dos valores acima\" (como o else)"
             },
             {
               type: "code-example",
@@ -358,7 +358,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1 - Seu primeiro Switch!",
-              instructions: "Crie um switch pra tipo de servico:<br>- <strong>\"preventiva\"</strong> → mostre \"Manutencao preventiva - R$300\"<br>- <strong>\"corretiva\"</strong> → mostre \"Manutencao corretiva - R$450\"<br>- <strong>\"emergencial\"</strong> → mostre \"Emergencial - R$700\"<br>- <strong>Qualquer outro</strong> → mostre \"Tipo nao cadastrado\"<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra da estrutura:<br><code>switch (variavel) {</code><br>&nbsp;&nbsp;<code>case \"valor\":</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>console.log(...)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>break</code><br>&nbsp;&nbsp;<code>default:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>console.log(...)</code><br><code>}</code></div>",
+              instructions: "Crie um switch pra tipo de servico:<br>- <strong>\&quot;preventiva\&quot;</strong> → mostre \"Manutencao preventiva - R$300\"<br>- <strong>\&quot;corretiva\&quot;</strong> → mostre \"Manutencao corretiva - R$450\"<br>- <strong>\&quot;emergencial\&quot;</strong> → mostre \"Emergencial - R$700\"<br>- <strong>Qualquer outro</strong> → mostre \"Tipo nao cadastrado\"<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra da estrutura:<br><code>switch (variavel) {</code><br>&nbsp;&nbsp;<code>case \&quot;valor\&quot;:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>console.log(...)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>break</code><br>&nbsp;&nbsp;<code>default:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>console.log(...)</code><br><code>}</code></div>",
               starterCode: 'let tipo = "corretiva"\n\n// Crie o switch:\n',
               solution: 'let tipo = "corretiva"\n\nswitch (tipo) {\n  case "preventiva":\n    console.log("Manutencao preventiva - R$300")\n    break\n  case "corretiva":\n    console.log("Manutencao corretiva - R$450")\n    break\n  case "emergencial":\n    console.log("Emergencial - R$700")\n    break\n  default:\n    console.log("Tipo nao cadastrado")\n}',
               validation: "structure",
@@ -373,7 +373,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Como ler o ternario (passo a passo)",
-              content: "O ternario tem 3 partes. Por isso chama <strong>ternario</strong> (tres partes):<br><br><pre style='background:#1e1e1e;padding:20px;border-radius:8px;font-size:16px;line-height:2;text-align:center'><span style='color:#9cdcfe'>condicao</span> <span style='color:#c586c0;font-size:20px'>?</span> <span style='color:#4ec9b0'>valorSeTrue</span> <span style='color:#c586c0;font-size:20px'>:</span> <span style='color:#ce9178'>valorSeFalse</span></pre><br><table style='width:100%;border-collapse:collapse;margin:10px 0'><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center'><code>condicao</code></td><td style='padding:10px'>A pergunta (igual ao if)</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center;color:#c586c0'><code>?</code></td><td style='padding:10px'>Significa: \"SE for verdadeiro, use isso\"</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center;color:#c586c0'><code>:</code></td><td style='padding:10px'>Significa: \"SENAO, use isso\"</td></tr></table><br>Pense assim: <strong>?</strong> = SE, <strong>:</strong> = SENAO<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Exemplo: <code>nota >= 7 ? \"Aprovado\" : \"Reprovado\"</code><br>Leia: \"nota >= 7? <strong>SE sim</strong> → Aprovado, <strong>SENAO</strong> → Reprovado\"</div>"
+              content: "O ternario tem 3 partes. Por isso chama <strong>ternario</strong> (tres partes):<br><br><pre style='background:#1e1e1e;padding:20px;border-radius:8px;font-size:16px;line-height:2;text-align:center'><span style='color:#9cdcfe'>condicao</span> <span style='color:#c586c0;font-size:20px'>?</span> <span style='color:#4ec9b0'>valorSeTrue</span> <span style='color:#c586c0;font-size:20px'>:</span> <span style='color:#ce9178'>valorSeFalse</span></pre><br><table style='width:100%;border-collapse:collapse;margin:10px 0'><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center'><code>condicao</code></td><td style='padding:10px'>A pergunta (igual ao if)</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center;color:#c586c0'><code>?</code></td><td style='padding:10px'>Significa: \"SE for verdadeiro, use isso\"</td></tr><tr style='border-bottom:1px solid #555'><td style='padding:10px;font-size:18px;text-align:center;color:#c586c0'><code>:</code></td><td style='padding:10px'>Significa: \"SENAO, use isso\"</td></tr></table><br>Pense assim: <strong>?</strong> = SE, <strong>:</strong> = SENAO<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Exemplo: <code>nota >= 7 ? \&quot;Aprovado\&quot; : \&quot;Reprovado\&quot;</code><br>Leia: \"nota >= 7? <strong>SE sim</strong> → Aprovado, <strong>SENAO</strong> → Reprovado\"</div>"
             },
             {
               type: "code-example",
@@ -390,7 +390,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 2 - Transforme if/else em ternario",
-              instructions: "Transforme esse if/else em <strong>ternario</strong>:<br><br><pre style='background:#1e1e1e;padding:10px;border-radius:8px;font-size:13px'>if (nota >= 4) {\n  resultado = \"Satisfeito\"\n} else {\n  resultado = \"Insatisfeito\"\n}</pre><br>Coloque a nota que quiser e mostre o resultado com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra a formula:<br><code>variavel = condicao ? valorSeTrue : valorSeFalse</code><br><br>Nesse caso:<br>- condicao = <code>nota >= 4</code><br>- valorSeTrue = <code>\"Satisfeito\"</code><br>- valorSeFalse = <code>\"Insatisfeito\"</code></div>",
+              instructions: "Transforme esse if/else em <strong>ternario</strong>:<br><br><pre style='background:#1e1e1e;padding:10px;border-radius:8px;font-size:13px'>if (nota >= 4) {\n  resultado = \"Satisfeito\"\n} else {\n  resultado = \"Insatisfeito\"\n}</pre><br>Coloque a nota que quiser e mostre o resultado com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra a formula:<br><code>variavel = condicao ? valorSeTrue : valorSeFalse</code><br><br>Nesse caso:<br>- condicao = <code>nota >= 4</code><br>- valorSeTrue = <code>\&quot;Satisfeito\&quot;</code><br>- valorSeFalse = <code>\&quot;Insatisfeito\&quot;</code></div>",
               starterCode: 'let nota = 4.5\n\n// Transforme o if/else em ternario:\nlet resultado\n\n\nconsole.log(resultado)',
               solution: 'let nota = 4.5\n\nlet resultado = nota >= 4 ? "Satisfeito" : "Insatisfeito"\n\nconsole.log(resultado)',
               validation: "structure",
@@ -399,7 +399,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 3 - Ternario com template literal",
-              instructions: "Crie variavel <strong>tecnico</strong> (nome) e <strong>disponivel</strong> (true ou false).<br><br>Mostre com console.log e template literal:<br><code>Carlos: Disponivel</code> ou <code>Carlos: Ocupado</code><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: use ternario DENTRO do template literal:<br><code>console.log(`${nome}: ${condicao ? \"Sim\" : \"Nao\"}`)</code></div>",
+              instructions: "Crie variavel <strong>tecnico</strong> (nome) e <strong>disponivel</strong> (true ou false).<br><br>Mostre com console.log e template literal:<br><code>Carlos: Disponivel</code> ou <code>Carlos: Ocupado</code><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: use ternario DENTRO do template literal:<br><code>console.log(`${nome}: ${condicao ? \&quot;Sim\&quot; : \&quot;Nao\&quot;}`)</code></div>",
               starterCode: 'let tecnico = "Carlos"\nlet disponivel = true\n\n// Mostre com template literal + ternario:\n',
               solution: 'let tecnico = "Carlos"\nlet disponivel = true\n\nconsole.log(`${tecnico}: ${disponivel ? "Disponivel" : "Ocupado"}`)',
               validation: "structure",
@@ -458,7 +458,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que e um Array? Pensa assim...",
-              content: "Imagina uma <strong>caixa de ferramentas</strong>. Dentro dela tem varias ferramentas:<br><br>🔧 Chave de fenda (posicao 1)<br>🔧 Alicate (posicao 2)<br>🔧 Martelo (posicao 3)<br>🔧 Chave inglesa (posicao 4)<br><br>Um <strong>array</strong> e EXATAMENTE isso: uma <strong>LISTA de valores</strong> dentro de uma variavel so.<br><br>Na Helsen Service, usamos arrays o tempo todo:<br>- Lista de tecnicos (Leon Mendes, Dayvison Jepson, Valdinei Pereira)<br>- Lista de OS (6650, 6632, 6620)<br>- Lista de clientes (Minerva Usinagem, Usinagem Castro...)<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Array = <strong>\"Caixa que guarda uma LISTA de valores\"</strong></div>"
+              content: "Imagina uma <strong>caixa de ferramentas</strong>. Dentro dela tem varias ferramentas:<br><br>🔧 Chave de fenda (posicao 1)<br>🔧 Alicate (posicao 2)<br>🔧 Martelo (posicao 3)<br>🔧 Chave inglesa (posicao 4)<br><br>Um <strong>array</strong> e EXATAMENTE isso: uma <strong>LISTA de valores</strong> dentro de uma variavel so.<br><br>Na Helsen Service, usamos arrays o tempo todo:<br>- Lista de tecnicos (Leon Mendes, Dayvison Jepson, Valdinei Pereira)<br>- Lista de OS (6650, 6632, 6620)<br>- Lista de clientes (Minerva Usinagem, Usinagem Castro...)<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Array = <strong>\&quot;Caixa que guarda uma LISTA de valores\&quot;</strong></div>"
             },
             {
               type: "explanation",
@@ -474,7 +474,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1A - Criando um array",
-              instructions: "Crie um array chamado <strong>clientes</strong> com 3 nomes de clientes (invente os nomes que quiser). Depois mostre o array inteiro com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Lembra: <code>let clientes = [\"Nome1\", \"Nome2\", \"Nome3\"]</code></div>",
+              instructions: "Crie um array chamado <strong>clientes</strong> com 3 nomes de clientes (invente os nomes que quiser). Depois mostre o array inteiro com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Lembra: <code>let clientes = [\&quot;Nome1\&quot;, \&quot;Nome2\&quot;, \&quot;Nome3\&quot;]</code></div>",
               starterCode: '// Crie o array clientes:\n\n\n// Mostre ele:\n',
               solution: 'let clientes = ["Fabrica ABC", "Metalurgica XYZ", "Industria 123"]\n\nconsole.log(clientes)',
               validation: "structure",
@@ -549,7 +549,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1E - Adicionando com .push()",
-              instructions: "Adicione <strong>\"JMS Industria\"</strong> no final do array de clientes usando <code>.push()</code>. Depois mostre o array inteiro pra confirmar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use: <code>clientes.push(\"JMS Industria\")</code></div>",
+              instructions: "Adicione <strong>\&quot;JMS Industria\&quot;</strong> no final do array de clientes usando <code>.push()</code>. Depois mostre o array inteiro pra confirmar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use: <code>clientes.push(\&quot;JMS Industria\&quot;)</code></div>",
               starterCode: 'let clientes = ["Minerva Usinagem", "Usinagem Castro"]\n\n// Adicione "JMS Industria":\n\n\n// Mostre o array:\n',
               solution: 'let clientes = ["Minerva Usinagem", "Usinagem Castro"]\n\nclientes.push("JMS Industria")\nconsole.log(clientes)',
               validation: "structure",
@@ -560,7 +560,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Resumo: O que voce aprendeu",
-              content: "<div style='background:#1a2a2a;padding:15px;border-radius:8px;margin:15px 0'><strong style='color:#4fc3f7;font-size:16px'>✓ Arrays</strong><br><br>📦 <code>let lista = [\"A\", \"B\", \"C\"]</code> → criar array<br>🔍 <code>lista[0]</code> → acessar primeiro item (comeca no ZERO!)<br>📏 <code>lista.length</code> → quantos itens tem<br>➕ <code>lista.push(\"D\")</code> → adicionar no final<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px;margin-top:10px'>Arrays sao a BASE de tudo! No proximo modulo voce vai aprender a PERCORRER arrays com loops (for...of).</div></div>"
+              content: "<div style='background:#1a2a2a;padding:15px;border-radius:8px;margin:15px 0'><strong style='color:#4fc3f7;font-size:16px'>✓ Arrays</strong><br><br>📦 <code>let lista = [\&quot;A\&quot;, \&quot;B\&quot;, \&quot;C\&quot;]</code> → criar array<br>🔍 <code>lista[0]</code> → acessar primeiro item (comeca no ZERO!)<br>📏 <code>lista.length</code> → quantos itens tem<br>➕ <code>lista.push(\&quot;D\&quot;)</code> → adicionar no final<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px;margin-top:10px'>Arrays sao a BASE de tudo! No proximo modulo voce vai aprender a PERCORRER arrays com loops (for...of).</div></div>"
             }
           ],
           quiz: [
@@ -599,7 +599,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que e um Loop? A Analogia da Escada",
-              content: "Imagina que voce precisa subir uma escada de 10 degraus. Cada degrau voce faz a MESMA coisa:<br><br>1. Pe direito sobe<br>2. Pe esquerdo sobe<br>3. Repete...<br><br>Voce NAO pensa \"vou fazer isso 10 vezes\". Seu cerebro automaticamente repete ate acabar os degraus.<br><br>O <strong>loop</strong> e a mesma coisa! Ele pega uma lista e faz a MESMA ACAO pra cada item da lista. Tipo:<br><br>🔧 Lista de 50 OS → mostrar cada uma na tela<br>🔧 Lista de valores → somar todos<br>🔧 Lista de tecnicos → enviar email pra cada um<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Loop = <strong>\"Faca isso pra CADA item da lista\"</strong></div>"
+              content: "Imagina que voce precisa subir uma escada de 10 degraus. Cada degrau voce faz a MESMA coisa:<br><br>1. Pe direito sobe<br>2. Pe esquerdo sobe<br>3. Repete...<br><br>Voce NAO pensa \"vou fazer isso 10 vezes\". Seu cerebro automaticamente repete ate acabar os degraus.<br><br>O <strong>loop</strong> e a mesma coisa! Ele pega uma lista e faz a MESMA ACAO pra cada item da lista. Tipo:<br><br>🔧 Lista de 50 OS → mostrar cada uma na tela<br>🔧 Lista de valores → somar todos<br>🔧 Lista de tecnicos → enviar email pra cada um<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Loop = <strong>\&quot;Faca isso pra CADA item da lista\&quot;</strong></div>"
             },
             {
               type: "explanation",
@@ -610,7 +610,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "for...of — O Loop mais Simples (comece por aqui!)",
-              content: "O <strong>for...of</strong> e tipo um robo que vai olhando cada item da lista, um por um.<br><br>A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>for</span> (<span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>item</span> <span style='color:#c586c0'>of</span> <span style='color:#9cdcfe'>lista</span>) {\n  <span style='color:#6a9955'>// faz algo com cada item</span>\n}</pre><br>Leia assim: <strong>\"PARA CADA item DA lista, faca isso\"</strong><br><br>📦 <code>lista</code> = a caixa cheia de coisas<br>🔍 <code>item</code> = a coisa que o robo ta olhando AGORA (muda sozinho a cada rodada)<br>⚙️ <code>{ }</code> = o que fazer com cada coisa<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 O nome <code>item</code> voce escolhe! Pode ser <code>nome</code>, <code>os</code>, <code>valor</code>... o que fizer sentido.</div>"
+              content: "O <strong>for...of</strong> e tipo um robo que vai olhando cada item da lista, um por um.<br><br>A estrutura e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>for</span> (<span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>item</span> <span style='color:#c586c0'>of</span> <span style='color:#9cdcfe'>lista</span>) {\n  <span style='color:#6a9955'>// faz algo com cada item</span>\n}</pre><br>Leia assim: <strong>\&quot;PARA CADA item DA lista, faca isso\&quot;</strong><br><br>📦 <code>lista</code> = a caixa cheia de coisas<br>🔍 <code>item</code> = a coisa que o robo ta olhando AGORA (muda sozinho a cada rodada)<br>⚙️ <code>{ }</code> = o que fazer com cada coisa<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 O nome <code>item</code> voce escolhe! Pode ser <code>nome</code>, <code>os</code>, <code>valor</code>... o que fizer sentido.</div>"
             },
             {
               type: "code-example",
@@ -739,7 +739,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "O que e uma funcao? A analogia da receita de bolo",
-              content: "Imagina que voce quer fazer um bolo. Voce NAO inventa a receita toda vez, ne? Voce:<br><br>1. Olha a <strong>receita</strong> (instrucoes)<br>2. Pega os <strong>ingredientes</strong> (valores)<br>3. Segue os <strong>passos</strong><br>4. <strong>Resultado:</strong> bolo pronto!<br><br>Funcao e EXATAMENTE isso! E uma <strong>receita de codigo</strong>:<br><br>📝 Voce escreve a funcao UMA VEZ<br>🍰 Depois \"chama\" ela quantas vezes quiser<br>🎯 Cada vez pode usar ingredientes (valores) diferentes<br>✨ E ela retorna o resultado<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Funcao = <strong>\"Receita de codigo que voce pode usar varias vezes\"</strong></div>"
+              content: "Imagina que voce quer fazer um bolo. Voce NAO inventa a receita toda vez, ne? Voce:<br><br>1. Olha a <strong>receita</strong> (instrucoes)<br>2. Pega os <strong>ingredientes</strong> (valores)<br>3. Segue os <strong>passos</strong><br>4. <strong>Resultado:</strong> bolo pronto!<br><br>Funcao e EXATAMENTE isso! E uma <strong>receita de codigo</strong>:<br><br>📝 Voce escreve a funcao UMA VEZ<br>🍰 Depois \"chama\" ela quantas vezes quiser<br>🎯 Cada vez pode usar ingredientes (valores) diferentes<br>✨ E ela retorna o resultado<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Funcao = <strong>\&quot;Receita de codigo que voce pode usar varias vezes\&quot;</strong></div>"
             },
             {
               type: "explanation",
@@ -755,7 +755,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1A - Funcao simples (sem parametros)",
-              instructions: "Crie uma funcao chamada <strong>mostrarTecnicos</strong> que mostra 3 nomes de tecnicos com console.log. Depois CHAME a funcao pra rodar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>function mostrarTecnicos() {</code><br>&nbsp;&nbsp;<code>console.log(\"Leon Mendes\")</code><br>&nbsp;&nbsp;<code>// ... mais 2 tecnicos</code><br><code>}</code><br><br>Depois chama: <code>mostrarTecnicos()</code></div>",
+              instructions: "Crie uma funcao chamada <strong>mostrarTecnicos</strong> que mostra 3 nomes de tecnicos com console.log. Depois CHAME a funcao pra rodar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>function mostrarTecnicos() {</code><br>&nbsp;&nbsp;<code>console.log(\&quot;Leon Mendes\&quot;)</code><br>&nbsp;&nbsp;<code>// ... mais 2 tecnicos</code><br><code>}</code><br><br>Depois chama: <code>mostrarTecnicos()</code></div>",
               starterCode: '// Crie a funcao mostrarTecnicos:\n\n\n// Chame a funcao:\n',
               solution: 'function mostrarTecnicos() {\n  console.log("Leon Mendes")\n  console.log("Dayvison Jepson")\n  console.log("Valdinei Pereira")\n}\n\nmostrarTecnicos()',
               validation: "structure",
@@ -877,7 +877,7 @@ const COURSE_DATA = {
             {
               type: "explanation",
               title: "Antes de comecar: o que e Arrow Function ( => )?",
-              content: "Voce vai ver muito essa <strong>seta =></strong> nesta aula. Calma, e facil!<br><br><strong>Arrow Function</strong> = forma curta de escrever funcoes.<br><br><div style='background:#2a2a2a;padding:15px;border-radius:6px;margin:10px 0'><strong>Forma ANTIGA:</strong><br><code>function(os) { return os.numero === 6632 }</code><br><br><strong>Forma NOVA (arrow):</strong><br><code>os => os.numero === 6632</code></div><br>E a <strong>mesma coisa</strong>, so que mais curta!<br><br>A seta <code>=></code> significa: <strong>\"pega isso e faz aquilo\"</strong>.<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>✓ O nome antes da seta (<code>os</code>, <code>item</code>, <code>x</code>) e so uma variavel temporaria. Voce escolhe o nome!<br>✓ <code>=></code> NAO e \"maior ou igual\" (<code>>=</code>)! Sao coisas diferentes!</div>"
+              content: "Voce vai ver muito essa <strong>seta =></strong> nesta aula. Calma, e facil!<br><br><strong>Arrow Function</strong> = forma curta de escrever funcoes.<br><br><div style='background:#2a2a2a;padding:15px;border-radius:6px;margin:10px 0'><strong>Forma ANTIGA:</strong><br><code>function(os) { return os.numero === 6632 }</code><br><br><strong>Forma NOVA (arrow):</strong><br><code>os => os.numero === 6632</code></div><br>E a <strong>mesma coisa</strong>, so que mais curta!<br><br>A seta <code>=></code> significa: <strong>\&quot;pega isso e faz aquilo\&quot;</strong>.<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>✓ O nome antes da seta (<code>os</code>, <code>item</code>, <code>x</code>) e so uma variavel temporaria. Voce escolhe o nome!<br>✓ <code>=></code> NAO e \"maior ou igual\" (<code>>=</code>)! Sao coisas diferentes!</div>"
             },
             {
               type: "code-example",
@@ -910,7 +910,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1A - Primeiro .find() simples",
-              instructions: "Use <strong>.find()</strong> pra procurar o tecnico com nome \"Leon Mendes\". Guarde o resultado numa variavel e mostre o nome dele.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let tecnico = tecnicos.find(t => t.nome === "Leon Mendes")</code><br><code>console.log(tecnico.nome)</code></div>",
+              instructions: "Use <strong>.find()</strong> pra procurar o tecnico com nome 'Leon Mendes'. Guarde o resultado numa variavel e mostre o nome dele.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let tecnico = tecnicos.find(t => t.nome === 'Leon Mendes')</code><br><code>console.log(tecnico.nome)</code></div>",
               starterCode: 'let tecnicos = [\n  { nome: "Leon Mendes", taxa: 175 },\n  { nome: "Dayvison Jepson", taxa: 175 },\n  { nome: "Valdinei Pereira", taxa: 175 }\n]\n\n// Procure Leon Mendes:\n\n\n// Mostre o nome:\n',
               solution: 'let tecnicos = [\n  { nome: "Leon Mendes", taxa: 175 },\n  { nome: "Dayvison Jepson", taxa: 175 },\n  { nome: "Valdinei Pereira", taxa: 175 }\n]\n\nlet tecnico = tecnicos.find(t => t.nome === "Leon Mendes")\nconsole.log(tecnico.nome)',
               validation: "structure",
@@ -1041,7 +1041,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1A - Criar objeto simples",
-              instructions: "Crie um objeto <strong>tecnico</strong> com: nome (texto) e taxa (numero). Depois mostre o nome e a taxa.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let tecnico = { nome: "Leon", taxa: 175 }</code><br><code>console.log(tecnico.nome)</code></div>",
+              instructions: "Crie um objeto <strong>tecnico</strong> com: nome (texto) e taxa (numero). Depois mostre o nome e a taxa.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let tecnico = { nome: &quot;Leon&quot;, taxa: 175 }</code><br><code>console.log(tecnico.nome)</code></div>",
               starterCode: '// Crie o objeto tecnico:\n\n\n// Mostre nome e taxa:\n',
               solution: 'let tecnico = {\n  nome: "Leon Mendes",\n  taxa: 175\n}\n\nconsole.log("Nome:", tecnico.nome)\nconsole.log("Taxa:", tecnico.taxa)',
               validation: "structure",
@@ -1059,7 +1059,7 @@ const COURSE_DATA = {
             {
               type: "exercise",
               title: "Exercicio 1C - Objeto completo (estrutura Helsen)",
-              instructions: "Crie objeto <strong>tecnico</strong> completo: id, username, hourly_rate, disponivel. Use desestruturacao e mostre com ternario.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Ternario: <code>let status = disponivel ? "Sim" : "Nao"</code></div>",
+              instructions: "Crie objeto <strong>tecnico</strong> completo: id, username, hourly_rate, disponivel. Use desestruturacao e mostre com ternario.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Ternario: <code>let status = disponivel ? &quot;Sim&quot; : &quot;Nao&quot;</code></div>",
               starterCode: '// Crie o objeto tecnico:\n\n\n// Desestruturacao:\n\n\n// Ternario e mostre:\n',
               solution: 'let tecnico = {\n  id: 41,\n  username: "Leon Mendes",\n  hourly_rate: 175,\n  disponivel: true\n}\n\nlet { username, hourly_rate, disponivel } = tecnico\nlet status = disponivel ? "Disponivel" : "Indisponivel"\n\nconsole.log(`Tecnico ${username} - R$ ${hourly_rate}/hora - ${status}`)',
               validation: "structure",
