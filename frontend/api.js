@@ -98,26 +98,26 @@ const API = {
 
   // ---- PROGRESSO ----
 
-  async loadProgress() {
-    return this.request('GET', '/api/progress')
+  async loadProgress(language = 'javascript') {
+    return this.request('GET', `/api/progress?language=${language}`)
   },
 
-  async saveProgress(currentLesson, lessons) {
-    return this.request('PUT', '/api/progress', { currentLesson, lessons })
+  async saveProgress(currentLesson, lessons, language = 'javascript') {
+    return this.request('PUT', '/api/progress', { currentLesson, lessons, language })
   },
 
   // ---- CODE DRAFTS ----
 
-  async loadAllCodeDrafts() {
-    return this.request('GET', '/api/progress/code-drafts')
+  async loadAllCodeDrafts(language = 'javascript') {
+    return this.request('GET', `/api/progress/code-drafts?language=${language}`)
   },
 
-  async saveCodeDraft(lessonId, exerciseIdx, code) {
-    return this.request('PUT', `/api/progress/code-drafts/${lessonId}/${exerciseIdx}`, { code })
+  async saveCodeDraft(lessonId, exerciseIdx, code, language = 'javascript') {
+    return this.request('PUT', `/api/progress/code-drafts/${lessonId}/${exerciseIdx}`, { code, language })
   },
 
-  async deleteCodeDraft(lessonId, exerciseIdx) {
-    return this.request('DELETE', `/api/progress/code-drafts/${lessonId}/${exerciseIdx}`)
+  async deleteCodeDraft(lessonId, exerciseIdx, language = 'javascript') {
+    return this.request('DELETE', `/api/progress/code-drafts/${lessonId}/${exerciseIdx}?language=${language}`)
   },
 
   // ---- IA ----

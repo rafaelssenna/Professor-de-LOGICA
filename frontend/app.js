@@ -70,16 +70,16 @@ const App = {
     const student = API.getStudent()
     document.getElementById('student-display-name').textContent = student ? student.name : ''
 
-    // Carrega progresso do servidor
+    // Carrega progresso do servidor (separado por linguagem)
     try {
-      const data = await API.loadProgress()
+      const data = await API.loadProgress(this.currentLanguage)
       this.progress = {
         currentLesson: data.currentLesson || '1-1',
         lessons: data.lessons || {}
       }
 
-      // Carrega rascunhos de codigo
-      this.codeDrafts = await API.loadAllCodeDrafts()
+      // Carrega rascunhos de codigo (separado por linguagem)
+      this.codeDrafts = await API.loadAllCodeDrafts(this.currentLanguage)
     } catch (err) {
       // Se falhar (token expirado etc), volta pro login
       if (err.message && err.message.includes('401')) {
@@ -129,7 +129,7 @@ const App = {
         const code = localStorage.getItem(key)
         if (code) {
           this.codeDrafts[`${lessonId}_${exIdx}`] = code
-          API.saveCodeDraft(lessonId, exIdx, code).catch(() => {})
+          API.saveCodeDraft(lessonId, exIdx, code, this.currentLanguage).catch(() => {})
         }
       }
     }
@@ -993,7 +993,7 @@ const App = {
     // Debounce: espera 500ms sem chamadas antes de salvar no servidor
     clearTimeout(this._saveTimer)
     this._saveTimer = setTimeout(() => {
-      API.saveProgress(this.progress.currentLesson, this.progress.lessons).catch(() => {})
+      API.saveProgress(this.progress.currentLesson, this.progress.lessons, this.currentLanguage).catch(() => {})
     }, 500)
   },
 
@@ -1001,7 +1001,7 @@ const App = {
     if (confirm('Tem certeza? Isso vai apagar todo seu progresso!')) {
       try {
         // Salva progresso zerado no servidor
-        await API.saveProgress('1-1', {})
+        await API.saveProgress('1-1', {}, this.currentLanguage)
         // Apaga todos os rascunhos (recarregando vazio)
         this.codeDrafts = {}
       } catch (err) {
@@ -1019,7 +1019,7 @@ const App = {
   saveCode(lessonId, exIdx, code) {
     this.codeDrafts[`${lessonId}_${exIdx}`] = code
     // Fire-and-forget: salva no servidor sem esperar
-    API.saveCodeDraft(lessonId, exIdx, code).catch(() => {})
+    API.saveCodeDraft(lessonId, exIdx, code, this.currentLanguage).catch(() => {})
   },
 
   getSavedCode(lessonId, exIdx) {
@@ -1028,7 +1028,7 @@ const App = {
 
   removeCode(lessonId, exIdx) {
     delete this.codeDrafts[`${lessonId}_${exIdx}`]
-    API.deleteCodeDraft(lessonId, exIdx).catch(() => {})
+    API.deleteCodeDraft(lessonId, exIdx, this.currentLanguage).catch(() => {})
   },
 
   // ---- UTILS ----
