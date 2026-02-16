@@ -451,34 +451,116 @@ const COURSE_DATA = {
         {
           id: "3-1",
           title: "Arrays (Listas)",
-          duration: "30 min",
+          duration: "40 min",
           module: "Repeticoes",
           sections: [
+            // ========== PARTE 1: O QUE E UM ARRAY? ==========
             {
               type: "explanation",
-              title: "O que e um Array?",
-              content: "Array = uma <strong>LISTA</strong> de valores. No sistema MATH, tudo e lista: lista de tecnicos, lista de OS, lista de clientes... O primeiro item e posicao <strong>0</strong> (nao 1!)."
+              title: "O que e um Array? Pensa assim...",
+              content: "Imagina uma <strong>caixa de ferramentas</strong>. Dentro dela tem varias ferramentas:<br><br>🔧 Chave de fenda (posicao 1)<br>🔧 Alicate (posicao 2)<br>🔧 Martelo (posicao 3)<br>🔧 Chave inglesa (posicao 4)<br><br>Um <strong>array</strong> e EXATAMENTE isso: uma <strong>LISTA de valores</strong> dentro de uma variavel so.<br><br>Na Helsen Service, usamos arrays o tempo todo:<br>- Lista de tecnicos (Leon Mendes, Dayvison Jepson, Valdinei Pereira)<br>- Lista de OS (6650, 6632, 6620)<br>- Lista de clientes (Minerva Usinagem, Usinagem Castro...)<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Array = <strong>\"Caixa que guarda uma LISTA de valores\"</strong></div>"
+            },
+            {
+              type: "explanation",
+              title: "Criando seu primeiro array",
+              content: "Criar um array e super simples! Usa colchetes <code>[ ]</code> e separa os valores com virgula:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>tecnicos</span> = [<span style='color:#ce9178'>\"Leon Mendes\"</span>, <span style='color:#ce9178'>\"Dayvison Jepson\"</span>, <span style='color:#ce9178'>\"Valdinei Pereira\"</span>]</pre><br>Pode ter:<br>✓ Textos (entre aspas)<br>✓ Numeros (sem aspas)<br>✓ true/false<br>✓ Ate outros arrays!<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Array vazio = <code>let lista = []</code></div>"
             },
             {
               type: "code-example",
-              title: "Criando e acessando",
-              code: 'let tecnicos = ["Carlos", "Ana", "Pedro", "Maria"]\n\nconsole.log(tecnicos[0])   // "Carlos" (primeiro)\nconsole.log(tecnicos[1])   // "Ana"\nconsole.log(tecnicos[3])   // "Maria" (ultimo)\nconsole.log(tecnicos.length) // 4 (quantidade)',
-              runnable: true
-            },
-            {
-              type: "code-example",
-              title: "Adicionando e removendo",
-              code: 'let fila = ["OS-001", "OS-002", "OS-003"]\nconsole.log("Inicio:", fila)\n\nfila.push("OS-004")    // adiciona no FINAL\nconsole.log("Push:", fila)\n\nfila.shift()           // remove o PRIMEIRO\nconsole.log("Shift:", fila)\n\nconsole.log("Tem OS-002?", fila.includes("OS-002"))',
+              title: "Exemplo: Arrays com diferentes tipos",
+              code: '// Array de textos (nomes de tecnicos):\nlet tecnicos = ["Leon Mendes", "Dayvison Jepson", "Valdinei Pereira"]\nconsole.log("Tecnicos:", tecnicos)\n\n// Array de numeros (numeros de OS):\nlet osNumeros = [6650, 6632, 6620, 6579]\nconsole.log("OS:", osNumeros)\n\n// Array de valores (valor das OS):\nlet valores = [1145, 700, 445, 890]\nconsole.log("Valores:", valores)',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Crie array <strong>clientes</strong> com 4 nomes (os que quiser). Mostre o primeiro, o ultimo, e quantos tem. Adicione mais um no final.",
-              starterCode: '// Crie o array:\n\n\n// Mostre primeiro, ultimo, quantidade:\n\n\n// Adicione mais um:\n',
-              solution: 'let clientes = ["Fabrica ABC", "Metalurgica XYZ", "Industria 123", "Construtora Top"]\nconsole.log("Primeiro:", clientes[0])\nconsole.log("Ultimo:", clientes[clientes.length - 1])\nconsole.log("Total:", clientes.length)\nclientes.push("Logistica Express")\nconsole.log("Agora:", clientes)',
+              title: "Exercicio 1A - Criando um array",
+              instructions: "Crie um array chamado <strong>clientes</strong> com 3 nomes de clientes (invente os nomes que quiser). Depois mostre o array inteiro com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Lembra: <code>let clientes = [\"Nome1\", \"Nome2\", \"Nome3\"]</code></div>",
+              starterCode: '// Crie o array clientes:\n\n\n// Mostre ele:\n',
+              solution: 'let clientes = ["Fabrica ABC", "Metalurgica XYZ", "Industria 123"]\n\nconsole.log(clientes)',
               validation: "structure",
-              checks: { codeHas: ["clientes", "[", "]", ".push(", "console.log", "[0]", ".length"], minOutput: 3 }
+              checks: { codeHas: ["let clientes", "[", "]", "console.log"], minOutput: 1 }
+            },
+
+            // ========== PARTE 2: ACESSANDO ITENS (COMECA NO ZERO!) ==========
+            {
+              type: "explanation",
+              title: "Acessando itens do array (COMECA NO ZERO!)",
+              content: "<div style='background:#3a2a1a;border-left:3px solid #f48771;padding:10px;border-radius:4px;margin-bottom:15px'>⚠️ <strong>ATENÇÃO:</strong> Arrays comecam na posicao <strong>0</strong> (zero), NAO no 1!</div>Imagina um predio de 3 andares:<br><br>🏢 Andar 0 (terreo) = primeiro item<br>🏢 Andar 1 = segundo item<br>🏢 Andar 2 = terceiro item<br><br>Pra acessar um item, use colchetes com o numero da posicao:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>tecnicos</span> = [<span style='color:#ce9178'>\"Leon\"</span>, <span style='color:#ce9178'>\"Dayvison\"</span>, <span style='color:#ce9178'>\"Valdinei\"</span>]\n\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#9cdcfe'>tecnicos</span>[<span style='color:#b5cea8'>0</span>])  <span style='color:#6a9955'>// \"Leon\" (primeiro!)</span>\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#9cdcfe'>tecnicos</span>[<span style='color:#b5cea8'>1</span>])  <span style='color:#6a9955'>// \"Dayvison\"</span>\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#9cdcfe'>tecnicos</span>[<span style='color:#b5cea8'>2</span>])  <span style='color:#6a9955'>// \"Valdinei\" (ultimo!)</span></pre>"
+            },
+            {
+              type: "code-example",
+              title: "Exemplo: Acessando cada item",
+              code: 'let tecnicos = ["Leon Mendes", "Dayvison Jepson", "Valdinei Pereira"]\n\n// IMPORTANTE: Comeca no ZERO!\nconsole.log("Posicao 0 (primeiro):", tecnicos[0])  // Leon Mendes\nconsole.log("Posicao 1:", tecnicos[1])            // Dayvison Jepson\nconsole.log("Posicao 2 (ultimo):", tecnicos[2])   // Valdinei Pereira\n\n// Tenta trocar os numeros [0], [1], [2]\n// e roda de novo pra ver o que muda!',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1B - Acessando itens",
+              instructions: "Ja tem um array de clientes criado. Mostre APENAS o <strong>primeiro cliente</strong> (posicao 0) com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use: <code>console.log(clientes[0])</code></div>",
+              starterCode: 'let clientes = ["Minerva Usinagem", "Usinagem Castro", "Off Limits"]\n\n// Mostre APENAS o primeiro cliente:\n',
+              solution: 'let clientes = ["Minerva Usinagem", "Usinagem Castro", "Off Limits"]\n\nconsole.log(clientes[0])',
+              validation: "structure",
+              checks: { codeHas: ["clientes[0]", "console.log"], outputHas: ["Minerva"] }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1C - Varios itens",
+              instructions: "Agora mostre o <strong>primeiro E o ultimo</strong> cliente do array.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Primeiro = posicao 0<br>💡 Ultimo = posicao 2 (porque tem 3 clientes: 0, 1, 2)</div>",
+              starterCode: 'let clientes = ["Minerva Usinagem", "Usinagem Castro", "Off Limits"]\n\n// Mostre o primeiro:\n\n\n// Mostre o ultimo:\n',
+              solution: 'let clientes = ["Minerva Usinagem", "Usinagem Castro", "Off Limits"]\n\nconsole.log("Primeiro:", clientes[0])\nconsole.log("Ultimo:", clientes[2])',
+              validation: "structure",
+              checks: { codeHas: ["clientes[0]", "clientes[2]", "console.log"], minOutput: 2 }
+            },
+
+            // ========== PARTE 3: .length (TAMANHO DO ARRAY) ==========
+            {
+              type: "explanation",
+              title: ".length — Descobrindo quantos itens tem",
+              content: "Pra saber <strong>quantos itens tem no array</strong>, use <code>.length</code>:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>tecnicos</span> = [<span style='color:#ce9178'>\"Leon\"</span>, <span style='color:#ce9178'>\"Dayvison\"</span>, <span style='color:#ce9178'>\"Valdinei\"</span>]\n\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#9cdcfe'>tecnicos</span>.<span style='color:#9cdcfe'>length</span>)  <span style='color:#6a9955'>// 3</span></pre><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <strong>DICA PRO:</strong> O ultimo item sempre ta na posicao <code>length - 1</code>:<br><code>let ultimo = tecnicos[tecnicos.length - 1]</code><br><br>Por que -1? Porque comeca no zero! Se tem 3 itens, as posicoes sao 0, 1, 2 (e 2 = 3-1).</div>"
+            },
+            {
+              type: "code-example",
+              title: "Exemplo: .length na pratica",
+              code: 'let tecnicos = ["Leon Mendes", "Dayvison Jepson", "Valdinei Pereira"]\n\nconsole.log("Total de tecnicos:", tecnicos.length)  // 3\nconsole.log("Primeiro:", tecnicos[0])                // Leon\nconsole.log("Ultimo:", tecnicos[tecnicos.length - 1]) // Valdinei\n\n// ===== POR QUE length - 1? =====\n//\n// tecnicos.length = 3 (tem 3 itens)\n// Mas as posicoes sao: 0, 1, 2\n// O ultimo e a posicao 2\n// Entao: length - 1 = 3 - 1 = 2 ✓',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1D - Usando .length",
+              instructions: "Mostre quantos clientes tem no array usando <code>.length</code>.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use: <code>console.log(clientes.length)</code></div>",
+              starterCode: 'let clientes = ["Minerva Usinagem", "Usinagem Castro", "Off Limits", "Hseven LTDA"]\n\n// Mostre quantos clientes tem:\n',
+              solution: 'let clientes = ["Minerva Usinagem", "Usinagem Castro", "Off Limits", "Hseven LTDA"]\n\nconsole.log(clientes.length)',
+              validation: "structure",
+              checks: { codeHas: ["clientes.length", "console.log"], outputHas: ["4"] }
+            },
+
+            // ========== PARTE 4: .push() (ADICIONAR NO FINAL) ==========
+            {
+              type: "explanation",
+              title: ".push() — Adicionar item no FINAL",
+              content: "Imagina que chegou um tecnico novo na Helsen Service. Como adicionar ele na lista?<br><br>Use <code>.push()</code> pra adicionar no <strong>final</strong> do array:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>tecnicos</span> = [<span style='color:#ce9178'>\"Leon\"</span>, <span style='color:#ce9178'>\"Dayvison\"</span>]\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#ce9178'>\"Antes:\"</span>, <span style='color:#9cdcfe'>tecnicos</span>)  <span style='color:#6a9955'>// [\"Leon\", \"Dayvison\"]</span>\n\n<span style='color:#9cdcfe'>tecnicos</span>.<span style='color:#dcdcaa'>push</span>(<span style='color:#ce9178'>\"Valdinei\"</span>)\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#ce9178'>\"Depois:\"</span>, <span style='color:#9cdcfe'>tecnicos</span>)  <span style='color:#6a9955'>// [\"Leon\", \"Dayvison\", \"Valdinei\"]</span></pre><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>.push() = \"empurra\" um item novo pro final da fila!</div>"
+            },
+            {
+              type: "code-example",
+              title: "Exemplo: Adicionando OS no final",
+              code: 'let osNumeros = [6650, 6632, 6620]\nconsole.log("Antes:", osNumeros)\nconsole.log("Total antes:", osNumeros.length)  // 3\n\n// Chegou uma OS nova!\nosNumeros.push(6579)\nconsole.log("Depois:", osNumeros)\nconsole.log("Total depois:", osNumeros.length)  // 4\n\n// Chegou mais uma!\nosNumeros.push(6418)\nconsole.log("Final:", osNumeros)\nconsole.log("Total final:", osNumeros.length)  // 5',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1E - Adicionando com .push()",
+              instructions: "Adicione <strong>\"JMS Industria\"</strong> no final do array de clientes usando <code>.push()</code>. Depois mostre o array inteiro pra confirmar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use: <code>clientes.push(\"JMS Industria\")</code></div>",
+              starterCode: 'let clientes = ["Minerva Usinagem", "Usinagem Castro"]\n\n// Adicione "JMS Industria":\n\n\n// Mostre o array:\n',
+              solution: 'let clientes = ["Minerva Usinagem", "Usinagem Castro"]\n\nclientes.push("JMS Industria")\nconsole.log(clientes)',
+              validation: "structure",
+              checks: { codeHas: ["clientes.push", "JMS", "console.log"], outputHas: ["JMS"] }
+            },
+
+            // ========== RESUMO FINAL ==========
+            {
+              type: "explanation",
+              title: "Resumo: O que voce aprendeu",
+              content: "<div style='background:#1a2a2a;padding:15px;border-radius:8px;margin:15px 0'><strong style='color:#4fc3f7;font-size:16px'>✓ Arrays</strong><br><br>📦 <code>let lista = [\"A\", \"B\", \"C\"]</code> → criar array<br>🔍 <code>lista[0]</code> → acessar primeiro item (comeca no ZERO!)<br>📏 <code>lista.length</code> → quantos itens tem<br>➕ <code>lista.push(\"D\")</code> → adicionar no final<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px;margin-top:10px'>Arrays sao a BASE de tudo! No proximo modulo voce vai aprender a PERCORRER arrays com loops (for...of).</div></div>"
             }
           ],
           quiz: [
@@ -486,13 +568,25 @@ const COURSE_DATA = {
               question: "Qual e a posicao do PRIMEIRO item de um array?",
               options: ["0", "1", "-1", "Depende"],
               correct: 0,
-              explanation: "Em JavaScript, arrays comecam na posicao 0."
+              explanation: "Em JavaScript, arrays comecam na posicao 0 (zero)!"
+            },
+            {
+              question: 'O que esse codigo mostra?\n\nlet nomes = ["Ana", "Carlos", "Pedro"]\nconsole.log(nomes[1])',
+              options: ['"Carlos"', '"Ana"', '"Pedro"', 'Erro'],
+              correct: 0,
+              explanation: "Posicao 0 = Ana, Posicao 1 = Carlos, Posicao 2 = Pedro. Entao nomes[1] = Carlos."
             },
             {
               question: "O que .push() faz?",
-              options: ["Adiciona no final", "Remove o primeiro", "Adiciona no inicio", "Remove o ultimo"],
+              options: ["Adiciona item no final", "Remove o primeiro", "Adiciona no inicio", "Conta quantos tem"],
               correct: 0,
               explanation: ".push() adiciona um item no final do array."
+            },
+            {
+              question: 'O que esse codigo mostra?\n\nlet x = [10, 20, 30]\nconsole.log(x.length)',
+              options: ["3", "30", "2", "10"],
+              correct: 0,
+              explanation: ".length retorna quantos itens tem no array. Tem 3 itens (10, 20, 30), entao mostra 3."
             }
           ]
         },
@@ -532,12 +626,21 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 1 - Seu primeiro loop!",
+              title: "Exercicio 1A - Seu primeiro loop (so mostrar)!",
               instructions: "Use <strong>for...of</strong> pra percorrer o array de clientes e mostrar cada um com console.log.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Lembra a estrutura:<br><code>for (let item of lista) {</code><br>&nbsp;&nbsp;<code>console.log(item)</code><br><code>}</code></div>",
               starterCode: 'let clientes = ["Fabrica ABC", "Metal XYZ", "Industria 123"]\n\n// Percorra a lista e mostre cada cliente:\n',
               solution: 'let clientes = ["Fabrica ABC", "Metal XYZ", "Industria 123"]\n\nfor (let cliente of clientes) {\n  console.log(cliente)\n}',
               validation: "structure",
               checks: { codeHas: ["for", "of", "clientes", "console.log"], minOutput: 3 }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1B - Loop com template literal",
+              instructions: "Agora percorra o array de tecnicos e mostre cada um FORMATADO: <code>`Tecnico: ${nome}`</code><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dentro do loop:<br><code>console.log(`Tecnico: ${nome}`)</code></div>",
+              starterCode: 'let tecnicos = ["Leon Mendes", "Dayvison Jepson", "Valdinei Pereira"]\n\n// Percorra e mostre formatado:\n',
+              solution: 'let tecnicos = ["Leon Mendes", "Dayvison Jepson", "Valdinei Pereira"]\n\nfor (let nome of tecnicos) {\n  console.log(`Tecnico: ${nome}`)\n}',
+              validation: "structure",
+              checks: { codeHas: ["for", "of", "tecnicos", "console.log", "`"], minOutput: 3, outputHas: ["Tecnico:"] }
             },
             // ========== FOR CLASSICO (OPCIONAL - so se precisar) ==========
             {
@@ -563,8 +666,17 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 2 - Loop com soma",
-              instructions: "Use <strong>for...of</strong> pra somar todos os valores do array. Mostre o total.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: crie uma variavel <code>soma</code> comecando em 0. Dentro do loop, faca <code>soma += v</code> pra ir somando cada valor.</div>",
+              title: "Exercicio 2A - Loop pra contar",
+              instructions: "Use <strong>for...of</strong> pra contar quantos clientes tem. Crie uma variavel <code>total</code> comecando em 0. A cada rodada do loop, some 1 (<code>total++</code>).<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dentro do loop: <code>total++</code> (soma 1)</div>",
+              starterCode: 'let clientes = ["Minerva", "Castro", "Off Limits", "Hseven"]\nlet total = 0\n\n// Faca o loop e conte:\n\n\nconsole.log(`Total: ${total}`)',
+              solution: 'let clientes = ["Minerva", "Castro", "Off Limits", "Hseven"]\nlet total = 0\n\nfor (let c of clientes) {\n  total++\n}\n\nconsole.log(`Total: ${total}`)',
+              validation: "structure",
+              checks: { codeHas: ["for", "of", "total", "++", "console.log"], outputHas: ["4"] }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 2B - Loop com soma",
+              instructions: "Agora use <strong>for...of</strong> pra SOMAR todos os valores do array. Crie <code>soma</code> comecando em 0. Dentro do loop, faca <code>soma += v</code>.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <code>soma += v</code> e o mesmo que <code>soma = soma + v</code></div>",
               starterCode: 'let valores = [350, 820, 1200, 450, 690]\nlet soma = 0\n\n// Faca o loop pra somar:\n\n\nconsole.log(`Total: R$${soma}`)',
               solution: 'let valores = [350, 820, 1200, 450, 690]\nlet soma = 0\n\nfor (let v of valores) {\n  soma += v\n}\n\nconsole.log(`Total: R$${soma}`)',
               validation: "structure",
@@ -572,8 +684,8 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 3 - Loop com if dentro",
-              instructions: "Use <strong>for...of</strong> pra percorrer o array de valores. Dentro do loop, use <strong>if</strong> pra contar quantos sao maiores que 1000.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>Dica: crie <code>let maiores = 0</code>. Dentro do loop: <code>if (v > 1000) { maiores++ }</code></div>",
+              title: "Exercicio 2C - Loop com if dentro",
+              instructions: "Use <strong>for...of</strong> com <strong>if</strong> dentro! Conte quantos valores sao maiores que 1000.<br><br>Crie <code>maiores</code> comecando em 0. Dentro do loop, teste: <code>if (v > 1000)</code> e some 1 se passar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>for (let v of valores) {</code><br>&nbsp;&nbsp;<code>if (v > 1000) {</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>maiores++</code><br>&nbsp;&nbsp;<code>}</code><br><code>}</code></div>",
               starterCode: 'let valores = [150, 2300, 800, 450, 3100, 670]\nlet maiores = 0\n\n// Faca o loop e conte os maiores que 1000:\n\n\nconsole.log(`Maiores que 1000: ${maiores}`)',
               solution: 'let valores = [150, 2300, 800, 450, 3100, 670]\nlet maiores = 0\n\nfor (let v of valores) {\n  if (v > 1000) {\n    maiores++\n  }\n}\n\nconsole.log(`Maiores que 1000: ${maiores}`)',
               validation: "structure",
@@ -620,48 +732,133 @@ const COURSE_DATA = {
         {
           id: "4-1",
           title: "Criando Funcoes",
-          duration: "30 min",
+          duration: "45 min",
           module: "Funcoes",
           sections: [
+            // ========== PARTE 1: O QUE E UMA FUNCAO? ==========
             {
               type: "explanation",
-              title: "O que e uma funcao?",
-              content: "Funcao = um <strong>BLOCO DE CODIGO com nome</strong>. Voce cria uma vez e usa quantas vezes quiser. E como uma receita: escreve uma vez, faz o prato quantas vezes precisar.<br><br>No MATH, TUDO e funcao: <code>calcularValorOS()</code>, <code>enviarEmail()</code>, <code>criarOS()</code>..."
+              title: "O que e uma funcao? A analogia da receita de bolo",
+              content: "Imagina que voce quer fazer um bolo. Voce NAO inventa a receita toda vez, ne? Voce:<br><br>1. Olha a <strong>receita</strong> (instrucoes)<br>2. Pega os <strong>ingredientes</strong> (valores)<br>3. Segue os <strong>passos</strong><br>4. <strong>Resultado:</strong> bolo pronto!<br><br>Funcao e EXATAMENTE isso! E uma <strong>receita de codigo</strong>:<br><br>📝 Voce escreve a funcao UMA VEZ<br>🍰 Depois \"chama\" ela quantas vezes quiser<br>🎯 Cada vez pode usar ingredientes (valores) diferentes<br>✨ E ela retorna o resultado<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Funcao = <strong>\"Receita de codigo que voce pode usar varias vezes\"</strong></div>"
+            },
+            {
+              type: "explanation",
+              title: "Estrutura de uma funcao (super simples!)",
+              content: "A estrutura mais basica e assim:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>function</span> <span style='color:#dcdcaa'>nomeDaFuncao</span>() {\n  <span style='color:#6a9955'>// codigo que vai rodar quando voce chamar</span>\n}\n\n<span style='color:#6a9955'>// Chamando (usando) a funcao:</span>\n<span style='color:#dcdcaa'>nomeDaFuncao</span>()</pre><br>Explicando cada parte:<br><br>📌 <code>function</code> = palavra magica pra criar funcao<br>📌 <code>nomeDaFuncao</code> = nome que voce escolhe (como nome de variavel)<br>📌 <code>( )</code> = parenteses OBRIGATORIOS (por enquanto vazios)<br>📌 <code>{ }</code> = chaves com o codigo dentro<br>📌 Pra usar: chama o nome com <code>()</code><br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Criar a funcao NAO executa ela! Voce precisa CHAMAR depois.</div>"
             },
             {
               type: "code-example",
-              title: "Funcao com parametros e retorno",
-              code: 'function calcularServico(horas, valorHora) {\n  let total = horas * valorHora\n  return total\n}\n\nlet v1 = calcularServico(4, 85)\nlet v2 = calcularServico(2, 120)\n\nconsole.log(`Servico 1: R$${v1}`)\nconsole.log(`Servico 2: R$${v2}`)\nconsole.log(`Total: R$${v1 + v2}`)',
-              runnable: true
-            },
-            {
-              type: "code-example",
-              title: "Arrow function (funcao flecha)",
-              code: '// Forma mais curta - muito usada!\nconst dobrar = (n) => n * 2\nconst ehUrgente = (p) => p <= 2\nconst formatarValor = (v) => `R$${v.toFixed(2)}`\n\nconsole.log(dobrar(5))           // 10\nconsole.log(ehUrgente(1))        // true\nconsole.log(formatarValor(350.5)) // R$350.50',
+              title: "Exemplo: Funcao SEM parametros (sem ingredientes)",
+              code: '// 1. CRIAR a funcao (ainda nao roda!):\nfunction mostrarMensagem() {\n  console.log("Bem-vindo a Helsen Service!")\n  console.log("Sistema MATH Academy")\n}\n\n// 2. CHAMAR a funcao (agora SIM roda!):\nmostrarMensagem()\n\n// Pode chamar quantas vezes quiser:\nmostrarMensagem()\nmostrarMensagem()\n\n// Cada vez que chama, roda o codigo inteiro de novo!',
               runnable: true
             },
             {
               type: "exercise",
-              title: "Exercicio 1",
-              instructions: "Crie funcao <strong>calcularHoraExtra</strong>(horasNormais, horasExtras, valorHora). Hora extra vale 50% a mais. Retorne o total. Teste com 8h normais, 2h extras, R$50/hora.",
-              starterCode: '// Crie a funcao:\n\n\n// Teste:\n',
-              solution: 'function calcularHoraExtra(horasNormais, horasExtras, valorHora) {\n  let normal = horasNormais * valorHora\n  let extra = horasExtras * (valorHora * 1.5)\n  return normal + extra\n}\n\nlet total = calcularHoraExtra(8, 2, 50)\nconsole.log(`Total: R$${total}`)',
+              title: "Exercicio 1A - Funcao simples (sem parametros)",
+              instructions: "Crie uma funcao chamada <strong>mostrarTecnicos</strong> que mostra 3 nomes de tecnicos com console.log. Depois CHAME a funcao pra rodar.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>function mostrarTecnicos() {</code><br>&nbsp;&nbsp;<code>console.log(\"Leon Mendes\")</code><br>&nbsp;&nbsp;<code>// ... mais 2 tecnicos</code><br><code>}</code><br><br>Depois chama: <code>mostrarTecnicos()</code></div>",
+              starterCode: '// Crie a funcao mostrarTecnicos:\n\n\n// Chame a funcao:\n',
+              solution: 'function mostrarTecnicos() {\n  console.log("Leon Mendes")\n  console.log("Dayvison Jepson")\n  console.log("Valdinei Pereira")\n}\n\nmostrarTecnicos()',
               validation: "structure",
-              checks: { codeHas: ["function calcularHoraExtra", "return", "console.log"], outputHas: ["550"] }
+              checks: { codeHas: ["function mostrarTecnicos", "console.log", "mostrarTecnicos()"], minOutput: 3 }
+            },
+
+            // ========== PARTE 2: PARAMETROS (INGREDIENTES!) ==========
+            {
+              type: "explanation",
+              title: "Parametros — Os \"ingredientes\" da funcao",
+              content: "Ate agora a funcao faz sempre a MESMA coisa. Mas e se voce quiser mudar algo? Tipo:<br><br>🍰 Fazer bolo de chocolate OU de morango?<br>🔧 Calcular servico de 2 horas OU de 5 horas?<br><br>Pra isso usamos <strong>PARAMETROS</strong> — sao como ingredientes que voce passa pra funcao:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>function</span> <span style='color:#dcdcaa'>saudar</span>(<span style='color:#9cdcfe'>nome</span>) {\n  <span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#ce9178'>`Oi, </span><span style='color:#569cd6'>${</span><span style='color:#9cdcfe'>nome</span><span style='color:#569cd6'>}</span><span style='color:#ce9178'>!`</span>)\n}\n\n<span style='color:#dcdcaa'>saudar</span>(<span style='color:#ce9178'>\"Leon\"</span>)      <span style='color:#6a9955'>// Oi, Leon!</span>\n<span style='color:#dcdcaa'>saudar</span>(<span style='color:#ce9178'>\"Dayvison\"</span>)  <span style='color:#6a9955'>// Oi, Dayvison!</span></pre><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>Parametro = variavel que recebe o valor quando voce chama a funcao!</div>"
+            },
+            {
+              type: "code-example",
+              title: "Exemplo: Funcao COM parametro",
+              code: '// Funcao que recebe o nome do tecnico:\nfunction mostrarTecnico(nome) {\n  console.log(`Tecnico: ${nome}`)\n  console.log(`Status: Disponivel`)\n}\n\n// Chamando com valores diferentes:\nmostrarTecnico("Leon Mendes")\nmostrarTecnico("Dayvison Jepson")\nmostrarTecnico("Valdinei Pereira")\n\n// A mesma funcao, mas cada vez mostra um tecnico diferente!',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1B - Funcao com 1 parametro",
+              instructions: "Crie uma funcao <strong>mostrarCliente</strong> que recebe o nome do cliente e mostra: <code>`Cliente: ${nome}`</code>. Chame 2 vezes com clientes diferentes.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <code>function mostrarCliente(nome) {</code><br>&nbsp;&nbsp;<code>console.log(`Cliente: ${nome}`)</code><br><code>}</code></div>",
+              starterCode: '// Crie a funcao:\n\n\n// Chame 2 vezes:\n',
+              solution: 'function mostrarCliente(nome) {\n  console.log(`Cliente: ${nome}`)\n}\n\nmostrarCliente("Minerva Usinagem")\nmostrarCliente("Usinagem Castro")',
+              validation: "structure",
+              checks: { codeHas: ["function mostrarCliente", "nome", "console.log", "mostrarCliente("], minOutput: 2 }
+            },
+
+            // ========== PARTE 3: VARIOS PARAMETROS ==========
+            {
+              type: "explanation",
+              title: "Varios parametros (varios ingredientes!)",
+              content: "Funcao pode receber QUANTOS parametros voce quiser! Separa com virgula:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>function</span> <span style='color:#dcdcaa'>calcular</span>(<span style='color:#9cdcfe'>horas</span>, <span style='color:#9cdcfe'>valorHora</span>) {\n  <span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>total</span> = <span style='color:#9cdcfe'>horas</span> * <span style='color:#9cdcfe'>valorHora</span>\n  <span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#ce9178'>`Total: R$</span><span style='color:#569cd6'>${</span><span style='color:#9cdcfe'>total</span><span style='color:#569cd6'>}</span><span style='color:#ce9178'>`</span>)\n}\n\n<span style='color:#dcdcaa'>calcular</span>(<span style='color:#b5cea8'>4</span>, <span style='color:#b5cea8'>175</span>)  <span style='color:#6a9955'>// Total: R$700</span>\n<span style='color:#dcdcaa'>calcular</span>(<span style='color:#b5cea8'>2</span>, <span style='color:#b5cea8'>175</span>)  <span style='color:#6a9955'>// Total: R$350</span></pre><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 A ORDEM importa! Primeiro parametro recebe primeiro valor, segundo parametro recebe segundo valor, etc.</div>"
+            },
+            {
+              type: "code-example",
+              title: "Exemplo: Funcao com 2 parametros",
+              code: 'function mostrarOS(numero, cliente) {\n  console.log(`OS #${numero}`)\n  console.log(`Cliente: ${cliente}`)\n  console.log("---")\n}\n\n// Chamando com valores diferentes:\nmostrarOS(6650, "Minerva Usinagem")\nmostrarOS(6632, "Usinagem Castro")\nmostrarOS(6620, "Off Limits")\n\n// Repara: numero sempre vem primeiro, cliente sempre segundo!',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1C - Funcao com 2 parametros",
+              instructions: "Crie funcao <strong>calcularServico</strong> que recebe <code>horas</code> e <code>valorHora</code>. Calcule o total e mostre: <code>`Total: R$${total}`</code>. Teste com 4 horas a R$175/hora.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dentro da funcao:<br><code>let total = horas * valorHora</code><br><code>console.log(`Total: R$${total}`)</code></div>",
+              starterCode: '// Crie a funcao:\n\n\n// Chame com 4 horas, R$175/hora:\n',
+              solution: 'function calcularServico(horas, valorHora) {\n  let total = horas * valorHora\n  console.log(`Total: R$${total}`)\n}\n\ncalcularServico(4, 175)',
+              validation: "structure",
+              checks: { codeHas: ["function calcularServico", "horas", "valorHora", "console.log"], outputHas: ["700"] }
+            },
+
+            // ========== PARTE 4: RETURN (DEVOLVER RESULTADO) ==========
+            {
+              type: "explanation",
+              title: "return — Devolvendo um resultado",
+              content: "Ate agora as funcoes so MOSTRAM coisas (console.log). Mas e se voce quiser GUARDAR o resultado numa variavel?<br><br>Pra isso usa <strong>return</strong> pra DEVOLVER um valor:<br><br><pre style='background:#1e1e1e;padding:15px;border-radius:8px;font-size:14px;line-height:1.8'><span style='color:#c586c0'>function</span> <span style='color:#dcdcaa'>somar</span>(<span style='color:#9cdcfe'>a</span>, <span style='color:#9cdcfe'>b</span>) {\n  <span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>resultado</span> = <span style='color:#9cdcfe'>a</span> + <span style='color:#9cdcfe'>b</span>\n  <span style='color:#c586c0'>return</span> <span style='color:#9cdcfe'>resultado</span>  <span style='color:#6a9955'>// DEVOLVE o valor</span>\n}\n\n<span style='color:#c586c0'>let</span> <span style='color:#9cdcfe'>total</span> = <span style='color:#dcdcaa'>somar</span>(<span style='color:#b5cea8'>10</span>, <span style='color:#b5cea8'>20</span>)  <span style='color:#6a9955'>// total recebe 30</span>\n<span style='color:#dcdcaa'>console</span>.<span style='color:#dcdcaa'>log</span>(<span style='color:#9cdcfe'>total</span>)  <span style='color:#6a9955'>// 30</span></pre><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'><strong>return</strong> = \"termina a funcao e devolve esse valor\"</div><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Depois do return, o codigo para! Nada mais roda naquela funcao.</div>"
+            },
+            {
+              type: "code-example",
+              title: "Exemplo: console.log vs return",
+              code: '// FUNCAO 1: So mostra (nao retorna)\nfunction mostrarTotal(a, b) {\n  let total = a + b\n  console.log(`Total: ${total}`)\n  // NAO retorna nada!\n}\n\n// FUNCAO 2: Retorna o valor\nfunction calcularTotal(a, b) {\n  let total = a + b\n  return total  // DEVOLVE o valor\n}\n\n// Testando:\nmostrarTotal(10, 20)  // Mostra: Total: 30\nlet x = mostrarTotal(10, 20)  // x recebe undefined!\nconsole.log("x =", x)\n\nlet y = calcularTotal(10, 20)  // y recebe 30\nconsole.log("y =", y)\n\n// Viu a diferenca? Com return voce pode GUARDAR o resultado!',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1D - Funcao com return",
+              instructions: "Crie funcao <strong>calcularValorOS</strong> que recebe <code>horas</code> e <code>valorHora</code>, calcula o total e RETORNA (return) o valor. Depois guarde o resultado numa variavel e mostre.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dentro da funcao:<br><code>let total = horas * valorHora</code><br><code>return total</code><br><br>Depois:<br><code>let valor = calcularValorOS(6, 175)</code><br><code>console.log(`Valor: R$${valor}`)</code></div>",
+              starterCode: '// Crie a funcao com return:\n\n\n// Chame e guarde numa variavel:\n\n\n// Mostre o resultado:\n',
+              solution: 'function calcularValorOS(horas, valorHora) {\n  let total = horas * valorHora\n  return total\n}\n\nlet valor = calcularValorOS(6, 175)\nconsole.log(`Valor: R$${valor}`)',
+              validation: "structure",
+              checks: { codeHas: ["function calcularValorOS", "return", "calcularValorOS(", "console.log"], outputHas: ["1050"] }
+            },
+
+            // ========== RESUMO FINAL ==========
+            {
+              type: "explanation",
+              title: "Resumo: O que voce aprendeu",
+              content: "<div style='background:#1a2a2a;padding:15px;border-radius:8px;margin:15px 0'><strong style='color:#4fc3f7;font-size:16px'>✓ Funcoes</strong><br><br>📝 <code>function nome() { }</code> → criar funcao SEM parametros<br>🎯 <code>function nome(param) { }</code> → criar funcao COM parametros<br>📦 <code>function nome(a, b) { }</code> → varios parametros<br>↩️ <code>return valor</code> → devolver resultado<br>▶️ <code>nome()</code> → chamar (executar) a funcao<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px;margin-top:10px'>Funcoes sao ESSENCIAIS! No sistema real da Helsen tem centenas de funcoes. No proximo modulo voce vai aprender metodos de array que usam funcoes!</div></div>"
             }
           ],
           quiz: [
             {
               question: "O que 'return' faz numa funcao?",
-              options: ["Devolve um valor", "Para o programa", "Imprime na tela", "Cria variavel"],
+              options: ["Devolve um valor e termina a funcao", "Mostra algo na tela", "Para o programa inteiro", "Cria uma variavel"],
               correct: 0,
-              explanation: "return devolve um valor pra quem chamou a funcao."
+              explanation: "return devolve um valor pra quem chamou a funcao e termina a execucao daquela funcao."
             },
             {
-              question: "Qual dessas e uma arrow function valida?",
-              options: ["const f = (x) => x * 2", "arrow f(x) => x * 2", "const f = arrow(x) x * 2", "function => (x) x * 2"],
+              question: 'O que esse codigo mostra?\n\nfunction dobrar(n) {\n  return n * 2\n}\nlet x = dobrar(5)\nconsole.log(x)',
+              options: ["10", "5", "n * 2", "undefined"],
               correct: 0,
-              explanation: "Arrow function: const nome = (param) => expressao"
+              explanation: "dobrar(5) retorna 5 * 2 = 10. x recebe 10. console.log mostra 10."
+            },
+            {
+              question: "Qual a diferenca entre parametro e argumento?",
+              options: ["Parametro e na definicao, argumento e no chamado", "Sao a mesma coisa", "Argumento e na definicao, parametro e no chamado", "Parametro e so pra numeros"],
+              correct: 0,
+              explanation: "Parametro e a variavel na DEFINICAO da funcao (function f(parametro)). Argumento e o VALOR que voce passa quando CHAMA (f(argumento))."
+            },
+            {
+              question: 'O que esse codigo mostra?\n\nfunction somar(a, b) {\n  console.log(a + b)\n}\nlet x = somar(2, 3)\nconsole.log(x)',
+              options: ["5 depois undefined", "5 depois 5", "undefined depois 5", "Erro"],
+              correct: 0,
+              explanation: "Primeiro mostra 5 (console.log dentro da funcao). x recebe undefined (funcao nao tem return). Depois mostra undefined."
             }
           ]
         },
@@ -712,10 +909,19 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 1 - Procurar uma OS REAL",
-              instructions: "Use <strong>.find()</strong> pra procurar a OS com numero 6632. Mostre o cliente e o valor total dela.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Essas são OS REAIS do banco da Helsen!<br>Dica: <code>ordens.find(os => os.numero === 6632)</code></div>",
-              starterCode: '// OS REAIS do banco Helsen Service!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem e Servicos LDTA", valor: 1145, status: "completed" },\n  { numero: 6632, cliente: "Usinagem Castro LTDA", valor: 700, status: "avulso" },\n  { numero: 6620, cliente: "Off Limits Industria de Componentes", valor: 445, status: "completed" }\n]\n\n// Procure a OS 6632:\n\n\n// Mostre o cliente e valor:\n',
-              solution: '// OS REAIS do banco Helsen Service!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem e Servicos LDTA", valor: 1145, status: "completed" },\n  { numero: 6632, cliente: "Usinagem Castro LTDA", valor: 700, status: "avulso" },\n  { numero: 6620, cliente: "Off Limits Industria de Componentes", valor: 445, status: "completed" }\n]\n\nlet os = ordens.find(os => os.numero === 6632)\nconsole.log("Cliente:", os.cliente)\nconsole.log("Valor: R$", os.valor)',
+              title: "Exercicio 1A - Primeiro .find() simples",
+              instructions: "Use <strong>.find()</strong> pra procurar o tecnico com nome \"Leon Mendes\". Guarde o resultado numa variavel e mostre o nome dele.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let tecnico = tecnicos.find(t => t.nome === "Leon Mendes")</code><br><code>console.log(tecnico.nome)</code></div>",
+              starterCode: 'let tecnicos = [\n  { nome: "Leon Mendes", taxa: 175 },\n  { nome: "Dayvison Jepson", taxa: 175 },\n  { nome: "Valdinei Pereira", taxa: 175 }\n]\n\n// Procure Leon Mendes:\n\n\n// Mostre o nome:\n',
+              solution: 'let tecnicos = [\n  { nome: "Leon Mendes", taxa: 175 },\n  { nome: "Dayvison Jepson", taxa: 175 },\n  { nome: "Valdinei Pereira", taxa: 175 }\n]\n\nlet tecnico = tecnicos.find(t => t.nome === "Leon Mendes")\nconsole.log(tecnico.nome)',
+              validation: "structure",
+              checks: { codeHas: [".find(", "console.log"], outputHas: ["Leon"] }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1B - .find() com numero (OS REAL)",
+              instructions: "Agora use <strong>.find()</strong> pra procurar a OS com numero 6632. Mostre o cliente e o valor.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Essas são OS REAIS do banco da Helsen!<br>Dica: <code>ordens.find(os => os.numero === 6632)</code></div>",
+              starterCode: '// OS REAIS do banco Helsen Service!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145 },\n  { numero: 6632, cliente: "Usinagem Castro", valor: 700 },\n  { numero: 6620, cliente: "Off Limits", valor: 445 }\n]\n\n// Procure a OS 6632:\n\n\n// Mostre cliente e valor:\n',
+              solution: 'let ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145 },\n  { numero: 6632, cliente: "Usinagem Castro", valor: 700 },\n  { numero: 6620, cliente: "Off Limits", valor: 445 }\n]\n\nlet os = ordens.find(os => os.numero === 6632)\nconsole.log("Cliente:", os.cliente)\nconsole.log("Valor: R$", os.valor)',
               validation: "structure",
               checks: { codeHas: [".find(", "console.log"], outputHas: ["Usinagem Castro", "700"] }
             },
@@ -733,8 +939,17 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 2 - Filtrar OS pendentes de revisao",
-              instructions: "Use <strong>.filter()</strong> pra pegar so as OS com status \"pending_review\". Depois mostre quantas OS estao pendentes e a lista delas.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dados REAIS da Helsen!<br>Dica: depois de filtrar, use <code>for...of</code> pra mostrar cada OS.</div>",
+              title: "Exercicio 2A - Primeiro .filter() simples",
+              instructions: "Use <strong>.filter()</strong> pra pegar SÓ os tecnicos com taxa maior que 150. Mostre quantos tecnicos tem taxa alta.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let taxaAlta = tecnicos.filter(t => t.taxa > 150)</code><br><code>console.log(taxaAlta.length)</code></div>",
+              starterCode: 'let tecnicos = [\n  { nome: "Leon", taxa: 175 },\n  { nome: "Pedro", taxa: 120 },\n  { nome: "Dayvison", taxa: 175 },\n  { nome: "Ana", taxa: 100 }\n]\n\n// Filtre os com taxa > 150:\n\n\n// Mostre quantos sao:\n',
+              solution: 'let tecnicos = [\n  { nome: "Leon", taxa: 175 },\n  { nome: "Pedro", taxa: 120 },\n  { nome: "Dayvison", taxa: 175 },\n  { nome: "Ana", taxa: 100 }\n]\n\nlet taxaAlta = tecnicos.filter(t => t.taxa > 150)\nconsole.log("Tecnicos com taxa alta:", taxaAlta.length)',
+              validation: "structure",
+              checks: { codeHas: [".filter(", "console.log"], outputHas: ["2"] }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 2B - .filter() com loop (OS REAL)",
+              instructions: "Use <strong>.filter()</strong> pra pegar as OS pendentes. Depois use <code>for...of</code> pra mostrar cada uma.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dados REAIS da Helsen!<br>Passo 1: Filtrar<br>Passo 2: Loop pra mostrar</div>",
               starterCode: '// OS REAIS da Helsen Service!\nlet ordens = [\n  { numero: 6848, cliente: "Soltenge", status: "pending_review", valor: 445 },\n  { numero: 6847, cliente: "WF Ferramentaria", status: "pending_review", valor: 532 },\n  { numero: 6841, cliente: "A.T.P Assemblege", status: "completed", valor: 1385 },\n  { numero: 6843, cliente: "Del Rey Rubber", status: "accepted", valor: null },\n  { numero: 6840, cliente: "WR Industria", status: "pending_review", valor: 1145 }\n]\n\n// Filtre as pending_review:\n\n\n// Mostre quantas sao:\n\n\n// Mostre cada uma:\n',
               solution: '// OS REAIS da Helsen Service!\nlet ordens = [\n  { numero: 6848, cliente: "Soltenge", status: "pending_review", valor: 445 },\n  { numero: 6847, cliente: "WF Ferramentaria", status: "pending_review", valor: 532 },\n  { numero: 6841, cliente: "A.T.P Assemblege", status: "completed", valor: 1385 },\n  { numero: 6843, cliente: "Del Rey Rubber", status: "accepted", valor: null },\n  { numero: 6840, cliente: "WR Industria", status: "pending_review", valor: 1145 }\n]\n\nlet pendentes = ordens.filter(os => os.status === "pending_review")\n\nconsole.log("Total pendente de revisao:", pendentes.length)\nconsole.log("\\nLista:")\n\nfor (let os of pendentes) {\n  console.log(`OS ${os.numero} - ${os.cliente}`)\n}',
               validation: "structure",
@@ -754,8 +969,17 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 3 - Calcular faturamento REAL",
-              instructions: "Use <strong>.map()</strong> pra extrair os valores das OS. Depois some todos com <code>for...of</code> e mostre o total.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dados REAIS da Helsen!<br>Passo 1: <code>let valores = ordens.map(os => os.valor)</code><br>Passo 2: Loop pra somar tudo</div>",
+              title: "Exercicio 3A - Primeiro .map() simples",
+              instructions: "Use <strong>.map()</strong> pra extrair SÓ os nomes dos tecnicos. Mostre o array de nomes.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let nomes = tecnicos.map(t => t.nome)</code><br><code>console.log(nomes)</code></div>",
+              starterCode: 'let tecnicos = [\n  { nome: "Leon Mendes", taxa: 175 },\n  { nome: "Dayvison Jepson", taxa: 175 },\n  { nome: "Valdinei Pereira", taxa: 175 }\n]\n\n// Extraia so os nomes:\n\n\n// Mostre o array:\n',
+              solution: 'let tecnicos = [\n  { nome: "Leon Mendes", taxa: 175 },\n  { nome: "Dayvison Jepson", taxa: 175 },\n  { nome: "Valdinei Pereira", taxa: 175 }\n]\n\nlet nomes = tecnicos.map(t => t.nome)\nconsole.log(nomes)',
+              validation: "structure",
+              checks: { codeHas: [".map(", "console.log"], outputHas: ["Leon", "Dayvison", "Valdinei"] }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 3B - .map() com soma (Faturamento REAL)",
+              instructions: "Use <strong>.map()</strong> pra extrair os valores das OS. Depois some com <code>for...of</code>.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dados REAIS da Helsen!<br>Passo 1: <code>let valores = ordens.map(os => os.valor)</code><br>Passo 2: Loop pra somar</div>",
               starterCode: '// OS REAIS da Helsen Service finalizadas!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145 },\n  { numero: 6620, cliente: "Off Limits", valor: 445 },\n  { numero: 6841, cliente: "A.T.P Assemblege", valor: 1385 },\n  { numero: 6839, cliente: "Estampos Qualytec", valor: 1312 },\n  { numero: 6834, cliente: "Estampos Qualytec", valor: 1132 }\n]\n\n// Extraia so os valores:\n\n\n// Some todos:\n\n\n// Mostre o faturamento total:\n',
               solution: '// OS REAIS da Helsen Service finalizadas!\nlet ordens = [\n  { numero: 6650, cliente: "Minerva Usinagem", valor: 1145 },\n  { numero: 6620, cliente: "Off Limits", valor: 445 },\n  { numero: 6841, cliente: "A.T.P Assemblege", valor: 1385 },\n  { numero: 6839, cliente: "Estampos Qualytec", valor: 1312 },\n  { numero: 6834, cliente: "Estampos Qualytec", valor: 1132 }\n]\n\nlet valores = ordens.map(os => os.valor)\n\nlet total = 0\nfor (let valor of valores) {\n  total += valor\n}\n\nconsole.log("Faturamento total: R$", total)',
               validation: "structure",
@@ -816,12 +1040,30 @@ const COURSE_DATA = {
             },
             {
               type: "exercise",
-              title: "Exercicio 1 - Criar objeto de Tecnico REAL",
-              instructions: "Crie um objeto <strong>tecnico</strong> seguindo a estrutura da Helsen com: id, username, hourly_rate, disponivel (boolean). Use dados reais ou invente! Depois use desestruturacao pra extrair o nome e taxa, e mostre: \"Tecnico [nome] - R$ [taxa]/hora - Disponivel/Indisponivel\".<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use ternario pro status!</div>",
-              starterCode: '// Crie o objeto tecnico:\n\n\n// Use desestruturacao:\n\n\n// Mostre a mensagem com ternario:\n',
-              solution: 'let tecnico = {\n  id: 41,\n  username: "Leon Mendes",\n  hourly_rate: 175,\n  disponivel: true\n}\n\n// Desestruturacao:\nlet { username, hourly_rate, disponivel } = tecnico\n\n// Ternario pra status:\nlet status = disponivel ? "Disponivel" : "Indisponivel"\n\nconsole.log(`Tecnico ${username} - R$ ${hourly_rate}/hora - ${status}`)',
+              title: "Exercicio 1A - Criar objeto simples",
+              instructions: "Crie um objeto <strong>tecnico</strong> com: nome (texto) e taxa (numero). Depois mostre o nome e a taxa.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Estrutura:<br><code>let tecnico = { nome: "Leon", taxa: 175 }</code><br><code>console.log(tecnico.nome)</code></div>",
+              starterCode: '// Crie o objeto tecnico:\n\n\n// Mostre nome e taxa:\n',
+              solution: 'let tecnico = {\n  nome: "Leon Mendes",\n  taxa: 175\n}\n\nconsole.log("Nome:", tecnico.nome)\nconsole.log("Taxa:", tecnico.taxa)',
               validation: "structure",
-              checks: { codeHas: ["tecnico", "{", "}", "username", "hourly_rate", "disponivel", "?", ":", "console.log"], minOutput: 1 }
+              checks: { codeHas: ["tecnico", "{", "}", "nome", "taxa", "console.log"], minOutput: 2 }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1B - Desestruturacao",
+              instructions: "Agora use <strong>desestruturacao</strong> pra extrair nome e taxa do objeto direto pra variaveis. Depois mostre elas.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 <code>let { nome, taxa } = tecnico</code><br><code>console.log(nome, taxa)</code></div>",
+              starterCode: 'let tecnico = {\n  nome: "Dayvison Jepson",\n  taxa: 175\n}\n\n// Use desestruturacao:\n\n\n// Mostre as variaveis:\n',
+              solution: 'let tecnico = {\n  nome: "Dayvison Jepson",\n  taxa: 175\n}\n\nlet { nome, taxa } = tecnico\n\nconsole.log("Nome:", nome)\nconsole.log("Taxa:", taxa)',
+              validation: "structure",
+              checks: { codeHas: ["let {", "nome", "taxa", "} = tecnico", "console.log"], minOutput: 2 }
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1C - Objeto completo (estrutura Helsen)",
+              instructions: "Crie objeto <strong>tecnico</strong> completo: id, username, hourly_rate, disponivel. Use desestruturacao e mostre com ternario.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Ternario: <code>let status = disponivel ? "Sim" : "Nao"</code></div>",
+              starterCode: '// Crie o objeto tecnico:\n\n\n// Desestruturacao:\n\n\n// Ternario e mostre:\n',
+              solution: 'let tecnico = {\n  id: 41,\n  username: "Leon Mendes",\n  hourly_rate: 175,\n  disponivel: true\n}\n\nlet { username, hourly_rate, disponivel } = tecnico\nlet status = disponivel ? "Disponivel" : "Indisponivel"\n\nconsole.log(`Tecnico ${username} - R$ ${hourly_rate}/hora - ${status}`)',
+              validation: "structure",
+              checks: { codeHas: ["tecnico", "username", "hourly_rate", "disponivel", "let {", "?", ":", "console.log"], minOutput: 1 }
             }
           ],
           quiz: [
@@ -961,20 +1203,28 @@ const COURSE_DATA = {
         {
           id: "8-1",
           title: "Criando uma API",
-          duration: "30 min",
+          duration: "40 min",
           module: "Express Basico",
-          conceptual: true,
           sections: [
             {
               type: "explanation",
               title: "O que e Express?",
-              content: "Express e a ferramenta que a Helsen Service usa no <strong>backend</strong>. Ele cria um SERVIDOR que recebe pedidos (requisicoes) e responde com dados.<br><br>Quando o frontend quer buscar uma OS, ele faz uma requisicao pro backend Express, que busca no PostgreSQL e retorna os dados.<br><br><strong>Este modulo e conceitual</strong> - o codigo precisa ser rodado no terminal com <code>node</code>, nao funciona no navegador."
+              content: "Express e a ferramenta que a Helsen Service usa no <strong>backend</strong>. Ele cria um SERVIDOR que recebe pedidos (requisicoes) e responde com dados.<br><br>Quando o frontend quer buscar uma OS, ele faz uma requisicao pro backend Express, que busca no PostgreSQL e retorna os dados.<br><br><strong>Neste modulo voce vai SIMULAR Express direto no navegador!</strong> Criamos um ExpressSimulator que funciona igual ao Express real."
             },
             {
               type: "code-example",
-              title: "Estrutura basica — backend da Helsen",
-              code: '// Como funciona o backend da Helsen Service:\n\nconst express = require("express")\nconst app = express()\napp.use(express.json())\n\n// GET = buscar dados\napp.get("/api/technicians", (req, res) => {\n  // Na vida real, busca do PostgreSQL\n  let tecnicos = [\n    { id: 41, username: "Leon Mendes", hourly_rate: 175 },\n    { id: 42, username: "Valdinei Pereira", hourly_rate: 175 }\n  ]\n  res.json({ success: true, data: tecnicos })\n})\n\n// POST = criar dados\napp.post("/api/os", (req, res) => {\n  let { client_name, technician_id } = req.body\n  \n  if (!client_name) {\n    return res.status(400).json({ error: "Cliente obrigatorio" })\n  }\n  \n  // Insere no banco PostgreSQL...\n  res.status(201).json({\n    message: "OS criada com sucesso!",\n    order_number: 6850\n  })\n})\n\napp.listen(3000, () => {\n  console.log("Servidor Helsen rodando na porta 3000")\n})',
-              runnable: false
+              title: "Primeira rota GET (listar tecnicos)",
+              code: '// Criando servidor Express simulado!\nlet app = new ExpressSimulator()\n\n// O app.data ja tem tecnicos da Helsen:\nconsole.log("Dados iniciais:", app.data.tecnicos)\n\n// GET = buscar/listar dados\napp.get("/tecnicos", (req, res) => {\n  res.json(app.data.tecnicos)\n})\n\n// Testando a rota:\nlet resultado = await app.request("GET", "/tecnicos")\nconsole.log("\\nResposta da API:")\nconsole.log("Status:", resultado.status)\nconsole.log("Body:", resultado.body)',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1A - Sua primeira rota GET",
+              instructions: "Crie um ExpressSimulator. Crie rota GET <code>/os</code> que retorna a lista de OS. Teste a rota.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use <code>app.data.os</code> pra acessar as OS</div>",
+              starterCode: '// Crie o simulador:\nlet app = new ExpressSimulator()\n\n// Crie a rota GET /os:\n\n\n// Teste a rota:\n',
+              solution: 'let app = new ExpressSimulator()\n\napp.get("/os", (req, res) => {\n  res.json(app.data.os)\n})\n\nlet resultado = await app.request("GET", "/os")\nconsole.log("Status:", resultado.status)\nconsole.log("OS:", resultado.body)',
+              validation: "structure",
+              checks: { codeHas: ["ExpressSimulator", "app.get", "/os", "res.json", "app.request"], minOutput: 2 }
             },
             {
               type: "explanation",
@@ -983,9 +1233,18 @@ const COURSE_DATA = {
             },
             {
               type: "code-example",
-              title: "Rotas REAIS da Helsen — parametros e validacao",
-              code: '// Buscar OS por numero\napp.get("/api/os/:numero", async (req, res) => {\n  let numero = Number(req.params.numero)  // pega o :numero da URL\n  \n  // Busca no PostgreSQL\n  let os = await db.query(\n    "SELECT * FROM os WHERE order_number = $1",\n    [numero]\n  )\n  \n  if (os.rows.length === 0) {\n    return res.status(404).json({ error: "OS nao encontrada" })\n  }\n  \n  res.json({ success: true, data: os.rows[0] })\n})\n\n// Atualizar status da OS\napp.put("/api/os/:numero/status", async (req, res) => {\n  let { status } = req.body\n  let statusValidos = ["assigned", "accepted", "completed", "archived"]\n  \n  if (!statusValidos.includes(status)) {\n    return res.status(400).json({\n      error: "Status invalido",\n      validos: statusValidos\n    })\n  }\n  \n  // Atualiza no PostgreSQL\n  await db.query(\n    "UPDATE os SET status = $1 WHERE order_number = $2",\n    [status, req.params.numero]\n  )\n  \n  res.json({ message: "Status atualizado com sucesso!" })\n})',
-              runnable: false
+              title: "Rota com parametros (/tecnicos/:id)",
+              code: 'let app = new ExpressSimulator()\n\n// Rota com parametro :id\napp.get("/tecnicos/:id", (req, res) => {\n  let id = Number(req.params.id)  // pega o :id da URL\n  \n  let tecnico = app.data.tecnicos.find(t => t.id === id)\n  \n  if (!tecnico) {\n    return res.status(404).json({ error: "Tecnico nao encontrado" })\n  }\n  \n  res.json(tecnico)\n})\n\n// Testando com ID 41:\nlet r1 = await app.request("GET", "/tecnicos/41")\nconsole.log("Tecnico 41:", r1.body)\n\n// Testando com ID inexistente:\nlet r2 = await app.request("GET", "/tecnicos/999")\nconsole.log("\\nTecnico 999:", r2.status, r2.body)',
+              runnable: true
+            },
+            {
+              type: "exercise",
+              title: "Exercicio 1B - Rota com parametro",
+              instructions: "Crie rota GET <code>/os/:numero</code> que busca OS pelo numero. Se nao encontrar, retorna status 404.<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Use <code>app.data.os.find()</code></div>",
+              starterCode: 'let app = new ExpressSimulator()\n\n// Crie a rota GET /os/:numero:\n\n\n// Teste com numero 6650:\n\n\n// Teste com numero inexistente:\n',
+              solution: 'let app = new ExpressSimulator()\n\napp.get("/os/:numero", (req, res) => {\n  let numero = Number(req.params.numero)\n  let os = app.data.os.find(o => o.order_number === numero)\n  \n  if (!os) {\n    return res.status(404).json({ error: "OS nao encontrada" })\n  }\n  \n  res.json(os)\n})\n\nlet r1 = await app.request("GET", "/os/6650")\nconsole.log("OS 6650:", r1.body)\n\nlet r2 = await app.request("GET", "/os/9999")\nconsole.log("OS 9999:", r2.status, r2.body)',
+              validation: "structure",
+              checks: { codeHas: ["app.get", "/os/:numero", "req.params", "find", "res.status(404)", "app.request"], minOutput: 3 }
             }
           ],
           quiz: [
