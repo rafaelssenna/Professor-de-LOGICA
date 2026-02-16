@@ -439,6 +439,10 @@ const App = {
         fn(mockConsole),
         new Promise((_, reject) => setTimeout(() => reject(new Error('Tempo esgotado (5s)')), 5000))
       ])
+
+      // Aguarda mais 1 segundo para garantir que setTimeout internos terminaram
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
       return { success: true, output: output.join('\n') || '(sem saida)' }
     } catch (error) {
       return { success: false, output: output.join('\n'), error: `${error.name}: ${error.message}` }
