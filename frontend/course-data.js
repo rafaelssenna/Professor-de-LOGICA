@@ -676,6 +676,23 @@ const COURSE_DATA = {
               title: "O que sao Metodos de Array?",
               content: "Arrays tem <strong>funcoes prontas</strong> (metodos) que facilitam MUITO a vida. No sistema da Helsen Service, usamos em TODO lugar:<br><br>🔍 <strong>.find()</strong> → achar um tecnico especifico pelo ID (Leon Mendes, Dayvison Jepson)<br>🎯 <strong>.filter()</strong> → pegar so as OS com status \"assigned\" ou \"finished\"<br>🔄 <strong>.map()</strong> → pegar lista de clientes de todas as OS do mes<br><br>Sem esses metodos, o sistema da Helsen seria MUITO mais complicado de fazer."
             },
+            // ========== Arrow Function (explicacao) ==========
+            {
+              type: "explanation",
+              title: "Antes de comecar: o que e Arrow Function ( => )?",
+              content: "Voce vai ver muito essa <strong>seta =></strong> nesta aula. Calma, e facil!<br><br><strong>Arrow Function</strong> = forma curta de escrever funcoes.<br><br><div style='background:#2a2a2a;padding:15px;border-radius:6px;margin:10px 0'><strong>Forma ANTIGA:</strong><br><code>function(os) { return os.numero === 6632 }</code><br><br><strong>Forma NOVA (arrow):</strong><br><code>os => os.numero === 6632</code></div><br>E a <strong>mesma coisa</strong>, so que mais curta!<br><br>A seta <code>=></code> significa: <strong>\"pega isso e faz aquilo\"</strong>.<br><br><div style='background:#1a3a2a;border-left:3px solid #4caf50;padding:10px;border-radius:4px'>✓ O nome antes da seta (<code>os</code>, <code>item</code>, <code>x</code>) e so uma variavel temporaria. Voce escolhe o nome!<br>✓ <code>=></code> NAO e \"maior ou igual\" (<code>>=</code>)! Sao coisas diferentes!</div>"
+            },
+            {
+              type: "code-example",
+              title: "Comparacao: funcao antiga vs arrow function",
+              code: '// FORMA ANTIGA (mais longa):\nlet ordens = [\n  { numero: 6650, cliente: "Minerva" },\n  { numero: 6632, cliente: "Castro" }\n]\n\nlet osAntica = ordens.find(function(os) {\n  return os.numero === 6632\n})\n\nconsole.log("Forma antiga:", osAntica.cliente)\n\n// FORMA NOVA (arrow function - mais curta!):\nlet osNova = ordens.find(os => os.numero === 6632)\n\nconsole.log("Forma nova:", osNova.cliente)\n\n// SAO A MESMA COISA! Ambas acham a OS 6632.\n// A arrow function e so mais rapida de escrever.',
+              runnable: true
+            },
+            {
+              type: "explanation",
+              title: "Entendendo a arrow function passo a passo",
+              content: "Quando voce escreve:<br><br><code>ordens.find(os => os.numero === 6632)</code><br><br>O JavaScript entende:<br><br>1. <strong>Pega cada item</strong> do array <code>ordens</code><br>2. <strong>Coloca numa variavel temporaria</strong> chamada <code>os</code><br>3. <strong>Testa a condicao:</strong> <code>os.numero === 6632</code><br>4. <strong>Se passar no teste,</strong> retorna aquele item<br><br><div style='background:#1a2a3a;border-left:3px solid #4fc3f7;padding:10px;border-radius:4px'>💡 Dica: Voce pode usar <strong>qualquer nome</strong> no lugar de <code>os</code>:<br><code>ordens.find(ordem => ordem.numero === 6632)</code><br><code>ordens.find(o => o.numero === 6632)</code><br><code>ordens.find(x => x.numero === 6632)</code><br><br>Todos funcionam! E so o nome da variavel temporaria.</div>"
+            },
             // ========== .find() ==========
             {
               type: "explanation",
