@@ -9,15 +9,56 @@ const App = {
   allLessons: [],
   codeDrafts: {},       // cache local: { "1-1_0": "codigo..." }
   _saveTimer: null,     // debounce do progresso
+  currentLanguage: null, // 'javascript' ou 'python'
+  courseData: null,      // COURSE_DATA ou COURSE_DATA_PYTHON
 
   // ---- INICIALIZACAO ----
 
   init() {
+    // Verifica se ja tem linguagem salva
+    const savedLang = localStorage.getItem('selected_language')
+    if (savedLang && API.isLoggedIn()) {
+      this.selectLanguage(savedLang, false)
+      this.showApp()
+    } else if (API.isLoggedIn()) {
+      // Usuario logado mas sem linguagem escolhida - mostra selecao
+      document.getElementById('auth-screen').classList.remove('hidden')
+      document.getElementById('language-selection').classList.remove('hidden')
+      document.getElementById('login-form').classList.add('hidden')
+      document.getElementById('register-form').classList.add('hidden')
+    }
+  },
+
+  selectLanguage(lang, navigateToApp = true) {
+    this.currentLanguage = lang
+    localStorage.setItem('selected_language', lang)
+
+    // Define qual courseData usar
+    if (lang === 'javascript') {
+      this.courseData = COURSE_DATA
+    } else if (lang === 'python') {
+      this.courseData = COURSE_DATA_PYTHON
+    }
+
+    // Monta lista de aulas
     this.allLessons = []
-    COURSE_DATA.modules.forEach(m => {
+    this.courseData.modules.forEach(m => {
       m.lessons.forEach(l => this.allLessons.push(l))
     })
-    if (API.isLoggedIn()) {
+
+    // Atualiza brand no topbar
+    if (document.getElementById('brand-icon')) {
+      document.getElementById('brand-icon').textContent = lang === 'javascript' ? '{JS}' : '🐍'
+      document.getElementById('brand-text').textContent = lang === 'javascript' ? 'MATH Academy' : 'PYTHON Academy'
+    }
+
+    // Esconde selecao de linguagem e mostra stats
+    if (document.getElementById('language-selection')) {
+      document.getElementById('language-selection').classList.add('hidden')
+      document.getElementById('welcome-stats').classList.remove('hidden')
+    }
+
+    if (navigateToApp && API.isLoggedIn()) {
       this.showApp()
     }
   },
@@ -154,7 +195,7 @@ const App = {
   renderSidebar() {
     const nav = document.getElementById('module-nav')
     nav.innerHTML = ''
-    COURSE_DATA.modules.forEach(mod => {
+    this.courseData.modules.forEach(mod => {
       const group = document.createElement('div')
       group.className = 'module-group'
       const header = document.createElement('div')
@@ -355,13 +396,14 @@ const App = {
       const textarea = document.getElementById(ed.id)
       if (!textarea) return
       if (typeof CodeMirror !== 'undefined') {
+        const editorMode = this.currentLanguage === 'python' ? 'python' : 'javascript'
         ed.instance = CodeMirror.fromTextArea(textarea, {
-          mode: 'javascript',
+          mode: editorMode,
           theme: 'material-darker',
           lineNumbers: true,
           autoCloseBrackets: true,
           matchBrackets: true,
-          tabSize: 2,
+          tabSize: this.currentLanguage === 'python' ? 4 : 2,
           indentWithTabs: false,
           lineWrapping: true,
           viewportMargin: Infinity,
@@ -378,9 +420,61 @@ const App = {
         })
 
         // Ativa sugestoes inline se estiver disponivel
-        if (typeof InlineSuggestions !== 'undefined' && ed.lessonId && ed.exerciseIdx !== undefined) {
-          InlineSuggestions.attach(ed.instance, ed.lessonId, ed.exerciseIdx)
+        if (ed.lessonId && ed.exerciseIdx !== undefined) {
+          if (this.currentLanguage === 'python' && typeof getPythonSuggestion !== 'undefined') {
+            this.attachPythonSuggestions(ed.instance, ed.lessonId, ed.exerciseIdx)
+          } else if (this.currentLanguage === 'javascript' && typeof InlineSuggestions !== 'undefined') {
+            InlineSuggestions.attach(ed.instance, ed.lessonId, ed.exerciseIdx)
+          }
         }
+      }
+    })
+  },
+
+  attachPythonSuggestions(editor, lessonId, exerciseIdx) {
+    // Implementacao simples de sugestoes Python
+    let ghostMarker = null
+
+    editor.on('change', () => {
+      // Remove sugestao anterior
+      if (ghostMarker) {
+        ghostMarker.clear()
+        ghostMarker = null
+      }
+
+      const code = editor.getValue()
+      const suggestion = getPythonSuggestion(lessonId, exerciseIdx, code)
+
+      if (suggestion && code.trim().length > 0) {
+        const lastLine = editor.lineCount() - 1
+        const lastLineText = editor.getLine(lastLine)
+        const pos = { line: lastLine, ch: lastLineText.length }
+
+        // Mostra sugestao em cinza
+        const span = document.createElement('span')
+        span.className = 'CodeMirror-hint-text'
+        span.style.color = '#484f58'
+        span.style.opacity = '0.6'
+        span.textContent = suggestion.suggestion.replace(code.trim(), '')
+
+        ghostMarker = editor.setBookmark(pos, { widget: span, insertLeft: false })
+      }
+    })
+
+    // Tab para aceitar
+    editor.addKeyMap({
+      'Tab': function(cm) {
+        if (ghostMarker) {
+          const code = cm.getValue()
+          const suggestion = getPythonSuggestion(lessonId, exerciseIdx, code)
+          if (suggestion) {
+            cm.setValue(suggestion.suggestion)
+            ghostMarker.clear()
+            ghostMarker = null
+            return
+          }
+        }
+        return CodeMirror.Pass
       }
     })
   },
@@ -404,7 +498,18 @@ const App = {
 
   // ---- CODE EXECUTION ----
 
-  executeCode(code) {
+  async executeCode(code) {
+    // Python
+    if (this.currentLanguage === 'python') {
+      const result = await pythonExecutor.run(code)
+      if (result.success) {
+        return { success: true, output: result.output || '(sem saida)' }
+      } else {
+        return { success: false, output: result.output, error: result.error }
+      }
+    }
+
+    // JavaScript
     const output = []
     const mockConsole = {
       log: (...args) => output.push(args.map(a => this.formatArg(a)).join(' ')),
@@ -423,6 +528,12 @@ const App = {
   },
 
   async executeCodeAsync(code) {
+    // Python (sempre async)
+    if (this.currentLanguage === 'python') {
+      return await this.executeCode(code)
+    }
+
+    // JavaScript
     const output = []
     const mockConsole = {
       log: (...args) => output.push(args.map(a => this.formatArg(a)).join(' ')),
@@ -979,8 +1090,16 @@ const Auth = {
 
   logout() {
     API.clearAuth()
+    localStorage.removeItem('selected_language')
+    App.currentLanguage = null
+    App.courseData = null
     document.getElementById('app').classList.add('hidden')
     document.getElementById('auth-screen').classList.remove('hidden')
+    // Reseta para selecao de linguagem
+    document.getElementById('language-selection').classList.remove('hidden')
+    document.getElementById('welcome-stats').classList.add('hidden')
+    document.getElementById('login-form').classList.add('hidden')
+    document.getElementById('register-form').classList.add('hidden')
     // Limpa campos
     document.getElementById('login-email').value = ''
     document.getElementById('login-password').value = ''
@@ -988,11 +1107,15 @@ const Auth = {
   },
 
   showLogin() {
+    document.getElementById('language-selection').classList.add('hidden')
+    document.getElementById('welcome-stats').classList.remove('hidden')
     document.getElementById('login-form').classList.remove('hidden')
     document.getElementById('register-form').classList.add('hidden')
   },
 
   showRegister() {
+    document.getElementById('language-selection').classList.add('hidden')
+    document.getElementById('welcome-stats').classList.remove('hidden')
     document.getElementById('login-form').classList.add('hidden')
     document.getElementById('register-form').classList.remove('hidden')
   }
