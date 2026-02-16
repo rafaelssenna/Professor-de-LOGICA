@@ -50,34 +50,42 @@ class PythonExecutor {
         await this.load()
       }
 
-      // Captura stdout
-      let output = []
-
-      // Redireciona print() para capturar output
-      this.pyodide.runPython(`
+      // Setup para capturar print()
+      await this.pyodide.runPythonAsync(`
 import sys
-from io import StringIO
-sys.stdout = StringIO()
+import io
+_stdout = io.StringIO()
+sys.stdout = _stdout
 `)
 
       // Executa o código do usuário
-      this.pyodide.runPython(code)
+      await this.pyodide.runPythonAsync(code)
 
       // Captura o output
-      const stdout = this.pyodide.runPython('sys.stdout.getvalue()')
+      const output = await this.pyodide.runPythonAsync(`
+_stdout.getvalue()
+`)
 
       // Reseta stdout
-      this.pyodide.runPython(`
+      await this.pyodide.runPythonAsync(`
 sys.stdout = sys.__stdout__
 `)
 
+      console.log('Output Python:', output)
+
       return {
         success: true,
-        output: stdout || '(sem saída)',
+        output: output || '(sem saída)',
         error: null
       }
     } catch (error) {
       console.error('Erro ao executar Python:', error)
+
+      // Reseta stdout em caso de erro também
+      try {
+        await this.pyodide.runPythonAsync('sys.stdout = sys.__stdout__')
+      } catch (e) {}
+
       return {
         success: false,
         output: '',
